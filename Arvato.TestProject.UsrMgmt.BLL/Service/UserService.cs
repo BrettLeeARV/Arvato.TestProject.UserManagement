@@ -9,6 +9,8 @@ using Arvato.TestProject.UsrMgmt.DAL.Repository;
 using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Text.RegularExpressions;
+
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 {
     public class UserService : IUserService
@@ -64,6 +66,25 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 if (user.LastName.Trim().Length == 0)
                 {
                     throw (new Exception("LastName is a required field"));
+                }
+                if (user.Email.Trim().Length == 0)
+                {
+                    throw (new Exception("Email is a required field"));
+                }
+                if (user.Email.Trim().Length > 0)
+                {
+                    Regex regex = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+                    Match match = regex.Match(user.Email.Trim());
+                    if (!match.Success)
+                        throw (new Exception("Email is invalid format"));
+                }
+                if (user.LoginID.Trim().Length == 0)
+                {
+                    throw (new Exception("LoginID is a required field"));
+                }
+                if (user.LoginID.Trim().Length < 6)
+                {
+                    throw (new Exception("LoginID must at least 6 characters or more"));
                 }
 
                 //Duplicate checks
