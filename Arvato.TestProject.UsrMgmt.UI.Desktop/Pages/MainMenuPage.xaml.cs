@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 {
@@ -19,25 +20,25 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
     /// </summary>
     public partial class MainMenuPage : Page
     {
-        public ICollection<object> DesignData
+
+        private MainMenuPageViewModel _viewModel;
+        public MainMenuPageViewModel ViewModel
         {
             get
             {
-                return new List<object>()
+                if (_viewModel == null)
                 {
-                    new { Room = "Room A", StartTime = "09.00", EndTime = "10.00", BookedBy = "JT" },
-                    new { Room = "Room A", StartTime = "10.00", EndTime = "11.00", BookedBy = "SS" },
-                    new { Room = "Room B", StartTime = "09.00", EndTime = "10.00", BookedBy = "WL" }
-                };
+                    _viewModel = new MainMenuPageViewModel();
+                }
+                return _viewModel;
             }
         }
-
-
+        
         public MainMenuPage()
         {
             InitializeComponent();
 
-            this.DataContext = DesignData;
+            this.DataContext = ViewModel;
         }
 
         private void signOutButton_Click(object sender, RoutedEventArgs e)

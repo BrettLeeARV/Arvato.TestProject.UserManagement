@@ -8,8 +8,8 @@
     <ProjectGuid>{9E475E0B-7F40-4C13-88F3-646791AEABE4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arvato.TestProject.UsrMgmt.UI.App</RootNamespace>
-    <AssemblyName>Arvato.TestProject.UsrMgmt.UI.App</AssemblyName>
+    <RootNamespace>Arvato.TestProject.UsrMgmt.UI.Desktop</RootNamespace>
+    <AssemblyName>Arvato.TestProject.UsrMgmt.UI.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\MainMenuPageViewModel.cs" />
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,11 +101,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj">
+      <Project>{04D43A45-467E-4D6C-8354-A6811C4C075A}</Project>
+      <Name>Arvato.TestProject.UsrMgmt.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj">
+      <Project>{636ABB33-8D91-4558-A014-BBB2357D09D4}</Project>
+      <Name>Arvato.TestProject.UsrMgmt.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

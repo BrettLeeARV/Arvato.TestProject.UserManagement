@@ -9,6 +9,6 @@
 
     <DockPanel>
         <Button DockPanel.Dock="Top" Content="Sign out" Height="23" Margin="0,12,12,0" Name="signOutButton" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="signOutButton_Click" />
-        <DataGrid AutoGenerateColumns="True" Margin="12" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding}" />
+        <DataGrid AutoGenerateColumns="True" Margin="12" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Users}" IsReadOnly="True" />
     </DockPanel>
 </Page>
