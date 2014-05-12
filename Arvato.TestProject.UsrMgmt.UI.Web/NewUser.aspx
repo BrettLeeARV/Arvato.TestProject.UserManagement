@@ -27,11 +27,12 @@
                 <td><asp:TextBox ID="txtLoginID" runat="server"></asp:TextBox></td>
             </tr>
              <tr>
-                <td>Gender</td>
-                <td><asp:TextBox ID="txtGender" runat="server"></asp:TextBox></td>
+                <td>Password:</td>
+                <td><asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox></td>
             </tr>
         </table><br />
         <asp:Button runat="server" ID="btnSave" Text="Save" OnClick="btnSave_Click" />
+    &nbsp;<asp:Label ID="lblstatus" runat="server"></asp:Label>
     </div>
     </form>
 </body>

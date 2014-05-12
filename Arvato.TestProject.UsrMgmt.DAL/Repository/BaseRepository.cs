@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
+
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
@@ -29,7 +31,38 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         }
 
         #region General CRUD methods
+        public static int USP_INSERT_USER(Arvato.TestProject.UsrMgmt.Entity.Model.User myuser)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString;
+            SqlConnection con = new SqlConnection(cs);
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "USP_USER_REGISTER";
+            cmd.Parameters.AddWithValue("@FirstName", myuser.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", myuser.LastName);
+            cmd.Parameters.AddWithValue("@Email", myuser.Email);
+            cmd.Parameters.AddWithValue("@LoginID", myuser.LoginID);
+            cmd.Parameters.AddWithValue("@Password", myuser.Password);
 
+            int addrow = 0;
+
+            try
+            {
+                con.Open();
+                addrow = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+
+            }
+            return addrow;
+        }
         
         #endregion
 

@@ -83,6 +83,10 @@
       <Project>{04D43A45-467E-4D6C-8354-A6811C4C075A}</Project>
       <Name>Arvato.TestProject.UsrMgmt.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.DAL\Arvato.TestProject.UsrMgmt.DAL.csproj">
+      <Project>{33395F77-B7AC-42E9-8F9E-AE7D930DC753}</Project>
+      <Name>Arvato.TestProject.UsrMgmt.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj">
       <Project>{636ABB33-8D91-4558-A014-BBB2357D09D4}</Project>
       <Name>Arvato.TestProject.UsrMgmt.Entity</Name>
