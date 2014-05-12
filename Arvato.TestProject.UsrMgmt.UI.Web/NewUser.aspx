@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
 </head>
 <body>
@@ -32,7 +32,6 @@
             </tr>
         </table><br />
         <asp:Button runat="server" ID="btnSave" Text="Save" OnClick="btnSave_Click" />
-        <asp:ModelErrorMessage runat="server" ID="errorMessage"  />
     </div>
     </form>
 </body>

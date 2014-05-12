@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Arvato.TestProject.UsrMgmt.UI.Web")]
+[assembly: AssemblyTitle("Arvato.TestProject.UsrMgmt.Web.UI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Arvato.TestProject.UsrMgmt.UI.Web")]
+[assembly: AssemblyProduct("Arvato.TestProject.UsrMgmt.Web.UI")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e5b8c21a-8cc1-4cdd-96d3-94d2e2380d53")]
+[assembly: Guid("7597b923-adcc-49e4-b461-71f56da3cca7")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.DAL", "Arvato.TestProject.UsrMgmt.DAL\Arvato.TestProject.UsrMgmt.DAL.csproj", "{33395F77-B7AC-42E9-8F9E-AE7D930DC753}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.BLL", "Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj", "{04D43A45-467E-4D6C-8354-A6811C4C075A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.Entity", "Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj", "{636ABB33-8D91-4558-A014-BBB2357D09D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.UI.Web", "Arvato.TestProject.UsrMgmt.UI.Web\Arvato.TestProject.UsrMgmt.UI.Web.csproj", "{71DCC4E6-4C1C-46F9-83D8-B6C61D9A88D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.UI.Web", "Arvato.TestProject.UsrMgmt.UI.Web\Arvato.TestProject.UsrMgmt.UI.Web.csproj", "{5938E00C-2CE5-4669-AF70-488128CE0398}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,10 @@ Global
 		{636ABB33-8D91-4558-A014-BBB2357D09D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636ABB33-8D91-4558-A014-BBB2357D09D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636ABB33-8D91-4558-A014-BBB2357D09D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71DCC4E6-4C1C-46F9-83D8-B6C61D9A88D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71DCC4E6-4C1C-46F9-83D8-B6C61D9A88D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71DCC4E6-4C1C-46F9-83D8-B6C61D9A88D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71DCC4E6-4C1C-46F9-83D8-B6C61D9A88D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5938E00C-2CE5-4669-AF70-488128CE0398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5938E00C-2CE5-4669-AF70-488128CE0398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5938E00C-2CE5-4669-AF70-488128CE0398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5938E00C-2CE5-4669-AF70-488128CE0398}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
