@@ -5,5 +5,5 @@
     Title="MainWindow"
     Height="500"
     Width="750">
-    <Frame Height="Auto" Name="frame1" Width="Auto" Source="Pages/LoginPage.xaml" NavigationUIVisibility="Hidden" />
+    <Frame Height="Auto" Name="frame1" Width="Auto" Source="Pages/LoginPage.xaml" />
 </Window>

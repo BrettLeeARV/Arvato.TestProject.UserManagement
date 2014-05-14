@@ -49,21 +49,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 
         private void signOutButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigated += delegate(object nsender, NavigationEventArgs ne)
-            {
-                var frame = (Frame)nsender;
-                if (!frame.CanGoBack && !frame.CanGoForward)
-                {
-                    return;
-                }
-
-                var entry = frame.RemoveBackEntry();
-                while (entry != null)
-                {
-                    entry = frame.RemoveBackEntry();
-                }
-                Console.WriteLine("cleared all back entries");
-            };
             NavigationService.Navigate(new Uri("Pages/LoginPage.xaml", UriKind.Relative));
         }
 
@@ -85,12 +70,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 
         private void addUserButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add User screen coming soon...");
+            //MessageBox.Show("Add User screen coming soon...");
+            NavigationService.Navigate(new Pages.Users.FormPage());
         }
 
         private void editUserButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Edit User screen coming soon... for user ID " + selectedUser.ID);
+            //MessageBox.Show("Edit User screen coming soon... for user ID " + selectedUser.ID);
+            NavigationService.Navigate(new Pages.Users.FormPage(selectedUser));
         }
 
         private void deleteUserButton_Click(object sender, RoutedEventArgs e)

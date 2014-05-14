@@ -14,6 +14,6 @@
             <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Click="deleteUserButton_Click" />
             <Button Content="Sign out" Name="signOutButton" MinWidth="75" Click="signOutButton_Click" />
         </StackPanel>
-        <DataGrid AutoGenerateColumns="True" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged" />
+        <DataGrid AutoGenerateColumns="True" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged" />
     </DockPanel>
 </Page>

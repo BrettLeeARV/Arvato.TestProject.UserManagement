@@ -27,19 +27,29 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 
         void LoginPage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            var frame = NavigationService;
+            if (!frame.CanGoBack && !frame.CanGoForward)
+            {
+                return;
+            }
+
+            var entry = frame.RemoveBackEntry();
+            while (entry != null)
+            {
+                entry = frame.RemoveBackEntry();
+            }
+            Console.WriteLine("cleared all back entries");
         }
 
         private void signInButton_Click(object sender, RoutedEventArgs e)
         {
             if (usernameTextBox.Text == "user" && passwordTextBox.Password == "password")
             {
-                NavigationService.Navigated += delegate(object nsender, NavigationEventArgs ne)
-                {
-                    var frame = (Frame)nsender;
-                    frame.NavigationService.RemoveBackEntry();
-                };
                 NavigationService.Navigate(new Uri("Pages/MainMenuPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
             }
         }
     }

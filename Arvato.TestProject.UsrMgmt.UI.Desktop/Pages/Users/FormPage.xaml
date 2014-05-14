@@ -1,0 +1,42 @@
+﻿<Page x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.Users.FormPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="700"
+	Title="FormPage">
+
+    <DockPanel Margin="12">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
+            <Button Content="Save" Name="saveButton" MinWidth="75" Click="saveButton_Click" />
+            <Button Content="Cancel" Name="cancelButton" MinWidth="75" Click="cancelButton_Click" />
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="ID" Name="idLabel" Target="{Binding idTextBox}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="idTextBox" Text="{Binding ID, Mode=TwoWay}" />
+            <Label Grid.Row="1" Grid.Column="0" Content="First Name" Name="firstNameLabel" Target="{Binding firstNameTextBox}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay}" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Last Name" Name="lastNameLabel" Target="{Binding lastNameTextBox}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay}" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Login ID" Name="loginIDLabel" Target="{Binding loginIDTextBox}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="loginIDTextBox" Text="{Binding LoginID, Mode=TwoWay}" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Gender" Name="genderLabel" Target="{Binding genderTextBox}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Name="genderTextBox" Text="{Binding Gender, Mode=TwoWay}" />
+            <Label Grid.Row="5" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding emailTextBox}"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, Mode=TwoWay}" />
+        </Grid>
+    </DockPanel>
+</Page>
