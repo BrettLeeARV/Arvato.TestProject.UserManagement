@@ -29,7 +29,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.Users
         // new user
         public FormPage() : this(new User())
         {
-
+            idPanel.Visibility = Visibility.Collapsed;
         }
 
         // edit user
