@@ -22,6 +22,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
     public partial class MainMenuPage : Page
     {
 
+        User selectedUser = null;
+
         private MainMenuPageViewModel _viewModel;
         public MainMenuPageViewModel ViewModel
         {
@@ -65,16 +67,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
             NavigationService.Navigate(new Uri("Pages/LoginPage.xaml", UriKind.Relative));
         }
 
-        private void addUserButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
-            User selected = (User)dataGrid.SelectedItem;
-            if (selected != null)
+            selectedUser = (User)dataGrid.SelectedItem;
+            if (selectedUser != null)
             {
                 editUserButton.IsEnabled = true;
                 deleteUserButton.IsEnabled = true;
@@ -84,6 +81,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
                 editUserButton.IsEnabled = false;
                 deleteUserButton.IsEnabled = false;
             }
+        }
+
+        private void addUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add User screen coming soon...");
+        }
+
+        private void editUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Edit User screen coming soon... for user ID " + selectedUser.ID);
+        }
+
+        private void deleteUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Delete User screen coming soon... for user ID " + selectedUser.ID);
         }
     }
 }
