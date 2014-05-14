@@ -20,8 +20,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel Name="stackPanel1" Margin="0,10" Grid.Column="0" Grid.Row="0">
-                <Label Content="Username" Name="usernameLabel" Target="{Binding ElementName=usernameTextBox}"/>
-                <TextBox Name="usernameTextBox" Text="user" />
+                <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
+                <TextBox Name="loginIDTextBox" Text="jingtao" />
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
                 <PasswordBox Name="passwordTextBox" Password="password" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>

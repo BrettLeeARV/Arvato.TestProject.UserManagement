@@ -11,6 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
+using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 {
@@ -27,6 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 
         void LoginPage_Loaded(object sender, RoutedEventArgs e)
         {
+            // clear all previous navigation history when brought back to login page
             var frame = NavigationService;
             if (!frame.CanGoBack && !frame.CanGoForward)
             {
@@ -38,18 +43,29 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
             {
                 entry = frame.RemoveBackEntry();
             }
-            Console.WriteLine("cleared all back entries");
         }
 
         private void signInButton_Click(object sender, RoutedEventArgs e)
         {
-            if (usernameTextBox.Text == "user" && passwordTextBox.Password == "password")
+            IUserService userService = new UserService();
+            User user = new User();
+            user.LoginID = loginIDTextBox.Text;
+            user.Password = passwordTextBox.Password;
+            try
+            {
+                userService.Login(user);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (user.ID > 0)
             {
                 NavigationService.Navigate(new Uri("Pages/MainMenuPage.xaml", UriKind.Relative));
             }
             else
             {
-                MessageBox.Show("Invalid username or password", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+                MessageBox.Show("Invalid login ID or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
