@@ -51,8 +51,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Login.aspx" />
     <Content Include="NewUser.aspx" />
+    <Content Include="UserList.aspx" />
     <Content Include="UserListing.aspx" />
+    <Content Include="UserPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -62,6 +65,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NewUser.aspx.cs">
       <DependentUpon>NewUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -70,6 +80,13 @@
       <DependentUpon>NewUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserList.aspx.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserList.aspx.designer.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserListing.aspx.cs">
       <DependentUpon>UserListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -77,11 +94,22 @@
     <Compile Include="UserListing.aspx.designer.cs">
       <DependentUpon>UserListing.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserPage.aspx.cs">
+      <DependentUpon>UserPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserPage.aspx.designer.cs">
+      <DependentUpon>UserPage.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj">
       <Project>{04D43A45-467E-4D6C-8354-A6811C4C075A}</Project>
       <Name>Arvato.TestProject.UsrMgmt.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.DAL\Arvato.TestProject.UsrMgmt.DAL.csproj">
+      <Project>{33395F77-B7AC-42E9-8F9E-AE7D930DC753}</Project>
+      <Name>Arvato.TestProject.UsrMgmt.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj">
       <Project>{636ABB33-8D91-4558-A014-BBB2357D09D4}</Project>

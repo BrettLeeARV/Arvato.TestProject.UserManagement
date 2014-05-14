@@ -10,6 +10,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
 {
     public interface IUserRepository : IBaseRepository<User>, IDisposable
     {
-       
+
+        void Login(User entity);
     }
 }

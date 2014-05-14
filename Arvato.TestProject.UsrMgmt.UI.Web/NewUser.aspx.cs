@@ -21,16 +21,26 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
         {
 
             IUserService userService = new UserService();
-            User newUser = new User();
+         
 
-            //Map field values into entity class
-            newUser.FirstName = txtFirstName.Text;
-            newUser.LastName = txtLastName.Text;
-            newUser.Email = txtEmail.Text;
-            newUser.LoginID = txtLoginID.Text;
-            newUser.Gender = txtGender.Text;
+            User myuser = new User();
+            myuser.FirstName = txtFirstName.Text;
+            myuser.LastName = txtLastName.Text;
+            myuser.Email = txtEmail.Text;
+            myuser.LoginID = txtLoginID.Text;
+            myuser.Password = txtPassword.Text;
 
-            userService.Save(newUser);
+            try
+            {
+                userService.Save(myuser);
+                lblstatus.Text = "Success!";
+            }
+            catch (Exception)
+            {
+
+                lblstatus.Text = "The Email address is already existed!";
+            }
+         
         }
     }
 }
