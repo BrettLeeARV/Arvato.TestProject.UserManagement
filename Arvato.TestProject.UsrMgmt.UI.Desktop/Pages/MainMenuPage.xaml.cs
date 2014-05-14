@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
+using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 {
@@ -33,12 +34,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
                 return _viewModel;
             }
         }
-        
+
         public MainMenuPage()
         {
             InitializeComponent();
 
             this.DataContext = ViewModel;
+
+            editUserButton.IsEnabled = false;
+            deleteUserButton.IsEnabled = false;
         }
 
         private void signOutButton_Click(object sender, RoutedEventArgs e)
@@ -59,6 +63,27 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
                 Console.WriteLine("cleared all back entries");
             };
             NavigationService.Navigate(new Uri("Pages/LoginPage.xaml", UriKind.Relative));
+        }
+
+        private void addUserButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dataGrid = (DataGrid)sender;
+            User selected = (User)dataGrid.SelectedItem;
+            if (selected != null)
+            {
+                editUserButton.IsEnabled = true;
+                deleteUserButton.IsEnabled = true;
+            }
+            else
+            {
+                editUserButton.IsEnabled = false;
+                deleteUserButton.IsEnabled = false;
+            }
         }
     }
 }

@@ -7,8 +7,13 @@
       d:DesignHeight="500" d:DesignWidth="700"
 	Title="MainMenuPage">
 
-    <DockPanel>
-        <Button DockPanel.Dock="Top" Content="Sign out" Height="23" Margin="0,12,12,0" Name="signOutButton" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="signOutButton_Click" />
-        <DataGrid AutoGenerateColumns="True" Margin="12" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Users}" IsReadOnly="True" />
+    <DockPanel Margin="12">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
+            <Button Content="Add User" Name="addUserButton" MinWidth="75" Click="addUserButton_Click" />
+            <Button Content="Edit User" Name="editUserButton" MinWidth="75" />
+            <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" />
+            <Button Content="Sign out" Name="signOutButton" MinWidth="75" Click="signOutButton_Click" />
+        </StackPanel>
+        <DataGrid AutoGenerateColumns="True" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged" />
     </DockPanel>
 </Page>
