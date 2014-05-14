@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Text.RegularExpressions;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
+
 {
     public class UserService : IUserService
     {
@@ -57,8 +58,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
                 #region Field Validation Logic
                 //Perform business logic validation here
-                
-                //field Validation
                 if (user.FirstName.Trim().Length == 0)
                 {
                     throw (new Exception("FirstName is a required field"));
@@ -87,6 +86,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                     throw (new Exception("LoginID must at least 6 characters or more"));
                 }
 
+               userRepository.Add(user);
+              
+        
                 //Duplicate checks
                 //
                 //
@@ -94,16 +96,16 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
                 #endregion
 
-                if (user.ID > 0)
-                {
+               // if (user.ID > 0)
+               // {
                     //Update existing record with ID greater than zero
-                    userRepository.Update(user);
-                }
-                else
-                {
+               //     userRepository.Update(user);
+               // }
+              //  else
+               // {
                     //No ID assigned, so create new record
                     userRepository.Add(user);
-                }
+             //   }
             }
             catch (Exception ex)
             {
@@ -111,6 +113,20 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw ex;
             }
 
+            
+        }
+
+        public int Login(User user)
+        {
+            try
+            {
+               return userRepository.Login(user);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
             
         }
 

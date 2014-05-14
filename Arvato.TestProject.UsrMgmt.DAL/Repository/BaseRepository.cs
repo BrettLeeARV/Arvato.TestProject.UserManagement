@@ -31,38 +31,39 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         }
 
         #region General CRUD methods
-        public static int USP_INSERT_USER(Arvato.TestProject.UsrMgmt.Entity.Model.User myuser)
-        {
-            string cs = ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString;
-            SqlConnection con = new SqlConnection(cs);
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "USP_USER_REGISTER";
-            cmd.Parameters.AddWithValue("@FirstName", myuser.FirstName);
-            cmd.Parameters.AddWithValue("@LastName", myuser.LastName);
-            cmd.Parameters.AddWithValue("@Email", myuser.Email);
-            cmd.Parameters.AddWithValue("@LoginID", myuser.LoginID);
-            cmd.Parameters.AddWithValue("@Password", myuser.Password);
 
-            int addrow = 0;
+        //public static int USP_INSERT_USER(Arvato.TestProject.UsrMgmt.Entity.Model.User myuser)
+        //{
+        //    string cs = ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString;
+        //    SqlConnection con = new SqlConnection(cs);
+        //    SqlCommand cmd = con.CreateCommand();
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    cmd.CommandText = "USP_USER_REGISTER";
+        //    cmd.Parameters.AddWithValue("@FirstName", myuser.FirstName);
+        //    cmd.Parameters.AddWithValue("@LastName", myuser.LastName);
+        //    cmd.Parameters.AddWithValue("@Email", myuser.Email);
+        //    cmd.Parameters.AddWithValue("@LoginID", myuser.LoginID);
+        //    cmd.Parameters.AddWithValue("@Password", myuser.Password);
 
-            try
-            {
-                con.Open();
-                addrow = cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
+        //    int addrow = 0;
 
-                throw;
-            }
-            finally
-            {
-                con.Close();
+        //    try
+        //    {
+        //        con.Open();
+        //        addrow = cmd.ExecuteNonQuery();
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
-            return addrow;
-        }
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+
+        //    }
+        //    return addrow;
+        //}
         
         #endregion
 
@@ -110,6 +111,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 myCommand.Connection = _connection;
                 myCommand.CommandText = _query;
+                myCommand.CommandType = CommandType.StoredProcedure; // added by benjamin.
 
                 if (sqlParameter != null)
                     myCommand.Parameters.AddRange(sqlParameter);
@@ -149,6 +151,29 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
             }
             return true;
+        }
+        public virtual object executeScalarquery(String _query, SqlParameter[] sqlParameter) // added by ben
+        {
+            SqlCommand myCommand = new SqlCommand();
+            SqlDataAdapter myAdapter = new SqlDataAdapter();
+
+
+            if (_connection.State == ConnectionState.Closed)
+                _connection.Open();
+
+            myCommand.Connection = _connection;
+            myCommand.CommandText = _query;
+            myCommand.CommandType = CommandType.StoredProcedure; // added by benjamin.
+
+            if (sqlParameter != null)
+                myCommand.Parameters.AddRange(sqlParameter);
+
+            myAdapter.InsertCommand = myCommand;
+
+            var returnResult = myCommand.ExecuteScalar();
+            return returnResult;
+
+             
         }
         #endregion
 

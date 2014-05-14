@@ -8,7 +8,7 @@ using Arvato.TestProject.UsrMgmt.Entity;
 using System.Data;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using System.Data.SqlClient;
-
+using System.Configuration;
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class UserRepository: BaseRepository, IUserRepository 
@@ -57,12 +57,48 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         public bool Add(User entity)
         {
-            string sqlString = @"INSERT INTO [dbo].[User] " +
-                                "(FirstName, LastName, Email, LoginID) " +
-                                "VALUES " +
-                                "(N'" + entity.FirstName + "', N'" + entity.LastName + "', N'" + entity.Email + "', N'" + entity.LoginID + "');";
+          
+            bool addrow = false;
 
-            return executeInsertQuery(sqlString, null);
+            try
+            {
+                
+                  SqlParameter[] parameters = {new SqlParameter("@FirstName",SqlDbType.NVarChar,50) {Value = entity.FirstName},
+                                            new SqlParameter("@LastName",SqlDbType.NVarChar,50) { Value = entity.LastName},
+                                            new SqlParameter("@Email", SqlDbType.NVarChar, 50) { Value = entity.Email},
+                                            new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = entity.LoginID},
+                                            new SqlParameter("@Password", SqlDbType.NVarChar, 50) { Value = entity.Password}};
+
+
+                  addrow = executeInsertQuery("USP_USER_REGISTER", parameters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+
+            }
+            return Convert.ToBoolean(addrow);
+        }
+        public int Login(User entity) // Added by Ben.
+        {
+            int checkuser = 0;
+            try
+            {
+                SqlParameter[] parameters = {new SqlParameter("@LoginID",SqlDbType.NVarChar,50) {Value = entity.LoginID},
+                                               new SqlParameter("@Password" , SqlDbType.NVarChar,50) {Value = entity.Password}};
+                checkuser = int.Parse(executeScalarquery("USP_USER_LOGIN", parameters).ToString());
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            return checkuser;
         }
 
         public void Update(User entity)

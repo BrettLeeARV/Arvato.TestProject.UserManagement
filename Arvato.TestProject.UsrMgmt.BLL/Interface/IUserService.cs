@@ -14,5 +14,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
         User GetRecord(string loginID);
         void Save(User user);
         void Delete(User user);
+        int Login(User user);
+       
     }
 }

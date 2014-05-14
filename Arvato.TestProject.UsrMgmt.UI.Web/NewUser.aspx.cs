@@ -21,23 +21,18 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
         {
 
             IUserService userService = new UserService();
-          //  User newUser = new User();
-            Arvato.TestProject.UsrMgmt.Entity.Model.User myuser = new Arvato.TestProject.UsrMgmt.Entity.Model.User();
+         
+
+            User myuser = new User();
             myuser.FirstName = txtFirstName.Text;
             myuser.LastName = txtLastName.Text;
             myuser.Email = txtEmail.Text;
             myuser.LoginID = txtLoginID.Text;
             myuser.Password = txtPassword.Text;
-            //Map field values into entity class
-           // newUser.FirstName = txtFirstName.Text;
-           // newUser.LastName = txtLastName.Text;
-           // newUser.Email = txtEmail.Text;
-            //newUser.LoginID = txtLoginID.Text;
-           // newUser.Password = txtGender.Text;
 
             try
             {
-                int result = Arvato.TestProject.UsrMgmt.DAL.Repository.BaseRepository.USP_INSERT_USER(myuser);
+                userService.Save(myuser);
                 lblstatus.Text = "Success!";
             }
             catch (Exception ex)
@@ -45,7 +40,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
 
                 lblstatus.Text = ex.Message;
             }
-           // userService.Save(newUser);
+         
         }
     }
 }

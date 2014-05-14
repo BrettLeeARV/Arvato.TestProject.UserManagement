@@ -23,6 +23,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
         bool Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+       
+
         //T GetSingleById(int id);
     }
 }
