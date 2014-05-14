@@ -1,0 +1,9 @@
+﻿<Window x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    Title="MainWindow"
+    Height="500"
+    Width="750">
+    <Frame Height="Auto" Name="frame1" Width="Auto" Source="Pages/LoginPage.xaml" />
+</Window>
