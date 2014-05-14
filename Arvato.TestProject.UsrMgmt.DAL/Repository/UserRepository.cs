@@ -28,8 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         public IQueryable<User> GetAll()
         {
             DataTable resultQuery = null;
-            resultQuery = executeSelectQuery("SELECT * " +
-                                             "FROM dbo.[USER]", null);
+            resultQuery = executeSelectQuery("USP_USER_SELECTDETAILS", null);
 
             var userList = new List<User>(resultQuery.Rows.Count);
 
