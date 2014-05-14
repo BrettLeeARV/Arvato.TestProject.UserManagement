@@ -55,6 +55,7 @@
     <Content Include="NewUser.aspx" />
     <Content Include="UserList.aspx" />
     <Content Include="UserListing.aspx" />
+    <Content Include="UserPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -92,6 +93,13 @@
     </Compile>
     <Compile Include="UserListing.aspx.designer.cs">
       <DependentUpon>UserListing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserPage.aspx.cs">
+      <DependentUpon>UserPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserPage.aspx.designer.cs">
+      <DependentUpon>UserPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

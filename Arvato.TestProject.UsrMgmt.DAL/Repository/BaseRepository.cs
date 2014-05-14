@@ -85,6 +85,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
             myCommand.Connection = _connection;
             myCommand.CommandText = _query;
+            myCommand.CommandType = CommandType.StoredProcedure;
 
             if (sqlParameter != null)
                 myCommand.Parameters.AddRange(sqlParameter);

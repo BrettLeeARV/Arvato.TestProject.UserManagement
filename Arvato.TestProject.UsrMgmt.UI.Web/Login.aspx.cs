@@ -23,12 +23,16 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             User myuser = new User();
             myuser.LoginID = txtloginid.Text;
             myuser.Password = txtpassword.Text;
+            
             try
             {
-                if (us.Login(myuser) > 0)
+                us.Login(myuser);
+                if (myuser.ID > 0)
                 {
+                    Session["UserSession"] = myuser.ID;
+                    Session["UserLN"] = myuser.LastName;
                     // us.Login(myuser);
-                    lblstatus.Text = "Succes";
+                    Response.Redirect("UserPage.aspx");
                 }
                 else
                 {

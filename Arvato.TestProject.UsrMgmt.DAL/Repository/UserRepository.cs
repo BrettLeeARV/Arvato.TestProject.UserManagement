@@ -82,21 +82,28 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             return Convert.ToBoolean(addrow);
         }
-        public int Login(User entity) // Added by Ben.
+        public void Login(User entity) // Added by Ben.
         {
-            int checkuser = 0;
+           // int checkuser = 0;
             try
             {
                 SqlParameter[] parameters = {new SqlParameter("@LoginID",SqlDbType.NVarChar,50) {Value = entity.LoginID},
                                                new SqlParameter("@Password" , SqlDbType.NVarChar,50) {Value = entity.Password}};
-                checkuser = int.Parse(executeScalarquery("USP_USER_LOGIN", parameters).ToString());
+                DataTable dt = executeSelectQuery("USP_USER_LOGIN", parameters);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    entity.ID = int.Parse(dr["ID"].ToString());
+                    entity.LastName = dr["LastName"].ToString();
+
+                }
+                
             }
             catch (Exception)
             {
                 
                 throw;
             }
-            return checkuser;
+             
         }
         public void userDetails(User entity)
         {
