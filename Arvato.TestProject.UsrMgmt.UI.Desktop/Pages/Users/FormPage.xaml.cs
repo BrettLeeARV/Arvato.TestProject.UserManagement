@@ -46,6 +46,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.Users
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             bool success = false;
+            
+            // password must be manually extracted from PasswordBox
+            // we don't extract the password if user didn't enter anything in the box
+            if (passwordTextBox.Password.Length > 0)
+            {
+                currentUser.Password = passwordTextBox.Password;
+            }
+
             try
             {
                 userService.Save(currentUser);

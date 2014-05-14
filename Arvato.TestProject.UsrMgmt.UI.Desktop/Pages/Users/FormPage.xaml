@@ -33,10 +33,10 @@
             <TextBox Grid.Row="2" Grid.Column="1" Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay}" />
             <Label Grid.Row="3" Grid.Column="0" Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
             <TextBox Grid.Row="3" Grid.Column="1" Name="loginIDTextBox" Text="{Binding LoginID, Mode=TwoWay}" />
-            <!--<Label Grid.Row="4" Grid.Column="0" Content="Gender" Name="genderLabel" Target="{Binding ElementName=genderTextBox}"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Name="genderTextBox" Text="{Binding Gender, Mode=TwoWay}" />-->
-            <Label Grid.Row="5" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, Mode=TwoWay}" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, Mode=TwoWay}" />
+            <Label Grid.Row="5" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
+            <PasswordBox Grid.Row="5" Grid.Column="1" Name="passwordTextBox" Password="" />
         </Grid>
     </DockPanel>
 </Page>
