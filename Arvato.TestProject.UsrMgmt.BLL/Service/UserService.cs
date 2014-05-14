@@ -85,8 +85,8 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("LoginID must at least 6 characters or more"));
                 }
-
-               userRepository.Add(user);
+                
+              userRepository.Add(user);
               
         
                 //Duplicate checks
@@ -96,16 +96,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
                 #endregion
 
-               // if (user.ID > 0)
-               // {
-                    //Update existing record with ID greater than zero
-               //     userRepository.Update(user);
-               // }
-              //  else
-               // {
-                    //No ID assigned, so create new record
-                    userRepository.Add(user);
-             //   }
+      
             }
             catch (Exception ex)
             {

@@ -68,9 +68,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                                             new SqlParameter("@Email", SqlDbType.NVarChar, 50) { Value = entity.Email},
                                             new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = entity.LoginID},
                                             new SqlParameter("@Password", SqlDbType.NVarChar, 50) { Value = entity.Password}};
-
-
-                  addrow = executeInsertQuery("USP_USER_REGISTER", parameters);
+                                  addrow = executeInsertQuery("USP_USER_REGISTER", parameters);
             }
             catch (Exception)
             {
@@ -100,7 +98,18 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             return checkuser;
         }
-
+        public void userDetails(User entity)
+        {
+            try
+            {
+               
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
         public void Update(User entity)
         {
             throw new NotImplementedException();

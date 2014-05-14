@@ -35,10 +35,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
                 userService.Save(myuser);
                 lblstatus.Text = "Success!";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                lblstatus.Text = ex.Message;
+                lblstatus.Text = "The Email address is already existed!";
             }
          
         }
