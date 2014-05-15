@@ -74,11 +74,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 throw;
             }
-            finally
-            {
-                Connection.Close();
-
-            }
+         
             return Convert.ToBoolean(addrow);
         }
         public void Login(User entity) // Added by Ben.
