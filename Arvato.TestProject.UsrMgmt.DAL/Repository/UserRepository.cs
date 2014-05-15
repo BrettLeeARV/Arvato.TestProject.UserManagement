@@ -144,7 +144,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             return Convert.ToBoolean(deleterow);
         }
 
-        public bool ValidateLoginID(string LoginID) // Added by Beh.
+        public bool IsExistingLoginID(string LoginID) // Added by Beh.
         {
             // int checkuser = 0;
             try
