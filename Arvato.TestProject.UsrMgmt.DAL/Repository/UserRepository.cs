@@ -99,7 +99,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-                
                 throw;
             }
              
@@ -112,7 +111,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-                
                 throw;
             }
         }
@@ -127,20 +125,14 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
             try
             {
-
                 SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID}};
                 deleterow = executeDeleteQuery("USP_USER_DELETE", parameters);
             }
             catch (Exception)
             {
-
                 throw;
             }
-            finally
-            {
-                Connection.Close();
 
-            }
             return Convert.ToBoolean(deleterow);
         }
 
@@ -158,7 +150,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-
                 throw;
             }
 

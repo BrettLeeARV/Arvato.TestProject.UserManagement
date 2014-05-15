@@ -38,7 +38,10 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 //Insert error Logging/Handling Mechanism here
                 throw ex;
             }
-            
+            finally
+            {
+                userRepository.Dispose();
+            }
         }
 
         User IUserService.GetRecord(int id)
@@ -137,8 +140,10 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 //Insert error Logging/Handling Mechanism here
                 throw ex;
             }
-
-            
+            finally
+            {
+                userRepository.Dispose();
+            }   
         }
 
         public void Login(User user)
@@ -149,10 +154,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
             catch (Exception)
             {
-                
                 throw;
             }
-            
+            finally
+            {
+                userRepository.Dispose();
+            }
         }
 
         void IUserService.Delete(User user)
@@ -163,10 +170,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
             catch (Exception)
             {
-
                 throw;
             }
-            
+            finally
+            {
+                userRepository.Dispose();
+            }
         }
     }
 }
