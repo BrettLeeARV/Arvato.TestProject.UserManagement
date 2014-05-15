@@ -85,9 +85,38 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("LoginID must at least 6 characters or more"));
                 }
+                else if(!userRepository.ValidateLoginID(user.LoginID.Trim()))
+                {
+                    throw (new Exception("LoginID already existed"));
+                }
+                if (user.Password.Trim().Length == 0)
+                {
+                    throw (new Exception("Password is a required field"));
+                }
+                else if (user.Password.Trim().Length < 8)
+                {
+                    throw (new Exception("Password must at least 8 characters"));
+                }
+                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\p{Lu}).{8,}$", RegexOptions.IgnorePatternWhitespace))
+                //{
+                //    throw (new Exception("Password must contains uppper case characters"));
+                //}
+                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\p{Ll}).{8,}$", RegexOptions.IgnorePatternWhitespace))
+                //{
+                //    throw (new Exception("Password must contains lower case characters"));
+                //}
+                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\d).{8,}$", RegexOptions.IgnorePatternWhitespace))
+                //{
+                //    throw (new Exception("Password must contains at least 1 number"));
+                //}
+                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*[^\p{L}\d]).{8,}$", RegexOptions.IgnorePatternWhitespace))
+                //{
+                //    throw (new Exception("Password must contains at least 1 special character"));
+                //}
+
+
                 if (user.ID > 0)
                 {
-
                     userRepository.Update(user);
                 }
                 else
@@ -128,7 +157,16 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
         void IUserService.Delete(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                userRepository.Delete(user);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

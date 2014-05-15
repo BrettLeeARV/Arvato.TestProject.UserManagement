@@ -153,6 +153,39 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             return true;
         }
+
+        /// <method>
+        /// Delete Query
+        /// </method>
+        public virtual bool executeDeleteQuery(String _query, SqlParameter[] sqlParameter) //Beh
+        {
+            SqlCommand myCommand = new SqlCommand();
+            SqlDataAdapter myAdapter = new SqlDataAdapter();
+
+            try
+            {
+                if (_connection.State == ConnectionState.Closed)
+                    _connection.Open();
+
+                myCommand.Connection = _connection;
+                myCommand.CommandText = _query;
+                myCommand.Parameters.AddRange(sqlParameter);
+                myCommand.CommandType = CommandType.StoredProcedure;
+                myAdapter.DeleteCommand = myCommand;
+                myCommand.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                //    Console.Write("Error - Connection.executeUpdateQuery - Query: 
+                //" + _query + " \nException: " + e.StackTrace.ToString());
+                return false;
+            }
+            finally
+            {
+            }
+            return true;
+        }
+
         public virtual object executeScalarquery(String _query, SqlParameter[] sqlParameter) // added by ben
         {
             SqlCommand myCommand = new SqlCommand();

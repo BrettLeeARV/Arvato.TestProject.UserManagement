@@ -11,7 +11,11 @@
     <div>
     
     </div>
-        <asp:GridView ID="gvUsers" runat="server">
+        <asp:GridView ID="gvUsers" runat="server" 
+        onrowdeleting="gvUsers_RowDeleting" DataKeyNames="ID">
+            <Columns>
+                <asp:CommandField ShowDeleteButton="True" />
+            </Columns>
         </asp:GridView>
     </form>
 </body>
