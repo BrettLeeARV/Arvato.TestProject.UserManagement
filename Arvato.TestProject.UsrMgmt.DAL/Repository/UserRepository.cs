@@ -121,9 +121,47 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             throw new NotImplementedException();
         }
 
-        public void Delete(User entity)
+        public bool Delete(User entity)
         {
-            throw new NotImplementedException();
+            bool deleterow = false;
+
+            try
+            {
+
+                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID}};
+                deleterow = executeDeleteQuery("USP_USER_DELETE", parameters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+
+            }
+            return Convert.ToBoolean(deleterow);
+        }
+
+        public bool ValidateLoginID(string LoginID) // Added by Beh.
+        {
+            // int checkuser = 0;
+            try
+            {
+                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID} };
+                DataTable dt = executeSelectQuery("USP_USER_VALIDATE_LOGINID", parameters);
+                if (dt.Rows.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

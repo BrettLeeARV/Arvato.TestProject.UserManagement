@@ -12,5 +12,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     {
 
         void Login(User entity);
+        bool ValidateLoginID(string LoginID);
     }
 }
