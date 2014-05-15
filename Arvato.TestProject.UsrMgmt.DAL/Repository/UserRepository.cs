@@ -136,12 +136,13 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             return Convert.ToBoolean(deleterow);
         }
 
-        public bool IsExistingLoginID(string LoginID) // Added by Beh.
+        public bool IsExistingLoginID(string LoginID,int ID) // Added by Beh.
         {
             // int checkuser = 0;
             try
             {
-                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID} };
+                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID},
+                                                new SqlParameter("@ID", SqlDbType.TinyInt) { Value = ID}};
                 DataTable dt = executeSelectQuery("USP_USER_VALIDATE_LOGINID", parameters);
                 if (dt.Rows.Count > 0)
                     return true;
