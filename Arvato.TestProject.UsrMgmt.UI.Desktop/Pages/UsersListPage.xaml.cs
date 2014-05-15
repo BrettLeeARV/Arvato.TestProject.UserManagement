@@ -26,24 +26,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
 
         User selectedUser = null;
 
-        private UsersListViewModel _viewModel;
-        public UsersListViewModel ViewModel
-        {
-            get
-            {
-                if (_viewModel == null)
-                {
-                    _viewModel = new UsersListViewModel();
-                }
-                return _viewModel;
-            }
-        }
-
         public UsersListPage()
         {
             InitializeComponent();
-
-            this.DataContext = ViewModel;
 
             editUserButton.IsEnabled = false;
             deleteUserButton.IsEnabled = false;
