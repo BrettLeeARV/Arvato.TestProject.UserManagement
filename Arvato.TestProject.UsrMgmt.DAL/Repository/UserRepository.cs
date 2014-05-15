@@ -74,11 +74,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 throw;
             }
-            finally
-            {
-                Connection.Close();
-
-            }
+         
             return Convert.ToBoolean(addrow);
         }
         public void Login(User entity) // Added by Ben.
@@ -92,7 +88,11 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 foreach (DataRow dr in dt.Rows)
                 {
                     entity.ID = int.Parse(dr["ID"].ToString());
+                    entity.FirstName = dr["FirstName"].ToString();
                     entity.LastName = dr["LastName"].ToString();
+                    entity.Email = dr["Email"].ToString();
+                    entity.LoginID = dr["LoginID"].ToString();
+                    entity.Password = dr["Password"].ToString();
 
                 }
                 
@@ -116,7 +116,25 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         }
         public void Update(User entity)
         {
-            throw new NotImplementedException();
+            //Added by Ben.
+            bool result = false;
+            try
+            {
+                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID},
+                                               new SqlParameter("@FirstName", SqlDbType.NVarChar,50) {Value = entity.FirstName},
+                                               new SqlParameter("@LastName", SqlDbType.NVarChar,50) {Value = entity.LastName},
+                                               new SqlParameter("@Email", SqlDbType.NVarChar,50) {Value = entity.Email},
+                                               new SqlParameter("@LoginID", SqlDbType.NVarChar,50) {Value= entity.LoginID},
+                                               new SqlParameter("@Password", SqlDbType.NVarChar,50) {Value = entity.Password}};
+                result = executeUpdateQuery("USP_USER_UPDATE", parameters);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+            //throw new NotImplementedException();
         }
 
         public bool Delete(User entity)

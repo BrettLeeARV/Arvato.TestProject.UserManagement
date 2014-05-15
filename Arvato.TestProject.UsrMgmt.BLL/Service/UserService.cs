@@ -161,6 +161,18 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 userRepository.Dispose();
             }
         }
+        public void Update(User user)
+        {
+            try
+            {
+                userRepository.Update(user);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
 
         void IUserService.Delete(User user)
         {

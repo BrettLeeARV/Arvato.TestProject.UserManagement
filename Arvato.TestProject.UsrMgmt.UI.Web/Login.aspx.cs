@@ -30,7 +30,12 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 if (myuser.ID > 0)
                 {
                     Session["UserSession"] = myuser.ID;
+                    Session["UserFN"] = myuser.FirstName;
                     Session["UserLN"] = myuser.LastName;
+                    Session["Email"] = myuser.Email;
+                    Session["LoginID"] = myuser.LoginID;
+                    Session["Password"] = myuser.Password;
+
                     // us.Login(myuser);
                     Response.Redirect("UserPage.aspx");
                 }
