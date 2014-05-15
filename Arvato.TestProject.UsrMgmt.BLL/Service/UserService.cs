@@ -88,7 +88,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("LoginID must at least 6 characters or more"));
                 }
-                else if(userRepository.IsExistingLoginID(user.LoginID.Trim()))
+                else if(userRepository.IsExistingLoginID(user.LoginID.Trim()) && user.ID > 0)
                 {
                     throw (new Exception("LoginID already exists"));
                 }
@@ -177,5 +177,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 userRepository.Dispose();
             }
         }
+
+
     }
 }
