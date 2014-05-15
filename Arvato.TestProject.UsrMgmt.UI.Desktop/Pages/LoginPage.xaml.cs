@@ -61,7 +61,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
             }
             if (user.ID > 0)
             {
-                NavigationService.Navigate(new Uri("Pages/MainMenuPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("Pages/UsersListPage.xaml", UriKind.Relative));
             }
             else
             {

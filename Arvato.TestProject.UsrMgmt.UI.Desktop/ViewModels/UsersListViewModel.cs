@@ -8,12 +8,12 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class MainMenuPageViewModel
+    public class UsersListViewModel
     {
 
         private IUserService _userService;
 
-        public MainMenuPageViewModel()
+        public UsersListViewModel()
         {
             _userService = new UserService();
         }

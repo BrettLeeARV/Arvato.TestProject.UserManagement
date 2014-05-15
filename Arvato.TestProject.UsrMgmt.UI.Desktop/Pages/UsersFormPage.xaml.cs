@@ -16,24 +16,24 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using System.Diagnostics;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.Users
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
 {
     /// <summary>
     /// Interaction logic for FormPage.xaml
     /// </summary>
-    public partial class FormPage : Page
+    public partial class UsersFormPage : Page
     {
         User currentUser;
         IUserService userService = new UserService();
 
         // new user
-        public FormPage() : this(new User())
+        public UsersFormPage() : this(new User())
         {
             idPanel.Visibility = Visibility.Collapsed;
         }
 
         // edit user
-        public FormPage(User user)
+        public UsersFormPage(User user)
         {
             InitializeComponent();
 

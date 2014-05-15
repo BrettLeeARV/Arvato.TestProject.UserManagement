@@ -55,15 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pages\Users\FormPage.xaml.cs">
-      <DependentUpon>FormPage.xaml</DependentUpon>
+    <Compile Include="Pages\UsersFormPage.xaml.cs">
+      <DependentUpon>UsersFormPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MainMenuPageViewModel.cs" />
+    <Compile Include="ViewModels\UsersListViewModel.cs" />
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MainMenuPage.xaml">
+    <Page Include="Pages\UsersListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -78,14 +78,14 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MainMenuPage.xaml.cs">
-      <DependentUpon>MainMenuPage.xaml</DependentUpon>
+    <Compile Include="Pages\UsersListPage.xaml.cs">
+      <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Users\FormPage.xaml">
+    <Page Include="Pages\UsersFormPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

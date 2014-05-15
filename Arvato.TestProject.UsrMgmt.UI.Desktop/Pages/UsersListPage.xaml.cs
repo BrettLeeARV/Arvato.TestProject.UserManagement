@@ -16,30 +16,30 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
 {
     /// <summary>
     /// Interaction logic for MainMenuPage.xaml
     /// </summary>
-    public partial class MainMenuPage : Page
+    public partial class UsersListPage : Page
     {
 
         User selectedUser = null;
 
-        private MainMenuPageViewModel _viewModel;
-        public MainMenuPageViewModel ViewModel
+        private UsersListViewModel _viewModel;
+        public UsersListViewModel ViewModel
         {
             get
             {
                 if (_viewModel == null)
                 {
-                    _viewModel = new MainMenuPageViewModel();
+                    _viewModel = new UsersListViewModel();
                 }
                 return _viewModel;
             }
         }
 
-        public MainMenuPage()
+        public UsersListPage()
         {
             InitializeComponent();
 
@@ -73,13 +73,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
         private void addUserButton_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Add User screen coming soon...");
-            NavigationService.Navigate(new Pages.Users.FormPage());
+            NavigationService.Navigate(new Pages.UsersFormPage());
         }
 
         private void editUserButton_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show("Edit User screen coming soon... for user ID " + selectedUser.ID);
-            NavigationService.Navigate(new Pages.Users.FormPage(selectedUser));
+            NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
         }
 
         private void deleteUserButton_Click(object sender, RoutedEventArgs e)

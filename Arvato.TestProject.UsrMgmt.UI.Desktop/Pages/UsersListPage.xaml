@@ -1,4 +1,4 @@
-﻿<Page x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.MainMenuPage"
+﻿<Page x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.UsersListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
