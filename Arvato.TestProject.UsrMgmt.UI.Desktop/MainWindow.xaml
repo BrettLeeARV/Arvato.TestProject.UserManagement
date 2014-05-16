@@ -11,6 +11,12 @@
         <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
             <Views:LoginControl />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:UsersListViewModel}">
+            <Views:LoginControl />
+        </DataTemplate>
     </Window.Resources>
-    <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding}"/>
+    <Window.DataContext>
+        <ViewModels:AppViewModel />
+    </Window.DataContext>
+    <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding CurrentPageViewModel}"/>
 </Window>

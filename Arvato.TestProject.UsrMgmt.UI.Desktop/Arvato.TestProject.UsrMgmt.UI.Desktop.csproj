@@ -63,6 +63,7 @@
     <Compile Include="Pages\UsersFormPage.xaml.cs">
       <DependentUpon>UsersFormPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\UsersListViewModel.cs" />
     <Page Include="Controls\LoginControl.xaml">

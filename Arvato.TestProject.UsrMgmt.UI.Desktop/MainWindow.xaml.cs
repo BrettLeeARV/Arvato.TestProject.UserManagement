@@ -23,8 +23,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = new LoginViewModel();
         }
     }
 }
