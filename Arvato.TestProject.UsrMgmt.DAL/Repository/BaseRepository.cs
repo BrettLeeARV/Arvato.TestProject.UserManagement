@@ -90,6 +90,29 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
            
             return true;
         }
+        public virtual bool executeInsertQuery(String _query, SqlParameter[] sqlParameter, ref Object result)
+        {
+            SqlCommand myCommand = new SqlCommand();
+            SqlDataAdapter myAdapter = new SqlDataAdapter();
+
+
+            if (_connection.State == ConnectionState.Closed)
+                _connection.Open();
+
+            myCommand.Connection = _connection;
+            myCommand.CommandText = _query;
+            myCommand.CommandType = CommandType.StoredProcedure; // added by benjamin.
+
+            if (sqlParameter != null)
+                myCommand.Parameters.AddRange(sqlParameter);
+
+            myAdapter.InsertCommand = myCommand;
+            myCommand.ExecuteNonQuery();
+            result = myCommand.Parameters["@RefNum"].Value.ToString();
+
+            return true;
+        }
+
 
         /// <method>
         /// Update Query
@@ -181,6 +204,28 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
              
         }
+         public virtual bool executeInsertQueryWithOutPutParameter(String _query, SqlParameter[] sqlParameter)
+        {
+            SqlCommand myCommand = new SqlCommand();
+            SqlDataAdapter myAdapter = new SqlDataAdapter();
+
+            
+                if (_connection.State == ConnectionState.Closed)
+                    _connection.Open();
+
+                myCommand.Connection = _connection;
+                myCommand.CommandText = _query;
+                myCommand.CommandType = CommandType.StoredProcedure; // added by benjamin.
+
+                if (sqlParameter != null)
+                    myCommand.Parameters.AddRange(sqlParameter);
+
+                myAdapter.InsertCommand = myCommand;
+                myCommand.ExecuteNonQuery();
+           
+            return true;
+        }
+
         #endregion
 
         #region IDisposable
@@ -207,3 +252,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
     }
 }
+
+
+
+                
