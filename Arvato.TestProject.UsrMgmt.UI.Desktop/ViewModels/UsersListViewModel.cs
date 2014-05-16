@@ -73,12 +73,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void AddUser()
         {
-            NavigationService.Navigate(new Pages.UsersFormPage());
+            //NavigationService.Navigate(new Pages.UsersFormPage());
         }
 
         private void EditUser()
         {
-            NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
+            //NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
         }
 
         #endregion

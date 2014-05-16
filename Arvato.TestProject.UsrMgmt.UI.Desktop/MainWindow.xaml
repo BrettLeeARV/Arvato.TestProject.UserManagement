@@ -2,8 +2,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Views="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Controls"
+    xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
     Title="MainWindow"
     Height="500"
     Width="750">
-    <Frame Height="Auto" Name="frame1" Width="Auto" Source="Pages/LoginPage.xaml" />
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
+            <Views:LoginControl />
+        </DataTemplate>
+    </Window.Resources>
+    <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding}"/>
 </Window>

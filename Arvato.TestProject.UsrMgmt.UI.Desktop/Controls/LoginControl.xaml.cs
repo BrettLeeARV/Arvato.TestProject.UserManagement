@@ -11,20 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginControl : UserControl
     {
-        public MainWindow()
+        public LoginControl()
         {
             InitializeComponent();
-
-            DataContext = new LoginViewModel();
         }
     }
 }
