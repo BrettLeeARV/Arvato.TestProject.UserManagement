@@ -14,10 +14,10 @@
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Add User" Name="addUserButton" MinWidth="75" Click="addUserButton_Click" />
-            <Button Content="Edit User" Name="editUserButton" MinWidth="75" Click="editUserButton_Click" />
-            <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Click="deleteUserButton_Click" />
-            <Button Content="Sign out" Name="signOutButton" MinWidth="75" Click="signOutButton_Click" />
+            <Button Content="Add User" Name="addUserButton" MinWidth="75" Command="{Binding AddUserCommand}" />
+            <Button Content="Edit User" Name="editUserButton" MinWidth="75" Command="{Binding EditUserCommand}" />
+            <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
+            <Button Content="Sign out" Name="signOutButton" MinWidth="75" Command="{Binding SignOutCommand}" />
         </StackPanel>
         <DataGrid AutoGenerateColumns="False" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged">
             <DataGrid.Columns>
