@@ -19,6 +19,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         #region Fields
         
         IUserRepository userRepository;
+        IBookingRepository bookingRepository;
 
         #endregion
 
@@ -173,18 +174,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
-        public void AddBooking(User user, Booking booking)
-        {
-            try
-            {
-                userRepository.AddBooking(user,booking);
-            }
-            catch (Exception)
-            {
-                
-                throw;
-            }
-        }
+       
 
         void IUserService.Delete(User user)
         {

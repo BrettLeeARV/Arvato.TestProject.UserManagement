@@ -23,6 +23,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         protected void Button1_Click(object sender, EventArgs e)
         {
             IUserService userservice = new UserService();
+            IBookingService bookingservice = new BookingService();
             User user = new User();
             Booking booking = new Booking();
             
@@ -33,7 +34,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
            // booking.refNum = lblBookingID.Text;
             try
             {
-                userservice.AddBooking(user, booking);
+                bookingservice.AddBooking(user, booking);
                 lblBookingID.Text = "You have successfully booked room your refrence number is " + booking.refNum;
 
             }
