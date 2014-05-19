@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModel
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

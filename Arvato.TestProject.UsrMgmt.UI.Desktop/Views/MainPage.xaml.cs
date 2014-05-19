@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Controls
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for LoginControl.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class LoginControl : UserControl
+    public partial class MainPage : UserControl
     {
-        public LoginControl()
+        public MainPage()
         {
             InitializeComponent();
         }

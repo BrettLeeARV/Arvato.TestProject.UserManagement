@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModel
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     /// <summary>
     /// This class contains static references to all the view models in the
