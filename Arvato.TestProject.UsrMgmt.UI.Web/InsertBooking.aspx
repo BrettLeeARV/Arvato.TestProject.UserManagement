@@ -12,9 +12,7 @@
         <asp:Label ID="Label4" runat="server" Text="Your LoginID is:"></asp:Label>&nbsp;&nbsp;<asp:Label
             ID="lblloginID" runat="server" Text=""></asp:Label>
         <br />
-        <br />
-        <asp:Label ID="Label2" runat="server" Text="RoomID"></asp:Label>&nbsp;&nbsp;<asp:TextBox ID="txtroomid" runat="server"></asp:TextBox>
-        <br />
+        &nbsp;&nbsp;<br />
         <br />
         RoomName:
         <asp:DropDownList ID="DropDownList1" runat="server" 
