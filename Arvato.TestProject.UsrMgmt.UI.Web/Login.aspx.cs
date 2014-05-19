@@ -37,7 +37,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     Session["Password"] = myuser.Password;
 
                     // us.Login(myuser);
-                    Response.Redirect("UserPage.aspx");
+                    Response.Redirect("InsertBooking.aspx");
                 }
                 else
                 {

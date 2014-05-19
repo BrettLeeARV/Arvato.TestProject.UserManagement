@@ -14,7 +14,10 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                lblloginID.Text = Session["LoginID"].ToString();
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -22,8 +25,9 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             IUserService userservice = new UserService();
             User user = new User();
             Booking booking = new Booking();
-            user.LoginID = txtloginid.Text;
-            booking.roomID = int.Parse(txtroomid.Text);
+            
+            user.LoginID = lblloginID.Text;
+            booking.roomID = int.Parse(DropDownList1.SelectedValue);
             booking.startDate = clnstart.SelectedDate;
             booking.endDate = clnEnd.SelectedDate;
            // booking.refNum = lblBookingID.Text;
