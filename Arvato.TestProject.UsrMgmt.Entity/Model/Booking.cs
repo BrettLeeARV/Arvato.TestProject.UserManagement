@@ -7,6 +7,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
    public partial class Booking
     {
+       public int ID { get; set; }
         public int roomID { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }

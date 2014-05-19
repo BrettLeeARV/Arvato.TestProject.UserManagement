@@ -31,5 +31,29 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
+        public void ViewBooking(User user,Booking booking)
+        {
+            try
+            {
+                bookingRepository.ViewBooking(user, booking);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+        public void EditBooking(User user, Booking booking)
+        {
+            try
+            {
+                bookingRepository.EditBooking(user, booking);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
     }
 }
