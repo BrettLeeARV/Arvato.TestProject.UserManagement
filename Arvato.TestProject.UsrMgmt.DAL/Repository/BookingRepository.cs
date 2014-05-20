@@ -99,5 +99,21 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             return result;
         }
+        public bool CancelBooking(Booking booking)
+        {
+            bool result = false;
+            try
+            {
+                SqlParameter[] paramiters = { new SqlParameter("@ID", SqlDbType.TinyInt) { Value = booking.ID } };
+                result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            return result;
+     
+        }
     }
 }

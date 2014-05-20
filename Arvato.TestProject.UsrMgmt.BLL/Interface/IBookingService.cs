@@ -11,5 +11,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
         void AddBooking(User user, Booking booking);
         void ViewBooking(User user, Booking booking);
         void EditBooking(User user, Booking booking);
+        void CancelBooking(Booking booking);
     }
 }

@@ -35,8 +35,10 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             }
             catch (Exception ex)
             {
-                
-                throw ex;
+                if (IsPostBack)
+                {
+                    lblstatus.Text = ex.Message;
+                }
             }
            
            
@@ -49,13 +51,36 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             Booking booking = new Booking();
             try
             {
+              
                 booking.ID = int.Parse(lblID.Text);
                 booking.roomID = (int.Parse)(txtroomid.Text);
                 booking.startDate = DateTime.Parse(txtstartdate.Text);
                 booking.endDate = DateTime.Parse(txtenddate.Text);
                 bookingservice.EditBooking(user,booking);
+
                 lblstatus.Text = "Your Booking has been update!" + booking.refNum;
+               
+                
+                    
+                
  
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+        protected void btncancel_Click(object sender, EventArgs e)
+        {
+            IBookingService bookingservice = new BookingService();
+            Booking booking = new Booking();
+            try
+            {
+                booking.ID = int.Parse(lblID.Text);
+                bookingservice.CancelBooking(booking);
+                lblstatus.Text = "Your Booking has been successfully canceled.";
             }
             catch (Exception)
             {

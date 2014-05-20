@@ -35,7 +35,16 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
-                bookingRepository.ViewBooking(user, booking);
+             
+                    bookingRepository.ViewBooking(user, booking);
+                
+                if (booking.ID == 0)
+                {
+                    throw (new Exception("your refrence number is not valid."));
+                    
+                }
+
+                
             }
             catch (Exception)
             {
@@ -54,6 +63,26 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 
                 throw;
             }
+        }
+        public void CancelBooking(Booking booking)
+        {
+            try
+            {
+                if (booking.ID > 0)
+                {
+                    bookingRepository.CancelBooking(booking);
+                }
+                else
+                {
+                
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+           
         }
     }
 }

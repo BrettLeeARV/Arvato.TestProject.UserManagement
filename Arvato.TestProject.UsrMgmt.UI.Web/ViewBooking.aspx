@@ -25,6 +25,9 @@
         <br />
         <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Update" 
             style="height: 26px" />
+
+        &nbsp;&nbsp;&nbsp;<asp:Button ID="btncancel" runat="server" Text="Cancel" 
+            onclick="btncancel_Click" />
         <br />
 
     </div>
