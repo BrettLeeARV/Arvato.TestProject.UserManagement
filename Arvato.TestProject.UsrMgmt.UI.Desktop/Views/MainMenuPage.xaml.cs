@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for MainMenuPage.xaml
     /// </summary>
-    public partial class MainPage : UserControl
+    public partial class MainMenuPage : UserControl
     {
-        public MainPage()
+        public MainMenuPage()
         {
             InitializeComponent();
         }

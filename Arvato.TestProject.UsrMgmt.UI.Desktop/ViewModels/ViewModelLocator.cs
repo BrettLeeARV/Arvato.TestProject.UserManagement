@@ -44,6 +44,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<MainMenuViewModel>();
             SimpleIoc.Default.Register<UsersListViewModel>();
         }
 
@@ -60,6 +61,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public MainMenuViewModel MainMenu
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainMenuViewModel>();
             }
         }
 

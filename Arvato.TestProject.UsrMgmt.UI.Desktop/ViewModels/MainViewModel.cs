@@ -45,6 +45,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // Insert needed ViewModels into dictionary
             _viewModels = new Dictionary<string, ViewModelBase>();
             _viewModels.Add("Login", vml.Login);
+            _viewModels.Add("MainMenu", vml.MainMenu);
             _viewModels.Add("UsersList", vml.UsersList);
 
             // Set initial ViewModel

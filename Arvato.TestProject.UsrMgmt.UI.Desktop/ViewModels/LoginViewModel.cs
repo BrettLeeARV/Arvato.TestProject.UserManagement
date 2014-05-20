@@ -94,7 +94,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void PostLogIn()
         {
-            var msg = new ChangeViewModelMessage("UsersList");
+            var msg = new ChangeViewModelMessage("MainMenu");
             Messenger.Default.Send<ChangeViewModelMessage>(msg);
         }
     }
