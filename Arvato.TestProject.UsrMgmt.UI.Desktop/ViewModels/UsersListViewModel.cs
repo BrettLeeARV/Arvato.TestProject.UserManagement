@@ -25,7 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up model data
             userService = new UserService();
             users = userService.GetList();
-
+            
             // set up commands
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
         }

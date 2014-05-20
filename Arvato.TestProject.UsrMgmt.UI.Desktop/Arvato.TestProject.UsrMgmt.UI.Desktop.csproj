@@ -74,8 +74,12 @@
     </ApplicationDefinition>
     <Compile Include="Messages\ChangeViewModelMessage.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\UsersFormViewModel.cs" />
     <Compile Include="Views\MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersFormPage.xaml.cs">
+      <DependentUpon>UsersFormPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
@@ -90,6 +94,10 @@
     <Page Include="Views\MainMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsersFormPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UsersListPage.xaml">
       <Generator>MSBuild:Compile</Generator>

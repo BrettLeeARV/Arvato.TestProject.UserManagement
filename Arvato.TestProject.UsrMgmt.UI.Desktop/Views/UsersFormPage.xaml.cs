@@ -16,12 +16,12 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using System.Diagnostics;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
     /// Interaction logic for FormPage.xaml
     /// </summary>
-    public partial class UsersFormPage : Page
+    public partial class UsersFormPage : UserControl
     {
         User currentUser;
         IUserService userService = new UserService();
@@ -29,7 +29,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
         // new user
         public UsersFormPage() : this(new User())
         {
-            idPanel.Visibility = Visibility.Collapsed;
+            
         }
 
         // edit user
@@ -66,13 +66,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
 
             if (success)
             {
-                NavigationService.GoBack();
+                //NavigationService.GoBack();
             }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            //NavigationService.GoBack();
         }
 
     }

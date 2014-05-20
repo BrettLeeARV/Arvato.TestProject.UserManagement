@@ -15,14 +15,19 @@
             <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
             <Button Content="Sign out" Name="signOutButton" MinWidth="75" Command="{Binding SignOutCommand}" />
         </StackPanel>
-        <DataGrid AutoGenerateColumns="False" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*" />
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
-                <DataGridTextColumn Header="Login ID" Binding="{Binding LoginID}" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <DockPanel>
+            <ContentControl DockPanel.Dock="Right" Width="200" DataContext="{Binding UsersForm, Source={StaticResource Locator}}"/>
+            <ScrollViewer>
+                <DataGrid AutoGenerateColumns="False" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
+                        <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
+                        <DataGridTextColumn Header="Login ID" Binding="{Binding LoginID}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </DockPanel>
+        
     </DockPanel>
 </UserControl>

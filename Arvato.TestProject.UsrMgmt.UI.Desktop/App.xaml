@@ -17,8 +17,13 @@
         <DataTemplate DataType="{x:Type ViewModels:MainMenuViewModel}">
             <Views:MainMenuPage />
         </DataTemplate>
+        
+        <!-- Users -->
         <DataTemplate DataType="{x:Type ViewModels:UsersListViewModel}">
             <Views:UsersListPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:UsersFormViewModel}">
+            <Views:UsersFormPage />
         </DataTemplate>
     </Application.Resources>
 </Application>
