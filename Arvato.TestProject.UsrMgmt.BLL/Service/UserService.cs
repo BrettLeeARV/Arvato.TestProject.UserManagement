@@ -19,6 +19,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         #region Fields
         
         IUserRepository userRepository;
+        IBookingRepository bookingRepository;
 
         #endregion
 
@@ -88,7 +89,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("LoginID must at least 6 characters or more"));
                 }
-                else if(userRepository.IsExistingLoginID(user.LoginID.Trim()) && user.ID > 0)
+                else if(userRepository.IsExistingLoginID(user.LoginID.Trim(),user.ID))
                 {
                     throw (new Exception("LoginID already exists"));
                 }
@@ -161,6 +162,19 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 userRepository.Dispose();
             }
         }
+        public void Update(User user)
+        {
+            try
+            {
+                userRepository.Update(user);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+       
 
         void IUserService.Delete(User user)
         {

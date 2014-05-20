@@ -21,9 +21,9 @@
 
             <StackPanel Name="stackPanel1" Margin="0,10" Grid.Column="0" Grid.Row="0">
                 <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
-                <TextBox Name="loginIDTextBox" Text="jingtao" />
+                <TextBox Name="loginIDTextBox" Text="" />
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
-                <PasswordBox Name="passwordTextBox" Password="password" />
+                <PasswordBox Name="passwordTextBox" Password="" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>
                 <TextBox Name="domainTextBox" Text="ARVATO" />
                 <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Click="signInButton_Click" />

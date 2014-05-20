@@ -7,6 +7,7 @@ using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity;
 using System.Data;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+
 using System.Data.SqlClient;
 using System.Configuration;
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
@@ -74,11 +75,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 throw;
             }
-            finally
-            {
-                Connection.Close();
-
-            }
+         
             return Convert.ToBoolean(addrow);
         }
         public void Login(User entity) // Added by Ben.
@@ -92,7 +89,11 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 foreach (DataRow dr in dt.Rows)
                 {
                     entity.ID = int.Parse(dr["ID"].ToString());
+                    entity.FirstName = dr["FirstName"].ToString();
                     entity.LastName = dr["LastName"].ToString();
+                    entity.Email = dr["Email"].ToString();
+                    entity.LoginID = dr["LoginID"].ToString();
+                    entity.Password = dr["Password"].ToString();
 
                 }
                 
@@ -116,7 +117,25 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         }
         public void Update(User entity)
         {
-            throw new NotImplementedException();
+            //Added by Ben.
+            bool result = false;
+            try
+            {
+                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID},
+                                               new SqlParameter("@FirstName", SqlDbType.NVarChar,50) {Value = entity.FirstName},
+                                               new SqlParameter("@LastName", SqlDbType.NVarChar,50) {Value = entity.LastName},
+                                               new SqlParameter("@Email", SqlDbType.NVarChar,50) {Value = entity.Email},
+                                               new SqlParameter("@LoginID", SqlDbType.NVarChar,50) {Value= entity.LoginID},
+                                               new SqlParameter("@Password", SqlDbType.NVarChar,50) {Value = entity.Password}};
+                result = executeUpdateQuery("USP_USER_UPDATE", parameters);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+            //throw new NotImplementedException();
         }
 
         public bool Delete(User entity)
@@ -136,12 +155,13 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             return Convert.ToBoolean(deleterow);
         }
 
-        public bool IsExistingLoginID(string LoginID) // Added by Beh.
+        public bool IsExistingLoginID(string LoginID,int ID) // Added by Beh.
         {
             // int checkuser = 0;
             try
             {
-                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID} };
+                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID},
+                                                new SqlParameter("@ID", SqlDbType.TinyInt) { Value = ID}};
                 DataTable dt = executeSelectQuery("USP_USER_VALIDATE_LOGINID", parameters);
                 if (dt.Rows.Count > 0)
                     return true;
@@ -154,5 +174,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
 
         }
+       
     }
 }

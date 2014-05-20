@@ -10,7 +10,7 @@
 namespace Arvato.TestProject.UsrMgmt.Web.UI {
     
     
-    public partial class UserPage {
+    public partial class ViewBooking {
         
         /// <summary>
         /// form1 control.
@@ -22,6 +22,33 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// txtrefnum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtrefnum;
+        
+        /// <summary>
+        /// btnviewbooking control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnviewbooking;
+        
+        /// <summary>
+        /// lblLoginID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoginID;
+        
+        /// <summary>
         /// lblID control.
         /// </summary>
         /// <remarks>
@@ -31,49 +58,40 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI {
         protected global::System.Web.UI.WebControls.Label lblID;
         
         /// <summary>
-        /// TextBox2 control.
+        /// txtroomid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtroomid;
         
         /// <summary>
-        /// TextBox3 control.
+        /// txtstartdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtstartdate;
         
         /// <summary>
-        /// TextBox4 control.
+        /// txtenddate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtenddate;
         
         /// <summary>
-        /// TextBox5 control.
+        /// lblstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
-        
-        /// <summary>
-        /// TextBox6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox6;
+        protected global::System.Web.UI.WebControls.Label lblstatus;
         
         /// <summary>
         /// Button1 control.
@@ -85,12 +103,12 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// lblstatus control.
+        /// btncancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblstatus;
+        protected global::System.Web.UI.WebControls.Button btncancel;
     }
 }

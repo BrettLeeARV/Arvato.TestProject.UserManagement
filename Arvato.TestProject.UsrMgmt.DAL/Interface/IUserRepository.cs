@@ -12,6 +12,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     {
 
         void Login(User entity);
-        bool IsExistingLoginID(string LoginID);
+        bool IsExistingLoginID(string LoginID, int ID);
+        
     }
 }
