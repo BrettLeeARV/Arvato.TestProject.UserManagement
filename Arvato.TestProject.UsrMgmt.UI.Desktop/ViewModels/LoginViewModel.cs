@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -80,8 +82,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             if (user.ID > 0)
             {
-                //NavigationService.Navigate(new Uri("Pages/UsersListPage.xaml", UriKind.Relative));
-                MessageBox.Show("Logged in!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                PostLogIn();
             }
             else
             {
@@ -90,5 +91,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         }
 
         #endregion
+
+        private void PostLogIn()
+        {
+            var msg = new ChangeViewModelMessage("UsersList");
+            Messenger.Default.Send<ChangeViewModelMessage>(msg);
+        }
     }
 }

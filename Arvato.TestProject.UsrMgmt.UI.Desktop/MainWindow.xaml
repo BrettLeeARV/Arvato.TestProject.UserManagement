@@ -9,10 +9,6 @@
     Width="750"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <Button Content="Login" Command="{Binding ChangeViewModelCommand}" CommandParameter="Login"/>
-            <Button Content="UsersList" Command="{Binding ChangeViewModelCommand}" CommandParameter="UsersList"/>
-        </StackPanel>
         <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding CurrentViewModel, Mode=OneWay}"/>
     </DockPanel>
 </Window>

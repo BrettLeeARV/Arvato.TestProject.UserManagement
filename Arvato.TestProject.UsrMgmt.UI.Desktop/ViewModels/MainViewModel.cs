@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Diagnostics;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -50,6 +52,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             // Command to change the ViewModel, given a string representing the ViewModel name
             ChangeViewModelCommand = new RelayCommand<string>(this.ChangeViewModel);
+
+            // Subscribe to ChangeViewModelMessages
+            Messenger.Default.Register<ChangeViewModelMessage>
+            (
+                 this,
+                 (action) => ReceiveChangeViewModelMessage(action)
+            );
         }
 
         public ViewModelBase CurrentViewModel
@@ -75,17 +84,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void ChangeViewModel(string name)
         {
-            Debug.WriteLine("ChangeViewModel called");
             if (_viewModels.ContainsKey(name))
             {
                 CurrentViewModel = _viewModels[name];
-                Debug.WriteLine(_viewModels[name]);
-                Debug.WriteLine("MainViewModel.ChangeViewModel: View model is now = " + name);
             }
             else
             {
+                // TODO: exception handling
                 throw new Exception("MainViewModel.ChangeViewModel: View model not found");
             }
+        }
+
+        private void ReceiveChangeViewModelMessage(ChangeViewModelMessage action)
+        {
+            ChangeViewModel(action.ViewModelName);
         }
 
     }
