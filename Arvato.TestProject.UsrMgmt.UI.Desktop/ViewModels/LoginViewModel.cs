@@ -6,16 +6,16 @@ using System.Text;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-using Arvato.TestProject.UsrMgmt.UI.Desktop.MVVM;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Controls;
 using System.Windows;
-
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         private IUserService userService;
         private User user;
@@ -31,7 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 #endif
 
             // set up commands
-            SignInCommand = new ActionCommand(this.SignIn, () => true);
+            SignInCommand = new RelayCommand<PasswordBox>(this.SignIn);
         }
 
         public User User
@@ -45,7 +45,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (user != value)
                 {
                     user = value;
-                    OnPropertyChanged("User");
+                    RaisePropertyChanged("User");
                 }
             }
         }
@@ -66,10 +66,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         /// This slightly breaks the MMV
         /// </summary>
         /// <param name="passwordBox">The PasswordBox control to read from.</param>
-        private void SignIn(object passwordBox)
+        private void SignIn(PasswordBox passwordBox)
         {
             // the only way to extract the password out of a PasswordBox is by directly accessing its Password property
-            user.Password = ((PasswordBox)passwordBox).Password;
+            user.Password = passwordBox.Password;
             try
             {
                 userService.Login(user);

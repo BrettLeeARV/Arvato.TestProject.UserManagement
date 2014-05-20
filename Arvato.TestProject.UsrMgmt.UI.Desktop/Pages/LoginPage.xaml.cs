@@ -16,7 +16,7 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
-namespace Arvato.TestProject.UsrMgmt.UI.Desktop
+namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Pages
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml

@@ -1,4 +1,4 @@
-﻿<Page x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Pages.UsersListPage"
+﻿<UserControl x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Views.UsersListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,7 @@
       xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
-	Title="MainMenuPage">
-
-    <Page.DataContext>
-        <ViewModels:UsersListViewModel />
-    </Page.DataContext>
+    >
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
@@ -29,4 +25,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
-</Page>
+</UserControl>

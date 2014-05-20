@@ -43,6 +43,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<UsersListViewModel>();
         }
 
         public MainViewModel Main
@@ -50,6 +52,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public LoginViewModel Login
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public UsersListViewModel UsersList
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<UsersListViewModel>();
             }
         }
         

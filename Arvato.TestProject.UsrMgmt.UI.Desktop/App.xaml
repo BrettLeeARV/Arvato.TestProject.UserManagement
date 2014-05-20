@@ -13,14 +13,11 @@
         <!-- Workaround is to create design-time viewmodels or data services -->
         <ViewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
-        <DataTemplate DataType="{x:Type ViewModels:MainViewModel}">
-            <Views:MainPage />
-        </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
-            <Views:LoginControl />
+        <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
+            <Views:LoginPage />
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:UsersListViewModel}">
-            <Views:LoginControl />
-        </DataTemplate>-->
+            <Views:UsersListPage />
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -6,9 +6,11 @@ using System.Text;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-using Arvato.TestProject.UsrMgmt.UI.Desktop.MVVM;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -25,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             users = userService.GetList();
 
             // set up commands
-            AddUserCommand = new ActionCommand(this.AddUser, () => true);
+            AddUserCommand = new RelayCommand(this.AddUser, () => true);
         }
 
         public ICollection<User> Users
@@ -39,7 +41,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (users != value)
                 {
                     users = value;
-                    OnPropertyChanged("Users");
+                    RaisePropertyChanged("Users");
                 }
             }
         }

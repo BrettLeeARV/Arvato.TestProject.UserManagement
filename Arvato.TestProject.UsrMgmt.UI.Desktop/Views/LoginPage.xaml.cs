@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for LoginControl.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginControl : UserControl
+    public partial class LoginPage : UserControl
     {
-        public LoginControl()
+        public LoginPage()
         {
             InitializeComponent();
         }
