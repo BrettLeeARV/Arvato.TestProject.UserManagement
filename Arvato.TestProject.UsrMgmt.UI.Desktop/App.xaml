@@ -9,8 +9,6 @@
              xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
              >
     <Application.Resources>
-        <!-- The following will always get a design-time error (blue squiggly line) of "Cannot create instance" -->
-        <!-- Workaround is to create design-time viewmodels or data services -->
         <ViewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
         <DataTemplate DataType="{x:Type ViewModels:LoginViewModel}">
