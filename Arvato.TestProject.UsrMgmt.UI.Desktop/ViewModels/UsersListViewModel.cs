@@ -81,7 +81,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshUsers()
         {
-            users = userService.GetList();
+            Users = userService.GetList();
         }
 
         #region Command methods
@@ -93,6 +93,17 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void DeleteUser()
         {
+            var result = MessageBox.Show(
+                String.Format(@"Are you sure you want to delete user ""{0}""?", FormViewModel.CurrentUser.LoginID),
+                "Deleting user",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
             try
             {
                 userService.Delete(FormViewModel.CurrentUser);

@@ -15,6 +15,8 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
+using System.ComponentModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
@@ -23,57 +25,26 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
     /// </summary>
     public partial class UsersFormPage : UserControl
     {
-    //    User currentUser;
-    //    IUserService userService = new UserService();
+        UsersFormViewModel dataContext;
 
-        // new user
+
         public UsersFormPage()
         {
             InitializeComponent();
         }
 
-        //// edit user
-        //public UsersFormPage(User user)
-        //{
-            
-
-        //    currentUser = user;
-        //    this.DataContext = currentUser;
-
-        //    Debug.WriteLine("FormPage.xaml: " + currentUser);
-        //}
-
-        //private void saveButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    bool success = false;
-            
-        //    // password must be manually extracted from PasswordBox
-        //    // we don't extract the password if user didn't enter anything in the box
-        //    if (passwordTextBox.Password.Length > 0)
-        //    {
-        //        currentUser.Password = passwordTextBox.Password;
-        //    }
-
-        //    try
-        //    {
-        //        userService.Save(currentUser);
-        //        success = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-
-        //    if (success)
-        //    {
-        //        //NavigationService.GoBack();
-        //    }
-        //}
-
-        //private void cancelButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //NavigationService.GoBack();
-        //}
+        /// <summary>
+        /// Because it is not possible to data-bind to the Password property of a PasswordBox,
+        /// this approach uses a code-behind event handler to watch for value changes in the
+        /// PasswordBox, and assign the new value to the ViewModel
+        /// Note: slightly breaks MVVM pattern, but acceptable as a workaround
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void passwordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            dataContext.CurrentUser.Password = passwordTextBox.Password;
+        }
 
     }
 }

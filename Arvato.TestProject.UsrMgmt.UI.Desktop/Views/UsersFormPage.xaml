@@ -33,7 +33,7 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, Mode=TwoWay}" />
                 <Label Grid.Row="4" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
-                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" />
+                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" />
             </Grid>
         </StackPanel>
     </DockPanel>
