@@ -12,26 +12,21 @@
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
             <Button Content="Add User" Name="addUserButton" MinWidth="75" Command="{Binding AddUserCommand}" />
-            <Button Content="Edit User" Name="editUserButton" MinWidth="75" Command="{Binding EditUserCommand}" />
             <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
-            <Button Content="Sign out" Name="signOutButton" MinWidth="75" Command="{Binding SignOutCommand}" />
         </StackPanel>
         <DockPanel>
             <ContentControl DockPanel.Dock="Right" Width="200" Content="{Binding FormViewModel}"/>
             <ScrollViewer>
-                <DataGrid AutoGenerateColumns="False" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged">
+                <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 
+                          VerticalAlignment="Stretch" ItemsSource="{Binding Users}" 
+                          IsReadOnly="True"
+                          SelectedItem="{Binding FormViewModel.CurrentUser}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
                         <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
                         <DataGridTextColumn Header="Login ID" Binding="{Binding LoginID}" Width="*" />
                     </DataGrid.Columns>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectedUserCommand}"
-                                  CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </DataGrid>
             </ScrollViewer>
         </DockPanel>

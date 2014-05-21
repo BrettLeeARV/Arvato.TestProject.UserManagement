@@ -29,42 +29,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         public UsersListPage()
         {
             InitializeComponent();
-
-            editUserButton.IsEnabled = false;
-            deleteUserButton.IsEnabled = false;
-        }
-
-        private void signOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.Navigate(new Uri("Pages/LoginPage.xaml", UriKind.Relative));
-        }
-
-        private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataGrid dataGrid = (DataGrid)sender;
-            selectedUser = (User)dataGrid.SelectedItem;
-            if (selectedUser != null)
-            {
-                editUserButton.IsEnabled = true;
-                deleteUserButton.IsEnabled = true;
-            }
-            else
-            {
-                editUserButton.IsEnabled = false;
-                deleteUserButton.IsEnabled = false;
-            }
-        }
-
-        private void addUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Add User screen coming soon...");
-            //NavigationService.Navigate(new Pages.UsersFormPage());
-        }
-
-        private void editUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show("Edit User screen coming soon... for user ID " + selectedUser.ID);
-            //NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
         }
 
         private void deleteUserButton_Click(object sender, RoutedEventArgs e)

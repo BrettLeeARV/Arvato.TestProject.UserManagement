@@ -11,6 +11,7 @@ using System.Windows.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -24,12 +25,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             // set up model data
             userService = new UserService();
-            users = userService.GetList();
+            RefreshUsers();
 
             FormViewModel = new UsersFormViewModel();
             
             // set up commands
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
+            DeleteUserCommand = new RelayCommand(this.DeleteUser, 
+                // enable Delete User button if a user is selected
+                () => FormViewModel.CurrentUser != null);
             SelectedUserCommand = new RelayCommand<User>(this.SelectedUser);
         }
 
@@ -62,17 +66,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
-        public ICommand EditUserCommand
-        {
-            get;
-            private set;
-        }
         public ICommand DeleteUserCommand
-        {
-            get;
-            private set;
-        }
-        public ICommand SignOutCommand
         {
             get;
             private set;
@@ -85,16 +79,33 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #endregion
 
+        private void RefreshUsers()
+        {
+            users = userService.GetList();
+        }
+
         #region Command methods
 
         private void AddUser()
         {
-            //NavigationService.Navigate(new Pages.UsersFormPage());
+            FormViewModel.CurrentUser = new User();
         }
 
-        private void EditUser()
+        private void DeleteUser()
         {
-            //NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
+            try
+            {
+                userService.Delete(FormViewModel.CurrentUser);
+            }
+            catch (Exception)
+            {
+                // TODO: implement messaging to move MessageBox calls to view code-behind
+                MessageBox.Show("There was a problem deleting the user.");
+                return;
+            }
+
+            FormViewModel.CurrentUser = null;
+            RefreshUsers();
         }
 
         private void SelectedUser(User user)
