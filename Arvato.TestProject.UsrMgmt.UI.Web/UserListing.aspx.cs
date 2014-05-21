@@ -24,10 +24,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
 
         private void bindRecords()
         {
-            userService = new UserService();
+            using (userService = new UserService())
+            {
+                gvUsers.DataSource = userService.GetList();
+                gvUsers.DataBind();
+            };
 
-            gvUsers.DataSource = userService.GetList();
-            gvUsers.DataBind();
+            
         }
 
         protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -36,9 +39,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
             detail.ID = (int)gvUsers.DataKeys[e.RowIndex].Value;
             try
             {
-                userService = new UserService();
-                userService.Delete(detail);
-                bindRecords();
+                using (userService = new UserService())
+                {
+                    userService.Delete(detail);
+                    bindRecords();
+                };
             }
             catch
             { 
