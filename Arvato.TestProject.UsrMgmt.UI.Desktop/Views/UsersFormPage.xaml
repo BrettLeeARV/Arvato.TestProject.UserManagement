@@ -9,8 +9,7 @@
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Save" Name="saveButton" MinWidth="75" />
-            <Button Content="Cancel" Name="cancelButton" MinWidth="75" />
+            <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveUserCommand}"/>
         </StackPanel>
         <StackPanel DataContext="{Binding CurrentUser}">
             <Grid>
