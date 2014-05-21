@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
     >
@@ -16,7 +17,7 @@
             <Button Content="Sign out" Name="signOutButton" MinWidth="75" Command="{Binding SignOutCommand}" />
         </StackPanel>
         <DockPanel>
-            <ContentControl DockPanel.Dock="Right" Width="200" DataContext="{Binding UsersForm, Source={StaticResource Locator}}"/>
+            <ContentControl DockPanel.Dock="Right" Width="200" Content="{Binding FormViewModel}"/>
             <ScrollViewer>
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding Path=Users}" IsReadOnly="True" SelectionChanged="dataGrid1_SelectionChanged">
                     <DataGrid.Columns>
@@ -25,6 +26,12 @@
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
                         <DataGridTextColumn Header="Login ID" Binding="{Binding LoginID}" Width="*" />
                     </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedUserCommand}"
+                                  CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </DataGrid>
             </ScrollViewer>
         </DockPanel>

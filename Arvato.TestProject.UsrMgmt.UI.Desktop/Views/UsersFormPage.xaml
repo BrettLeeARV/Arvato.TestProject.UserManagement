@@ -4,15 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700"
+      d:DesignHeight="500" d:DesignWidth="200"
     >
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Save" Name="saveButton" MinWidth="75" Click="saveButton_Click" />
-            <Button Content="Cancel" Name="cancelButton" MinWidth="75" Click="cancelButton_Click" />
+            <Button Content="Save" Name="saveButton" MinWidth="75" />
+            <Button Content="Cancel" Name="cancelButton" MinWidth="75" />
         </StackPanel>
-        <StackPanel>
+        <StackPanel DataContext="{Binding CurrentUser}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />

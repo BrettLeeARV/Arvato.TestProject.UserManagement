@@ -25,9 +25,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up model data
             userService = new UserService();
             users = userService.GetList();
+
+            FormViewModel = new UsersFormViewModel();
             
             // set up commands
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
+            SelectedUserCommand = new RelayCommand<User>(this.SelectedUser);
         }
 
         public ICollection<User> Users
@@ -44,6 +47,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                     RaisePropertyChanged("Users");
                 }
             }
+        }
+
+        public UsersFormViewModel FormViewModel
+        {
+            get;
+            private set;
         }
 
         #region Command properties
@@ -68,6 +77,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
+        public ICommand SelectedUserCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -83,8 +97,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             //NavigationService.Navigate(new Pages.UsersFormPage(selectedUser));
         }
 
-        #endregion
+        private void SelectedUser(User user)
+        {
+            FormViewModel.CurrentUser = user;
+        }
 
+        #endregion
 
     }
 }

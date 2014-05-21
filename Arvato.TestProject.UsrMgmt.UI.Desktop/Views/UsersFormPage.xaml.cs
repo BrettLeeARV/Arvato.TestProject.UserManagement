@@ -23,57 +23,57 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
     /// </summary>
     public partial class UsersFormPage : UserControl
     {
-        User currentUser;
-        IUserService userService = new UserService();
+    //    User currentUser;
+    //    IUserService userService = new UserService();
 
         // new user
-        public UsersFormPage() : this(new User())
-        {
-            
-        }
-
-        // edit user
-        public UsersFormPage(User user)
+        public UsersFormPage()
         {
             InitializeComponent();
-
-            currentUser = user;
-            this.DataContext = currentUser;
-
-            Debug.WriteLine("FormPage.xaml: " + currentUser);
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
-        {
-            bool success = false;
+        //// edit user
+        //public UsersFormPage(User user)
+        //{
             
-            // password must be manually extracted from PasswordBox
-            // we don't extract the password if user didn't enter anything in the box
-            if (passwordTextBox.Password.Length > 0)
-            {
-                currentUser.Password = passwordTextBox.Password;
-            }
 
-            try
-            {
-                userService.Save(currentUser);
-                success = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+        //    currentUser = user;
+        //    this.DataContext = currentUser;
 
-            if (success)
-            {
-                //NavigationService.GoBack();
-            }
-        }
+        //    Debug.WriteLine("FormPage.xaml: " + currentUser);
+        //}
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.GoBack();
-        }
+        //private void saveButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    bool success = false;
+            
+        //    // password must be manually extracted from PasswordBox
+        //    // we don't extract the password if user didn't enter anything in the box
+        //    if (passwordTextBox.Password.Length > 0)
+        //    {
+        //        currentUser.Password = passwordTextBox.Password;
+        //    }
+
+        //    try
+        //    {
+        //        userService.Save(currentUser);
+        //        success = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //    }
+
+        //    if (success)
+        //    {
+        //        //NavigationService.GoBack();
+        //    }
+        //}
+
+        //private void cancelButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //NavigationService.GoBack();
+        //}
 
     }
 }
