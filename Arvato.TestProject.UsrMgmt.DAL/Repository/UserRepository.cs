@@ -10,18 +10,24 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 using System.Data.SqlClient;
 using System.Configuration;
+using NHibernate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class UserRepository: BaseRepository, IUserRepository 
     {
+        SessionFactory sessionfactroy;
         public UserRepository()
             : base()
         {
+             
         }
 
         public UserRepository(SqlConnection dbConnection)
             : base(dbConnection)
         {
+            sessionfactroy = new SessionFactory();
         }
 
         #region IUserRepository Implementations
@@ -58,25 +64,51 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         public bool Add(User entity)
         {
           
-            bool addrow = false;
+           // bool addrow = false;
 
+            //try
+            //{
+
+            //    SqlParameter[] parameters = {new SqlParameter("@FirstName",SqlDbType.NVarChar,50) {Value = entity.FirstName},
+            //                                new SqlParameter("@LastName",SqlDbType.NVarChar,50) { Value = entity.LastName},
+            //                                new SqlParameter("@Email", SqlDbType.NVarChar, 50) { Value = entity.Email},
+            //                                new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = entity.LoginID},
+            //                                new SqlParameter("@Password", SqlDbType.NVarChar, 50) { Value = entity.Password}};
+            //    addrow = executeInsertQuery("USP_USER_REGISTER", parameters);
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
+
+            //return Convert.ToBoolean(addrow);
             try
             {
-                
-                  SqlParameter[] parameters = {new SqlParameter("@FirstName",SqlDbType.NVarChar,50) {Value = entity.FirstName},
-                                            new SqlParameter("@LastName",SqlDbType.NVarChar,50) { Value = entity.LastName},
-                                            new SqlParameter("@Email", SqlDbType.NVarChar, 50) { Value = entity.Email},
-                                            new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = entity.LoginID},
-                                            new SqlParameter("@Password", SqlDbType.NVarChar, 50) { Value = entity.Password}};
-                                  addrow = executeInsertQuery("USP_USER_REGISTER", parameters);
-            }
-            catch (Exception)
-            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
 
-                throw;
+                using (var session = factory.OpenSession())
+                {
+                    var user = new User
+                    {
+                        FirstName = entity.FirstName,
+                        LastName = entity.LastName,
+                        Email = entity.Email,
+                        LoginID = entity.LoginID,
+                        Password = entity.Password
+                    };
+                    session.Save(user);
+                    return true;
+                }
             }
-         
-            return Convert.ToBoolean(addrow);
+            catch (Exception ex)
+            {
+                return false;
+                throw new Exception(ex.Message);
+            }
+  
+
         }
         public void Login(User entity) // Added by Ben.
         {

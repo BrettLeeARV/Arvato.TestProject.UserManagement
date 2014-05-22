@@ -101,22 +101,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("Password must at least 8 characters"));
                 }
-                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\p{Lu}).{8,}$", RegexOptions.IgnorePatternWhitespace))
-                //{
-                //    throw (new Exception("Password must contains uppper case characters"));
-                //}
-                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\p{Ll}).{8,}$", RegexOptions.IgnorePatternWhitespace))
-                //{
-                //    throw (new Exception("Password must contains lower case characters"));
-                //}
-                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*\d).{8,}$", RegexOptions.IgnorePatternWhitespace))
-                //{
-                //    throw (new Exception("Password must contains at least 1 number"));
-                //}
-                //else if (!Regex.IsMatch(user.Password.Trim(), @"^(?=.*[^\p{L}\d]).{8,}$", RegexOptions.IgnorePatternWhitespace))
-                //{
-                //    throw (new Exception("Password must contains at least 1 special character"));
-                //}
 
 
                 if (user.ID > 0)
