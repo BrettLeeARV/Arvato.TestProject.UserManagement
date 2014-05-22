@@ -215,4 +215,5 @@ pip-log.txt
 .mr.developer.cfg
 
 #Nuget
-packages/
+packages/*
+!packages/repositories.config
