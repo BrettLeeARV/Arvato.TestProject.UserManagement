@@ -16,7 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             if (!IsPostBack)
             {
-                lblloginID.Text = Session["LoginID"].ToString();
+                lblloginID.Text = Session["UserSession"].ToString();
             }
         }
 
@@ -27,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             User user = new User();
             Booking booking = new Booking();
             
-            user.LoginID = lblloginID.Text;
+            user.ID = Convert.ToInt32(lblloginID.Text);
             booking.roomID = int.Parse(DropDownList1.SelectedValue);
             booking.startDate = clnstart.SelectedDate;
             booking.endDate = clnEnd.SelectedDate;

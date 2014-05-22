@@ -31,8 +31,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 outputParameter.SqlDbType = System.Data.SqlDbType.Int;
                 outputParameter.Direction = ParameterDirection.Output;
 
-                SqlParameter[] paramiters = {new SqlParameter("@LoginID", SqlDbType.NVarChar,50) {Value = entity.LoginID},
-                                                new SqlParameter("@RoomID", SqlDbType.TinyInt) {Value = booking.roomID},
+                SqlParameter[] paramiters = {new SqlParameter("@UserID", SqlDbType.Int) {Value = entity.ID},
+                                                new SqlParameter("@RoomID", SqlDbType.Int) {Value = booking.roomID},
                                                 new SqlParameter("@StartDate", SqlDbType.DateTime) {Value = booking.startDate},
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.endDate}, outputParameter};
 
@@ -85,7 +85,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
             try
             {
-                SqlParameter[] paramiters = {new SqlParameter("@ID",SqlDbType.TinyInt){Value = booking.ID},
+                SqlParameter[] paramiters = {new SqlParameter("@ID",SqlDbType.Int){Value = booking.ID},
                                                 new SqlParameter("@RoomID", SqlDbType.TinyInt){Value = booking.roomID},
                                                 new SqlParameter("@StartDate" , SqlDbType.DateTime) { Value = booking.startDate},
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) { Value = booking.endDate}};
@@ -104,7 +104,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             bool result = false;
             try
             {
-                SqlParameter[] paramiters = { new SqlParameter("@ID", SqlDbType.TinyInt) { Value = booking.ID } };
+                SqlParameter[] paramiters = { new SqlParameter("@ID", SqlDbType.Int) { Value = booking.ID } };
                 result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
             }
             catch (Exception)

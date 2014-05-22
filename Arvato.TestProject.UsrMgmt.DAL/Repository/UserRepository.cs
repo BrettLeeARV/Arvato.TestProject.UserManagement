@@ -121,7 +121,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             bool result = false;
             try
             {
-                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID},
+                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.Int) {Value = entity.ID},
                                                new SqlParameter("@FirstName", SqlDbType.NVarChar,50) {Value = entity.FirstName},
                                                new SqlParameter("@LastName", SqlDbType.NVarChar,50) {Value = entity.LastName},
                                                new SqlParameter("@Email", SqlDbType.NVarChar,50) {Value = entity.Email},
@@ -144,7 +144,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
             try
             {
-                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.TinyInt) {Value = entity.ID}};
+                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.Int) {Value = entity.ID}};
                 deleterow = executeDeleteQuery("USP_USER_DELETE", parameters);
             }
             catch (Exception)
@@ -161,7 +161,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID},
-                                                new SqlParameter("@ID", SqlDbType.TinyInt) { Value = ID}};
+                                                new SqlParameter("@ID", SqlDbType.Int) { Value = ID}};
                 DataTable dt = executeSelectQuery("USP_USER_VALIDATE_LOGINID", parameters);
                 if (dt.Rows.Count > 0)
                     return true;
