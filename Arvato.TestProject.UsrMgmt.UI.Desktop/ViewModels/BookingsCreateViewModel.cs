@@ -14,9 +14,18 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.ObjectModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
+    // Temporary for design time
+    public class Room
+    {
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public int Capacity { get; set; }
+    }
+
     public class BookingsCreateViewModel : ViewModelBase
     {
 
@@ -25,15 +34,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         //private IRoomService _roomService;
         private IBookingService _bookingService;
 
-        //private Room _room;
+        private Room _room;
         private Booking _booking; // don't expose properties of this object, set manually in code
-        
+
         // Separate date and time into two fields/properties, so we can validate date and time fields separately
         private DateTime _startDate;
         private DateTime _startTime;
         private DateTime _endDate;
         private DateTime _endTime;
-        
+
         // Status fields
         private bool _isConflicting;
 
@@ -42,11 +51,27 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public BookingsCreateViewModel()
         {
             // Initialize fields
-            //_roomService = new RoomService();
-            _bookingService = new BookingService();
-            _isConflicting = false;
+            if (IsInDesignMode)
+            {
+                
+            }
+            else
+            {
+                _bookingService = new BookingService();
+                //_roomService = new RoomService();
+                //RoomList = RoomService.GetAllEnabled();
+            }
 
-            //RoomList = RoomService.GetAllEnabled(); 
+            // Hardcoded design time data
+            RoomList = new ObservableCollection<Room>()
+                {
+                    new Room() { Name = "Winterfell", Location = "25th floor", Capacity = 10 },
+                    new Room() { Name = "King's Landing", Location = "24th floor", Capacity = 8 }
+                };
+            RoomAssets = "Epson projector, whiteboard";
+            Room = RoomList[1];
+
+            _isConflicting = false;
 
             // Wire up commands
             MakeBookingCommand = new RelayCommand(this.MakeBooking);
@@ -135,28 +160,34 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        //public Room Room
-        //{
-        //    get
-        //    {
-        //        return _room;
-        //    }
-        //    set
-        //    {
-        //        if (value == _room)
-        //        {
-        //            return;
-        //        }
-        //        _room = value;
-        //        RaisePropertyChanged("Room");
-        //    }
-        //}
-        //public ObservableCollection<Room> RoomList
-        //{
-        //    get;
-        //    private set;
-        //}
+        public Room Room
+        {
+            get
+            {
+                return _room;
+            }
+            set
+            {
+                if (value == _room)
+                {
+                    return;
+                }
+                _room = value;
+                RaisePropertyChanged("Room");
+            }
+        }
 
+        public ObservableCollection<Room> RoomList
+        {
+            get;
+            private set;
+        }
+
+        public string RoomAssets
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -174,7 +205,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void MakeBooking()
         {
-            
+
         }
 
         #endregion

@@ -3,48 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="750">
+             mc:Ignorable="d"
+             xmlns:ViewModel="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
+             d:DesignHeight="469" d:DesignWidth="941"
+             d:DataContext="{Binding BookingsCreate, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Style x:Key="PanelHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Content="Room" Name="label1" VerticalAlignment="Top" Margin="0,0,20,5" />
-        <Label Content="Start time" Name="label2" Grid.Row="1" Height="30" VerticalAlignment="Top" Margin="0,0,20,5" />
-        <Label Content="End time" Name="label3" VerticalAlignment="Top" Grid.Row="2" Margin="0,0,20,5" />
-        <ComboBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Name="comboBox1" Width="120" VerticalAlignment="Top" Margin="0,0,5,5" />
-        <StackPanel Grid.Column="1" Grid.Row="1" Name="stackPanel1" Orientation="Horizontal" Margin="0,0,20,0">
-            <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,5,5" />
-            <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,5,5" />
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="2" Name="stackPanel2" Orientation="Horizontal" Margin="0,0,20,0">
-            <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,5,5" />
-            <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,5,5" />
-        </StackPanel>
-        <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,5,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Location:" VerticalAlignment="Top" Margin="0,0,5,5" />
-            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="Capacity:" VerticalAlignment="Top" Margin="0,0,5,5" />
-            <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="Assets:" VerticalAlignment="Top" Margin="0,0,5,5" />
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="(location)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
-            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="(capacity)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
-            <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="(assets, comma separated)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Margin="0,0,5,0">
+            <DockPanel Margin="10">
+                <TextBlock DockPanel.Dock="Top" Text="Which room?" Style="{StaticResource PanelHeaderStyle}" />
+
+                <GroupBox DockPanel.Dock="Bottom" Header="Room Assets" MinHeight="80" Name="groupBox1">
+                    <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
+                </GroupBox>
+
+                <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" />
+                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                        <TextBlock Text="{Binding Location}" />
+                                        <TextBlock Text=", " />
+                                        <TextBlock Text="{Binding Capacity}" />
+                                        <TextBlock Text=" people" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Margin="5,0">
+            <StackPanel Margin="10">
+                <TextBlock Text="When?" Style="{StaticResource PanelHeaderStyle}" />
+                <Label Content="Start time" Name="label2" Height="30" />
+                <WrapPanel Orientation="Horizontal">
+                    <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" />
+                    <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" />
+                </WrapPanel>
+                <Label Content="End time" Name="label3" />
+                <WrapPanel Orientation="Horizontal">
+                    <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" />
+                    <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="2" Margin="5,0,0,0">
+            <StackPanel Margin="10">
+                <TextBlock Text="Anything else?" Style="{StaticResource PanelHeaderStyle}" />
+            </StackPanel>
+        </Border>
     </Grid>
+
 </UserControl>
