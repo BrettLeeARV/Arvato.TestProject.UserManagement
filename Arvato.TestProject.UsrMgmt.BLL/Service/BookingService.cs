@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 {
-   public class BookingService : IBookingService, IDisposable
+   public class BookingService : IBookingService
    {
        #region Fields
        IBookingRepository bookingRepository;
@@ -25,6 +25,20 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
        #endregion
 
        #region IBookingService Implementation
+
+       public List<Booking> GetList()
+       {
+           try
+           {
+               return bookingRepository.GetList().ToList<Booking>();
+           }
+           catch (Exception ex)
+           {
+               //Insert error Logging/Handling Mechanism here
+               throw ex;
+           }
+
+       }
        public void AddBooking(User user, Booking booking)
         {
             try
@@ -92,7 +106,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         }
        #endregion
 
-       #region IDisposable Implementation
+        #region IDisposable Implementation
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
