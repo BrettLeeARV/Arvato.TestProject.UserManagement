@@ -1,12 +1,10 @@
-﻿<Page x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.LoginPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="750"
-	Title="LoginPage">
-
+﻿<UserControl x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Views.LoginPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="750">
     <StackPanel Margin="10" MaxWidth="400" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock Name="textBlock1" Text="Sign In" FontSize="16" Padding="0,0,0,10" FontWeight="SemiBold" />
         <TextBlock Name="textBlock2" Text="Sign in with your Windows logon credentials." Padding="0,0,0,10" TextWrapping="Wrap" />
@@ -21,13 +19,13 @@
 
             <StackPanel Name="stackPanel1" Margin="0,10" Grid.Column="0" Grid.Row="0">
                 <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
-                <TextBox Name="loginIDTextBox" Text="" />
+                <TextBox Name="loginIDTextBox" Text="{Binding Path=User.LoginID}" />
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
-                <PasswordBox Name="passwordTextBox" Password="" />
+                <PasswordBox Name="passwordTextBox" Password="password" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>
                 <TextBox Name="domainTextBox" Text="ARVATO" />
-                <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Click="signInButton_Click" />
+                <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=passwordTextBox}" />
             </StackPanel>
         </Grid>
     </StackPanel>
-</Page>
+</UserControl>

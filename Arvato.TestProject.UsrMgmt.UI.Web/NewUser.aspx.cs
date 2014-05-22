@@ -20,27 +20,52 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
         protected void btnSave_Click(object sender, EventArgs e)
         {
 
-            IUserService userService = new UserService();
+            //IUserService userService = new UserService();
          
 
-            User myuser = new User();
-            myuser.FirstName = txtFirstName.Text;
-            myuser.LastName = txtLastName.Text;
-            myuser.Email = txtEmail.Text;
-            myuser.LoginID = txtLoginID.Text;
-            myuser.Password = txtPassword.Text;
+            //User myuser = new User();
+            //myuser.FirstName = txtFirstName.Text;
+            //myuser.LastName = txtLastName.Text;
+            //myuser.Email = txtEmail.Text;
+            //myuser.LoginID = txtLoginID.Text;
+            //myuser.Password = txtPassword.Text;
 
-            try
-            {
-                userService.Save(myuser);
-                lblstatus.Text = "Success!";
-            }
-            catch (Exception ex)
-            {
+            //try
+            //{
+            //    userService.Save(myuser);
+            //    lblstatus.Text = "Success!";
+            //}
+            //catch (Exception ex)
+            //{}
 
-                lblstatus.Text = ex.Message;
-            }
+            using (IUserService userService = new UserService())
+
+            {
+                User myuser = new User();
+                myuser.FirstName = txtFirstName.Text;
+                myuser.LastName = txtLastName.Text;
+                myuser.Email = txtEmail.Text;
+                myuser.LoginID = txtLoginID.Text;
+                myuser.Password = txtPassword.Text;
+
+                try
+                {
+                    userService.Save(myuser);
+                    lblstatus.Text = "Success!";
+                }
+                catch (Exception)
+                {
+
+
+              //  lblstatus.Text = ex.Message;
+            
+
+                    lblstatus.Text = "The Email address is already existed!";
+                }
+            };
+
          
+
         }
     }
 }

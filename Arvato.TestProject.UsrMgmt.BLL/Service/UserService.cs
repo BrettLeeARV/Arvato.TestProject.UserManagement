@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
 {
-    public class UserService : IUserService
+    public class UserService : IUserService, IDisposable
     {
         #region Fields
         
@@ -23,11 +23,14 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
         #endregion
 
+        #region Constructor
         public UserService()
         {
             userRepository = new UserRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }
+        #endregion
 
+        #region IUserService Implementations
         public List<User> GetList()
         {
             try
@@ -39,10 +42,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 //Insert error Logging/Handling Mechanism here
                 throw ex;
             }
-            finally
-            {
-                userRepository.Dispose();
-            }
+            
         }
 
         User IUserService.GetRecord(int id)
@@ -125,10 +125,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 //Insert error Logging/Handling Mechanism here
                 throw ex;
             }
-            finally
-            {
-                userRepository.Dispose();
-            }   
+           
         }
 
         public void Login(User user)
@@ -141,10 +138,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             {
                 throw;
             }
-            finally
-            {
-                userRepository.Dispose();
-            }
+          
         }
         public void Update(User user)
         {
@@ -170,12 +164,30 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             {
                 throw;
             }
-            finally
-            {
-                userRepository.Dispose();
-            }
+           
+        }
+        #endregion
+
+        #region IDisposable Implementation
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+                if (disposing)
+                    userRepository.Dispose();
+
+            this.disposed = true;
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        #endregion
 
     }
 }

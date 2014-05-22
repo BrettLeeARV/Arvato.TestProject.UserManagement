@@ -6,7 +6,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Interface
 {
-    public interface IBookingService
+    public interface IBookingService : IDisposable
     {
         void AddBooking(User user, Booking booking);
         void ViewBooking(User user, Booking booking);

@@ -11,15 +11,21 @@ using System.Configuration;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 {
-   public class BookingService : IBookingService
-    {
+   public class BookingService : IBookingService, IDisposable
+   {
+       #region Fields
        IBookingRepository bookingRepository;
-             public BookingService()
+       #endregion
+
+       #region Constructor
+       public BookingService()
         {
             bookingRepository = new BookingRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }
+       #endregion
 
-        public void AddBooking(User user, Booking booking)
+       #region IBookingService Implementation
+       public void AddBooking(User user, Booking booking)
         {
             try
             {
@@ -82,7 +88,30 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 
                 throw;
             }
-           
+
         }
-    }
+       #endregion
+
+       #region IDisposable Implementation
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+                if (disposing)
+                    bookingRepository.Dispose();
+
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        #endregion
+
+   }
 }
