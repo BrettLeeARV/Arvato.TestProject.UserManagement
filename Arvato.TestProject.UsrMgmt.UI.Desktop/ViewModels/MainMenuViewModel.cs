@@ -31,7 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             MenuItems = new List<MainMenuItem>()
             {
                 new MainMenuItem() { Title = "Manage Users" , ViewModelName = "UsersList" },
-                new MainMenuItem() { Title = "Manage Bookings" , ViewModelName = "BookingsList" }
+                new MainMenuItem() { Title = "Manage Bookings" , ViewModelName = "BookingsCreate" }
             };
             
             NavigateToCommand = new RelayCommand<string>(this.NavigateTo);

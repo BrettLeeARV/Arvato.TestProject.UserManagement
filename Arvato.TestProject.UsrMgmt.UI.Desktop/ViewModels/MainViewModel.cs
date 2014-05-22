@@ -47,6 +47,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _viewModels.Add("Login", vml.Login);
             _viewModels.Add("MainMenu", vml.MainMenu);
             _viewModels.Add("UsersList", vml.UsersList);
+            _viewModels.Add("BookingsCreate", vml.BookingsCreate);
 
             // Set initial ViewModel
             CurrentViewModel = _viewModels["Login"];

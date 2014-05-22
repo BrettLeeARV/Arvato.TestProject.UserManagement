@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Views.BookingsCreatePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="750">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Room" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Start time" Name="label2" Grid.Row="1" />
+        <Label Content="End time" Name="label3" VerticalAlignment="Top" Grid.Row="2" />
+        <ComboBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Name="comboBox1" Width="120" />
+        <StackPanel Grid.Column="1" Grid.Row="1" Name="stackPanel1" Orientation="Horizontal">
+            <DatePicker Height="25" Name="datePicker1" Width="115" />
+            <ComboBox Height="23" Name="comboBox2" Width="120" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Name="stackPanel2" Orientation="Horizontal">
+            <DatePicker Height="25" Name="datePicker2" Width="115" />
+            <ComboBox Height="23" Name="comboBox3" Width="120" />
+        </StackPanel>
+        <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,5,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="Location:" VerticalAlignment="Top" Margin="0,0,5,5" />
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="Capacity:" VerticalAlignment="Top" Margin="0,0,5,5" />
+            <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="Assets:" VerticalAlignment="Top" Margin="0,0,5,5" />
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="(location)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="(capacity)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
+            <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="(assets, comma separated)" VerticalAlignment="Top" Grid.Column="1" Margin="0,0,5,5" />
+        </Grid>
+    </Grid>
+</UserControl>

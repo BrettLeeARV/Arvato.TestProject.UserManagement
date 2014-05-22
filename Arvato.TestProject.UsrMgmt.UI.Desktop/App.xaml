@@ -25,5 +25,11 @@
         <DataTemplate DataType="{x:Type ViewModels:UsersFormViewModel}">
             <Views:UsersFormPage />
         </DataTemplate>
+
+        <!-- Bookings -->
+        <DataTemplate DataType="{x:Type ViewModels:BookingsCreateViewModel}">
+            <Views:BookingsCreatePage />
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
