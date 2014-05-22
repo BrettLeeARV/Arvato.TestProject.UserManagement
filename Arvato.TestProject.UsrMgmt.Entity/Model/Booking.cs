@@ -7,10 +7,13 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
    public partial class Booking
     {
-       public int ID { get; set; }
-        public int roomID { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public String refNum { get; set; }
+       public virtual int ID { get; set; }
+       public virtual int UserID { get; set; }
+        public virtual int roomID { get; set; }
+        public virtual DateTime startDate { get; set; }
+        public virtual DateTime endDate { get; set; }
+        public virtual String refNum { get; set; }
+        public virtual DateTime DateCreated { get; set; }
+        public virtual bool IsCanceled { get; set; }
     }
 }

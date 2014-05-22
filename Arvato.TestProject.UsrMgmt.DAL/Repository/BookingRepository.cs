@@ -13,13 +13,31 @@ using System.Configuration;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
-   public class BookingRepository : BaseRepository,IBookingRepository
+    public class BookingRepository : BaseRepository, IBookingRepository
     {
         public BookingRepository(SqlConnection dbConnection)
-            : base(dbConnection)
         {
         }
 
+        public IQueryable<Booking> GetList()
+        {
+            try
+            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                using (var session = factory.OpenSession())
+                {
+                    var specificFields = session.CreateQuery("FROM Booking").List<Booking>();
+
+                    return specificFields.AsQueryable<Booking>();
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
         public bool AddBooking(User entity, Booking booking) // Added by Ben
         {
             bool result = false;
@@ -37,7 +55,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.endDate}, outputParameter};
 
                 object returnValue = null;
-                result = executeInsertQuery("USP_MAKE_BOOKING", paramiters, ref returnValue);
+              //  result = executeInsertQuery("USP_MAKE_BOOKING", paramiters, ref returnValue);
 
                 booking.refNum = returnValue.ToString();
 
@@ -59,7 +77,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 DataTable dt = null;
                 SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.Int) {Value = booking.refNum}};
 
-                dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
+              //  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
                 foreach (DataRow dr in dt.Rows)
                 {
                     booking.ID = int.Parse(dr["ID"].ToString());
@@ -90,7 +108,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                                                 new SqlParameter("@StartDate" , SqlDbType.DateTime) { Value = booking.startDate},
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) { Value = booking.endDate}};
 
-                result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
+           //     result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
             }
             catch (Exception)
             {
@@ -105,7 +123,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 SqlParameter[] paramiters = { new SqlParameter("@ID", SqlDbType.Int) { Value = booking.ID } };
-                result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
+              //  result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
             }
             catch (Exception)
             {
