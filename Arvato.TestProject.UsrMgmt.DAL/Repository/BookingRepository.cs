@@ -7,7 +7,6 @@ using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity;
 using System.Data;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-
 using System.Data.SqlClient;
 using System.Configuration;
 
@@ -66,7 +65,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 SqlParameter outputParameter = new SqlParameter();
                 outputParameter.ParameterName = "@RefNum";
-                outputParameter.SqlDbType = System.Data.SqlDbType.Int;
+                outputParameter.SqlDbType = System.Data.SqlDbType.VarChar;
+                outputParameter.Size = 50;
                 outputParameter.Direction = ParameterDirection.Output;
 
                 SqlParameter[] paramiters = {new SqlParameter("@UserID", SqlDbType.Int) {Value = entity.ID},
@@ -95,7 +95,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 DataTable dt = null;
-                SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.Int) {Value = booking.refNum}};
+                SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.VarChar,50) {Value = booking.refNum}};
 
               //  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
                 foreach (DataRow dr in dt.Rows)

@@ -33,7 +33,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 {
                     Session["UserSession"] = myuser;
 
-                    Response.Redirect("ViewOwnBooking.aspx");
+                    Response.Redirect("InsertBooking.aspx");
                 }
                 else
                 {

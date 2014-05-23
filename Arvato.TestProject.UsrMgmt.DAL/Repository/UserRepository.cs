@@ -140,7 +140,12 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 var factory = sf.CreateSessionFactory();
                 using (var session = factory.OpenSession())
                 {
-                    var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
+                   // var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
+                    var userlist = session.CreateSQLQuery("EXEC USP_USER_LOGIN :LoginID, :Password")
+                        .AddEntity(typeof(User))
+                        .SetParameter("LoginID", entity.LoginID)
+                        .SetParameter("Password", entity.Password)
+                        .List<User>();
                     if (userlist.AsQueryable<User>().Count() > 0)
                     {
                         foreach (User u in userlist.ToList<User>())
