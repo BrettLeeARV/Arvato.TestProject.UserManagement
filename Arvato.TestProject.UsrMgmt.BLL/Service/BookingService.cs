@@ -39,6 +39,18 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            }
 
        }
+       public List<Booking> GetUserOwnBooking(string userid)
+       {
+          try 
+	{	        
+		return bookingRepository.GetUserOwnBooking(userid).ToList<Booking>();
+	}
+	catch (Exception ex)
+	{
+		
+		throw ex;
+	}
+       }
        public void AddBooking(User user, Booking booking)
         {
             try

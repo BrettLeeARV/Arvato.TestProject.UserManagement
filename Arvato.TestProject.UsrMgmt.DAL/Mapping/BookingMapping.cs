@@ -14,10 +14,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
        {
            Id(x => x.ID);
            Map(x => x.UserID);
-           Map(x => x.roomID);
-           Map(x => x.startDate);
-           Map(x => x.endDate);
-           Map(x => x.refNum);
+           Map(x => x.RoomID);
+           Map(x => x.StartDate);
+           Map(x => x.EndDate);
+           Map(x => x.RefNum);
            Map(x => x.DateCreated);
            Map(x => x.IsCanceled);
        }

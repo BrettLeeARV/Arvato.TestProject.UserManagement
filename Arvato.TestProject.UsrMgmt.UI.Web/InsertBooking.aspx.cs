@@ -28,14 +28,14 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             Booking booking = new Booking();
             
             user.ID = Convert.ToInt32(lblloginID.Text);
-            booking.roomID = int.Parse(DropDownList1.SelectedValue);
-            booking.startDate = clnstart.SelectedDate;
-            booking.endDate = clnEnd.SelectedDate;
+            booking.RoomID = int.Parse(DropDownList1.SelectedValue);
+            booking.StartDate = clnstart.SelectedDate;
+            booking.EndDate = clnEnd.SelectedDate;
            // booking.refNum = lblBookingID.Text;
             try
             {
                 bookingservice.AddBooking(user, booking);
-                lblBookingID.Text = "You have successfully booked room your refrence number is " + booking.refNum;
+                lblBookingID.Text = "You have successfully booked room your refrence number is " + booking.RefNum;
 
             }
             catch (Exception ex)

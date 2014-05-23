@@ -20,7 +20,9 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         protected void Button1_Click(object sender, EventArgs e)
         {
             IUserService us = new UserService();
+            IBookingService bookingservice = new BookingService();
             User myuser = new User();
+           // Booking booking = new Booking();
             myuser.LoginID = txtloginid.Text;
             myuser.Password = txtpassword.Text;
             
@@ -29,13 +31,9 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 us.Login(myuser);
                 if (myuser.ID > 0)
                 {
-                    Session["UserSession"] = myuser.ID;
-                    Session["UserFN"] = myuser.FirstName;
-                    Session["UserLN"] = myuser.LastName;
-                    Session["Email"] = myuser.Email;
-                    Session["LoginID"] = myuser.LoginID;
-                    Session["Password"] = myuser.Password;
-                    Response.Redirect("InsertBooking.aspx");
+                    Session["UserSession"] = myuser;
+
+                    Response.Redirect("ViewOwnBooking.aspx");
                 }
                 else
                 {
