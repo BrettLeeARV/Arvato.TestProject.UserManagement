@@ -18,30 +18,42 @@ using System.Collections.ObjectModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    // Temporary for design time
-    public class Room
-    {
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public int Capacity { get; set; }
-    }
 
     public class BookingsCreateViewModel : ViewModelBase
     {
 
+        public class TimeComboBoxItem
+        {
+            public string ValueString
+            {
+                get
+                {
+                    return new DateTime(0).Add(Time).ToShortTimeString();
+                }
+            }
+            public TimeSpan Time
+            {
+                get;
+                set;
+            }
+        }
+
         #region Private fields
 
-        //private IRoomService _roomService;
         private IBookingService _bookingService;
+        private IRoomService _roomService;
 
-        private Room _room;
         private Booking _booking; // don't expose properties of this object, set manually in code
+        private Room _room;
 
         // Separate date and time into two fields/properties, so we can validate date and time fields separately
         private DateTime _startDate;
-        private DateTime _startTime;
+        private TimeSpan _startTime;
         private DateTime _endDate;
-        private DateTime _endTime;
+        private TimeSpan _endTime;
+
+        // ComboBox options
+        private ObservableCollection<TimeComboBoxItem> _allTimeOptions;
 
         // Status fields
         private bool _isConflicting;
@@ -53,23 +65,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // Initialize fields
             if (IsInDesignMode)
             {
-                
-            }
-            else
-            {
-                _bookingService = new BookingService();
-                //_roomService = new RoomService();
-                //RoomList = RoomService.GetAllEnabled();
-            }
-
-            // Hardcoded design time data
-            RoomList = new ObservableCollection<Room>()
+                // Hardcoded design time data
+                RoomList = new ObservableCollection<Room>()
                 {
                     new Room() { Name = "Winterfell", Location = "25th floor", Capacity = 10 },
                     new Room() { Name = "King's Landing", Location = "24th floor", Capacity = 8 }
                 };
+            }
+            else
+            {
+                _bookingService = new BookingService();
+                _roomService = new RoomService();
+                RoomList = new ObservableCollection<Room>(_roomService.GetList());
+            }
+
             RoomAssets = "Epson projector, whiteboard";
-            Room = RoomList[1];
+
+            _allTimeOptions = new ObservableCollection<TimeComboBoxItem>();
+            // Generate TimeComboBoxitems from 00:00 to 23:30, in 30 minute increments
+            for (var i = 0; i < 48; i++)
+            {
+                var hours = i / 2;
+                var minutes = (i % 2 == 0) ? 0 : 30;
+                _allTimeOptions.Add(new TimeComboBoxItem() { Time = new TimeSpan(hours, minutes, 0) });
+            }
 
             _isConflicting = false;
 
@@ -95,7 +114,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 RaisePropertyChanged("StartDate");
             }
         }
-        public DateTime StartTime
+        public TimeSpan StartTime
         {
             get
             {
@@ -127,7 +146,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 RaisePropertyChanged("EndDate");
             }
         }
-        public DateTime EndTime
+        public TimeSpan EndTime
         {
             get
             {
@@ -187,6 +206,39 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get;
             private set;
+        }
+
+        public ObservableCollection<TimeComboBoxItem> StartTimeOptions
+        {
+            get
+            {
+                return _allTimeOptions;
+            }
+            private set
+            {
+                if (value == _allTimeOptions)
+                {
+                    return;
+                }
+                _allTimeOptions = value;
+                RaisePropertyChanged("StartTimeOptions");
+            }
+        }
+        public ObservableCollection<TimeComboBoxItem> EndTimeOptions
+        {
+            get
+            {
+                return _allTimeOptions;
+            }
+            private set
+            {
+                if (value == _allTimeOptions)
+                {
+                    return;
+                }
+                _allTimeOptions = value;
+                RaisePropertyChanged("EndTimeOptions");
+            }
         }
 
         #endregion

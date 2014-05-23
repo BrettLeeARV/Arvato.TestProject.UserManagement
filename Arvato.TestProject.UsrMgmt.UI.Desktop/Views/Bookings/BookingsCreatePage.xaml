@@ -56,12 +56,12 @@
                 <Label Content="Start time" Name="label2" Height="30" />
                 <WrapPanel Orientation="Horizontal">
                     <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" />
-                    <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" />
+                    <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=StartTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=StartTime}" SelectionChanged="comboBox2_SelectionChanged" />
                 </WrapPanel>
                 <Label Content="End time" Name="label3" />
                 <WrapPanel Orientation="Horizontal">
                     <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" />
-                    <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" />
+                    <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=EndTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=EndTime}" />
                 </WrapPanel>
             </StackPanel>
         </Border>

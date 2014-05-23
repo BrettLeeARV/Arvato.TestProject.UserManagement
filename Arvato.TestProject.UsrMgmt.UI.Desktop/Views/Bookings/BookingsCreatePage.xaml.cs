@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
@@ -22,6 +23,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         public BookingsCreatePage()
         {
             InitializeComponent();
+        }
+
+        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var box = (ComboBox)sender;
+            Debug.WriteLine(box.Items);
         }
     }
 }
