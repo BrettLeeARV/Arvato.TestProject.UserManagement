@@ -71,26 +71,28 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                     new Room() { Name = "Winterfell", Location = "25th floor", Capacity = 10 },
                     new Room() { Name = "King's Landing", Location = "24th floor", Capacity = 8 }
                 };
+
+                _isConflicting = true;
+
+                RoomAssets = "Epson projector, whiteboard";
             }
             else
             {
                 _bookingService = new BookingService();
                 _roomService = new RoomService();
                 RoomList = new ObservableCollection<Room>(_roomService.GetList());
+
+                _isConflicting = false;
             }
 
-            RoomAssets = "Epson projector, whiteboard";
-
-            _allTimeOptions = new ObservableCollection<TimeComboBoxItem>();
             // Generate TimeComboBoxitems from 00:00 to 23:30, in 30 minute increments
+            _allTimeOptions = new ObservableCollection<TimeComboBoxItem>();
             for (var i = 0; i < 48; i++)
             {
                 var hours = i / 2;
                 var minutes = (i % 2 == 0) ? 0 : 30;
                 _allTimeOptions.Add(new TimeComboBoxItem() { Time = new TimeSpan(hours, minutes, 0) });
             }
-
-            _isConflicting = false;
 
             // Wire up commands
             MakeBookingCommand = new RelayCommand(this.MakeBooking);

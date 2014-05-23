@@ -13,63 +13,72 @@
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Margin" Value="0,0,0,10" />
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </UserControl.Resources>
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Margin="0,0,5,0">
-            <DockPanel Margin="10">
-                <TextBlock DockPanel.Dock="Top" Text="Which room?" Style="{StaticResource PanelHeaderStyle}" />
+    <DockPanel Margin="20">
+        <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom">
+            <Button DockPanel.Dock="Right" Content="Book It" Padding="30,10,30,10" />
+            <Grid Visibility="{Binding Path=IsConflicting, Converter={StaticResource BooleanToVisibility}}">
+                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" Visibility="{Binding}" />
+            </Grid>
+        </DockPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Margin="0,0,5,0">
+                <DockPanel Margin="10">
+                    <TextBlock DockPanel.Dock="Top" Text="Which room?" Style="{StaticResource PanelHeaderStyle}" />
 
-                <GroupBox DockPanel.Dock="Bottom" Header="Room Assets" MinHeight="80" Name="groupBox1">
-                    <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
-                </GroupBox>
+                    <GroupBox DockPanel.Dock="Bottom" Header="Room Assets" MinHeight="80" Name="groupBox1">
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
+                    </GroupBox>
 
-                <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" />
-                                    <StackPanel Orientation="Horizontal" Margin="5">
-                                        <TextBlock Text="{Binding Location}" />
-                                        <TextBlock Text=", " />
-                                        <TextBlock Text="{Binding Capacity}" />
-                                        <TextBlock Text=" people" />
+                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" />
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="{Binding Location}" />
+                                            <TextBlock Text=", " />
+                                            <TextBlock Text="{Binding Capacity}" />
+                                            <TextBlock Text=" people" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </DockPanel>
-        </Border>
-        <Border Grid.Column="1" Margin="5,0">
-            <StackPanel Margin="10">
-                <TextBlock Text="When?" Style="{StaticResource PanelHeaderStyle}" />
-                <Label Content="Start time" Name="label2" Height="30" />
-                <WrapPanel Orientation="Horizontal">
-                    <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" />
-                    <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=StartTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=StartTime}" SelectionChanged="comboBox2_SelectionChanged" />
-                </WrapPanel>
-                <Label Content="End time" Name="label3" />
-                <WrapPanel Orientation="Horizontal">
-                    <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" />
-                    <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=EndTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=EndTime}" />
-                </WrapPanel>
-            </StackPanel>
-        </Border>
-        <Border Grid.Column="2" Margin="5,0,0,0">
-            <StackPanel Margin="10">
-                <TextBlock Text="Anything else?" Style="{StaticResource PanelHeaderStyle}" />
-            </StackPanel>
-        </Border>
-    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </Border>
+            <Border Grid.Column="1" Margin="5,0">
+                <StackPanel Margin="10">
+                    <TextBlock Text="When?" Style="{StaticResource PanelHeaderStyle}" />
+                    <Label Content="Start time" Name="label2" Height="30" />
+                    <WrapPanel Orientation="Horizontal">
+                        <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" />
+                        <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=StartTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=StartTime}" SelectionChanged="comboBox2_SelectionChanged" />
+                    </WrapPanel>
+                    <Label Content="End time" Name="label3" />
+                    <WrapPanel Orientation="Horizontal">
+                        <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" />
+                        <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=EndTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=EndTime}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Margin="5,0,0,0">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Anything else?" Style="{StaticResource PanelHeaderStyle}" />
+                </StackPanel>
+            </Border>
+        </Grid>
 
+    </DockPanel>
 </UserControl>
