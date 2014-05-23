@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using System.Collections.ObjectModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -62,6 +54,16 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public BookingsCreateViewModel()
         {
+            _booking = new Booking();
+            // Default booking dates are today
+            _startDate = DateTime.Today;
+            _endDate = DateTime.Today;
+            // Default booking start time is now
+            // TODO: make it start at the next hour/half hour
+            _startTime = DateTime.Now.TimeOfDay;
+            // Default booking end time is one hour later
+            _endTime = _startTime + TimeSpan.FromHours(1);
+            
             // Initialize fields
             if (IsInDesignMode)
             {
@@ -95,7 +97,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => !IsConflicting);
         }
 
         #region Properties
@@ -259,6 +261,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void MakeBooking()
         {
+            // Fill in the blanks
+            _booking.RoomID = _room.ID;
+            _booking.StartDate = StartDate.Add(StartTime);
+            _booking.EndDate = EndDate.Add(EndTime);
+            _booking.UserID = StateManager.Instance.CurrentUser.ID;
+
+            try
+            {
+                _bookingService.AddBooking(_booking);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBox.Show("Your booking has been made!", "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
 

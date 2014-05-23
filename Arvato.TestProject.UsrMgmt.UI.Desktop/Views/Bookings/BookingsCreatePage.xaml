@@ -17,7 +17,7 @@
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom">
-            <Button DockPanel.Dock="Right" Content="Book It" Padding="30,10,30,10" />
+            <Button DockPanel.Dock="Right" Content="Book It" Padding="30,10,30,10" Command="{Binding MakeBookingCommand}" />
             <Grid Visibility="{Binding Path=IsConflicting, Converter={StaticResource BooleanToVisibility}}">
                 <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" Visibility="{Binding}" />
             </Grid>
@@ -63,12 +63,12 @@
                     <TextBlock Text="When?" Style="{StaticResource PanelHeaderStyle}" />
                     <Label Content="Start time" Name="label2" Height="30" />
                     <WrapPanel Orientation="Horizontal">
-                        <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" />
+                        <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=StartDate}" />
                         <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=StartTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=StartTime}" SelectionChanged="comboBox2_SelectionChanged" />
                     </WrapPanel>
                     <Label Content="End time" Name="label3" />
                     <WrapPanel Orientation="Horizontal">
-                        <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" />
+                        <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=EndDate}" />
                         <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=EndTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=EndTime}" />
                     </WrapPanel>
                 </StackPanel>
