@@ -39,6 +39,25 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 throw;
             }
         }
+        public IQueryable<Booking> GetUserOwnBooking(string userid) // TO Do For Tomorrow.
+        {
+            try
+            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                using (var session = factory.OpenSession())
+                {
+                    var specificFields = session.CreateQuery("FROM Booking WHERE UserID = '" + userid + "'").List<Booking>();
+
+                    return specificFields.AsQueryable<Booking>();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public bool AddBooking(User entity, Booking booking) // Added by Ben
         {
             bool result = false;

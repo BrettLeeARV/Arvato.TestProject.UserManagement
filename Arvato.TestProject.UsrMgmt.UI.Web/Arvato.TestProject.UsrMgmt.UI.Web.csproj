@@ -83,6 +83,7 @@
     <Content Include="UserPage.aspx" />
     <Content Include="ViewBooking.aspx" />
     <Content Include="ViewBookingList.aspx" />
+    <Content Include="ViewOwnBooking.aspx" />
     <Content Include="ViewRoom.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="ViewBookingList.aspx.designer.cs">
       <DependentUpon>ViewBookingList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewOwnBooking.aspx.cs">
+      <DependentUpon>ViewOwnBooking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewOwnBooking.aspx.designer.cs">
+      <DependentUpon>ViewOwnBooking.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewRoom.aspx.cs">
       <DependentUpon>ViewRoom.aspx</DependentUpon>
