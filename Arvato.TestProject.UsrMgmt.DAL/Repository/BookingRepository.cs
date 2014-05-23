@@ -70,14 +70,14 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 outputParameter.Direction = ParameterDirection.Output;
 
                 SqlParameter[] paramiters = {new SqlParameter("@UserID", SqlDbType.Int) {Value = entity.ID},
-                                                new SqlParameter("@RoomID", SqlDbType.Int) {Value = booking.roomID},
-                                                new SqlParameter("@StartDate", SqlDbType.DateTime) {Value = booking.startDate},
-                                                new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.endDate}, outputParameter};
+                                                new SqlParameter("@RoomID", SqlDbType.Int) {Value = booking.RoomID},
+                                                new SqlParameter("@StartDate", SqlDbType.DateTime) {Value = booking.StartDate},
+                                                new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.EndDate}, outputParameter};
 
                 object returnValue = null;
                 result = executeInsertQuery("USP_MAKE_BOOKING", paramiters, ref returnValue);
 
-                booking.refNum = returnValue.ToString();
+                booking.RefNum = returnValue.ToString();
 
 
             }
@@ -95,16 +95,16 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 DataTable dt = null;
-                SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.Int) {Value = booking.refNum}};
+                SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.Int) {Value = booking.RefNum}};
 
               //  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
                 foreach (DataRow dr in dt.Rows)
                 {
                     booking.ID = int.Parse(dr["ID"].ToString());
                     entity.LoginID = dr["LoginID"].ToString();
-                    booking.roomID = (int.Parse)(dr["RoomID"].ToString());
-                    booking.startDate = DateTime.Parse(dr["StartDate"].ToString());
-                    booking.endDate = DateTime.Parse(dr["EndDate"].ToString());
+                    booking.RoomID = (int.Parse)(dr["RoomID"].ToString());
+                    booking.StartDate = DateTime.Parse(dr["StartDate"].ToString());
+                    booking.EndDate = DateTime.Parse(dr["EndDate"].ToString());
                 }
 
                 return true;
@@ -124,9 +124,9 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 SqlParameter[] paramiters = {new SqlParameter("@ID",SqlDbType.Int){Value = booking.ID},
-                                                new SqlParameter("@RoomID", SqlDbType.TinyInt){Value = booking.roomID},
-                                                new SqlParameter("@StartDate" , SqlDbType.DateTime) { Value = booking.startDate},
-                                                new SqlParameter("@EndDate" , SqlDbType.DateTime) { Value = booking.endDate}};
+                                                new SqlParameter("@RoomID", SqlDbType.TinyInt){Value = booking.RoomID},
+                                                new SqlParameter("@StartDate" , SqlDbType.DateTime) { Value = booking.StartDate},
+                                                new SqlParameter("@EndDate" , SqlDbType.DateTime) { Value = booking.EndDate}};
 
            //     result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
             }
