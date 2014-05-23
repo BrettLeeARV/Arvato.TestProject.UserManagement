@@ -13,6 +13,15 @@ using System.Configuration;
 using NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+
+using System.Reflection;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Linq;
+using FluentNHibernate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using System.Data.SqlClient;
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class UserRepository: BaseRepository, IUserRepository 
@@ -115,19 +124,39 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
            // int checkuser = 0;
             try
             {
-                SqlParameter[] parameters = {new SqlParameter("@LoginID",SqlDbType.NVarChar,50) {Value = entity.LoginID},
-                                               new SqlParameter("@Password" , SqlDbType.NVarChar,50) {Value = entity.Password}};
-                DataTable dt = executeSelectQuery("USP_USER_LOGIN", parameters);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    entity.ID = int.Parse(dr["ID"].ToString());
-                    entity.FirstName = dr["FirstName"].ToString();
-                    entity.LastName = dr["LastName"].ToString();
-                    entity.Email = dr["Email"].ToString();
-                    entity.LoginID = dr["LoginID"].ToString();
-                    entity.Password = dr["Password"].ToString();
+                //   SqlParameter[] parameters = {new SqlParameter("@LoginID",SqlDbType.NVarChar,50) {Value = entity.LoginID},
+                //                               new SqlParameter("@Password" , SqlDbType.NVarChar,50) {Value = entity.Password}};
+                //DataTable dt = executeSelectQuery("USP_USER_LOGIN", parameters);
+                //foreach (DataRow dr in dt.Rows)
+                //{
+                //    entity.ID = int.Parse(dr["ID"].ToString());
+                //    entity.FirstName = dr["FirstName"].ToString();
+                //    entity.LastName = dr["LastName"].ToString();
+                //    entity.Email = dr["Email"].ToString();
+                //    entity.LoginID = dr["LoginID"].ToString();
+                //    entity.Password = dr["Password"].ToString();
 
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                using (var session = factory.OpenSession())
+                {
+                    var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
+                    if (userlist.AsQueryable<User>().Count() > 0)
+                    {
+                        foreach (User u in userlist.ToList<User>())
+                        {
+                            entity.ID = u.ID;
+                            entity.FirstName = u.FirstName;
+                            entity.LastName = u.LastName;
+                            entity.Email = u.Email;
+                            entity.LoginID = u.LoginID;
+                            entity.Password = u.Password;
+                        }
+                    }
+              
                 }
+
+                
                 
             }
             catch (Exception)

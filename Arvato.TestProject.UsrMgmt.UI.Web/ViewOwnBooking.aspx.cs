@@ -15,7 +15,6 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           //lblID.Text = Session["StartDate"].ToString();
             User user = (User)Session["UserSession"];
             Booking booking = (Booking)Session["Booking"];
             IBookingService bookingservice = new BookingService();
