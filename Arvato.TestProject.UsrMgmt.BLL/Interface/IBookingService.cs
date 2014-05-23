@@ -9,9 +9,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     public interface IBookingService : IDisposable
     {
         List<Booking> GetList();
-        void AddBooking(User user, Booking booking);
-        void ViewBooking(User user, Booking booking);
-        void EditBooking(User user, Booking booking);
+        void AddBooking(Booking booking);
+        void ViewBooking(Booking booking);
+        void EditBooking(Booking booking);
         void CancelBooking(Booking booking);
         List<Booking> GetUserOwnBooking(string userid);
     }
