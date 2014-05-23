@@ -26,7 +26,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             booking.RefNum = txtrefnum.Text;
             try
             {
-                bookingservice.ViewBooking(user, booking);
+                bookingservice.ViewBooking(booking);
                 lblID.Text = booking.ID.ToString();
                 lblLoginID.Text = user.LoginID;
                txtroomid.Text = booking.RoomID.ToString();
@@ -56,7 +56,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 booking.RoomID = (int.Parse)(txtroomid.Text);
                 booking.StartDate = DateTime.Parse(txtstartdate.Text);
                 booking.EndDate = DateTime.Parse(txtenddate.Text);
-                bookingservice.EditBooking(user,booking);
+                bookingservice.EditBooking(booking);
 
                 lblstatus.Text = "Your Booking has been update!" + booking.RefNum;
                

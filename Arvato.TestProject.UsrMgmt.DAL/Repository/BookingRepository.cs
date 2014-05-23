@@ -58,7 +58,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 throw;
             }
         }
-        public bool AddBooking(User entity, Booking booking) // Added by Ben
+        public bool AddBooking(Booking booking) // Added by Ben
         {
             bool result = false;
 
@@ -69,7 +69,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 outputParameter.SqlDbType = System.Data.SqlDbType.Int;
                 outputParameter.Direction = ParameterDirection.Output;
 
-                SqlParameter[] paramiters = {new SqlParameter("@UserID", SqlDbType.Int) {Value = entity.ID},
+                SqlParameter[] paramiters = {new SqlParameter("@UserID", SqlDbType.Int) {Value = booking.UserID},
                                                 new SqlParameter("@RoomID", SqlDbType.Int) {Value = booking.RoomID},
                                                 new SqlParameter("@StartDate", SqlDbType.DateTime) {Value = booking.StartDate},
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.EndDate}, outputParameter};
@@ -89,7 +89,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             return result;
         }
 
-        public bool ViewBooking(User entity,Booking booking)
+        public bool ViewBooking(Booking booking)
         {
             //bool result = false;
             try
@@ -101,7 +101,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 foreach (DataRow dr in dt.Rows)
                 {
                     booking.ID = int.Parse(dr["ID"].ToString());
-                    entity.LoginID = dr["LoginID"].ToString();
                     booking.RoomID = (int.Parse)(dr["RoomID"].ToString());
                     booking.StartDate = DateTime.Parse(dr["StartDate"].ToString());
                     booking.EndDate = DateTime.Parse(dr["EndDate"].ToString());
@@ -117,7 +116,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
 
         }
-        public bool EditBooking(User entity, Booking booking)
+        public bool EditBooking(Booking booking)
         {
             bool result = false;
 

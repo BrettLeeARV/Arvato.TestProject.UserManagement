@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity;
-using System.Data;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-
-using System.Data.SqlClient;
-using System.Configuration;
-using NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-
-using System.Reflection;
-using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Linq;
 using FluentNHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using System.Data.SqlClient;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Linq;
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class UserRepository: BaseRepository, IUserRepository 
