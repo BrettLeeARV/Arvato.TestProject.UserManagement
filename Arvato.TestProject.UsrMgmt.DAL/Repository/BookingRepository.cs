@@ -15,8 +15,9 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class BookingRepository : BaseRepository, IBookingRepository
     {
-        public BookingRepository(SqlConnection dbConnection)
+        public BookingRepository(SqlConnection dbConnection):base(dbConnection)
         {
+            
         }
 
         public IQueryable<Booking> GetList()
@@ -55,7 +56,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                                                 new SqlParameter("@EndDate" , SqlDbType.DateTime) {Value = booking.endDate}, outputParameter};
 
                 object returnValue = null;
-              //  result = executeInsertQuery("USP_MAKE_BOOKING", paramiters, ref returnValue);
+                result = executeInsertQuery("USP_MAKE_BOOKING", paramiters, ref returnValue);
 
                 booking.refNum = returnValue.ToString();
 
