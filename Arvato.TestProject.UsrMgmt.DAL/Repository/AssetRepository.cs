@@ -43,13 +43,18 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
               using (var session = factory.OpenSession())
               {
+
+
+
                   var asset = new Asset
                   {
+
                       RoomID = entitiy.RoomID,
                       Name = entitiy.Name,
                       IsEnabled = entitiy.IsEnabled
                   };
                   session.Save(asset);
+                  
                   return true;
 
 
