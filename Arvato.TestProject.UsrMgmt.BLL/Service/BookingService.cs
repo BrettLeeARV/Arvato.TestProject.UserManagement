@@ -39,7 +39,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            }
 
        }
-       public List<Booking> GetUserOwnBooking(string userid)
+       public List<Booking> GetUserOwnBooking(int userid)
        {
           try 
 	{	        
