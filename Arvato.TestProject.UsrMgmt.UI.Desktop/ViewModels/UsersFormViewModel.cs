@@ -19,6 +19,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public UsersFormViewModel()
         {
             _userService = new UserService();
+
+            _currentUser = new User();
             
             SaveUserCommand = new RelayCommand(this.SaveUser);
         }

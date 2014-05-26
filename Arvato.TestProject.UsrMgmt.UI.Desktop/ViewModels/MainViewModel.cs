@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -25,7 +24,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private IDictionary<string, ViewModelBase> _viewModels;
 
         private ViewModelBase _currentViewModel;
-        
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -47,6 +46,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _viewModels.Add("Login", vml.Login);
             _viewModels.Add("MainMenu", vml.MainMenu);
             _viewModels.Add("UsersList", vml.UsersList);
+            _viewModels.Add("BookingsCreate", vml.BookingsCreate);
 
             // Set initial ViewModel
             CurrentViewModel = _viewModels["Login"];

@@ -47,6 +47,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             SimpleIoc.Default.Register<MainMenuViewModel>();
             SimpleIoc.Default.Register<UsersListViewModel>();
             SimpleIoc.Default.Register<UsersFormViewModel>();
+            SimpleIoc.Default.Register<BookingsCreateViewModel>();
         }
 
         public MainViewModel Main
@@ -86,6 +87,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get
             {
                 return ServiceLocator.Current.GetInstance<UsersFormViewModel>();
+            }
+        }
+
+        public BookingsCreateViewModel BookingsCreate
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<BookingsCreateViewModel>();
             }
         }
         

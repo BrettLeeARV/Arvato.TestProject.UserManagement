@@ -25,8 +25,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
     /// </summary>
     public partial class UsersFormPage : UserControl
     {
-        UsersFormViewModel dataContext;
-
 
         public UsersFormPage()
         {
@@ -43,7 +41,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         /// <param name="e"></param>
         private void passwordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            dataContext.CurrentUser.Password = passwordTextBox.Password;
+            ((UsersFormViewModel) DataContext).CurrentUser.Password = passwordTextBox.Password;
         }
 
     }

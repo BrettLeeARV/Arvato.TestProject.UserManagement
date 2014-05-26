@@ -1,6 +1,6 @@
 ﻿namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Messages
 {
-    public class ChangeViewModelMessage 
+    public class ChangeViewModelMessage
     {
         public ChangeViewModelMessage()
         {
@@ -10,7 +10,7 @@
         {
             ViewModelName = name;
         }
-        
+
         public string ViewModelName { get; set; }
     }
 }
