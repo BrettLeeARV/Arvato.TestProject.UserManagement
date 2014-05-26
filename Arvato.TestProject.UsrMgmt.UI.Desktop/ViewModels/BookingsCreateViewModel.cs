@@ -58,9 +58,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // Default booking dates are today
             _startDate = DateTime.Today;
             _endDate = DateTime.Today;
-            // Default booking start time is now
-            // TODO: make it start at the next hour/half hour
-            _startTime = DateTime.Now.TimeOfDay;
+            // Default booking start time is now + rounded up to next half hour
+            var startHour = DateTime.Now.Hour;
+            var startMinute = DateTime.Now.Minute;
+            if (startMinute < 30 && startMinute > 0)
+            {
+                startMinute = 30;
+            }
+            else if (startMinute > 30)
+            {
+                startMinute = 0;
+                startHour++;
+            }
+            _startTime = new TimeSpan(startHour, startMinute, 0);
             // Default booking end time is one hour later
             _endTime = _startTime + TimeSpan.FromHours(1);
             
