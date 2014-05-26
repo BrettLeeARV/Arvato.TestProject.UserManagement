@@ -55,10 +55,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #region Command methods
 
-        /// <summary>
-        /// This slightly breaks the MMV
-        /// </summary>
-        /// <param name="passwordBox">The PasswordBox control to read from.</param>
         private void NavigateTo(string viewModelName)
         {
             var msg = new ChangeViewModelMessage(viewModelName);

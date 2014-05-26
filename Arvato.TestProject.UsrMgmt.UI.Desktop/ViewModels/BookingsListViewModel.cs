@@ -12,10 +12,11 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class BookingsListViewModel : ViewModelBase
+    public class BookingsListViewModel : PageViewModel
     {
 
         private IBookingService bookingService;
@@ -28,7 +29,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             RefreshBookings();
 
             // set up commands
-            //AddBookingCommand = new RelayCommand(this.AddBooking;
+            AddBookingCommand = new RelayCommand(this.AddBooking);
             //EditBookingCommand = new RelayCommand(this.EditBooking,
             //    // Enable Edit Booking button if a booking is selected
             //    () => CurrentBooking != null);
@@ -75,14 +76,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshBookings()
         {
-            Bookings = bookingService.GetUserOwnBooking(StateManager.Instance.CurrentUser.ID.ToString());
+            Bookings = bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID.ToString());
         }
 
         #region Command methods
 
         private void AddBooking()
         {
-            //FormViewModel.CurrentUser = new User();
+            MessengerInstance.Send(new ChangeViewModelMessage("BookingsCreate"));
         }
 
         private void EditBooking(User user)

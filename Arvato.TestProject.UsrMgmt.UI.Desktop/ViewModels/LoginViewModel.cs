@@ -12,7 +12,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : PageViewModel
     {
         private IUserService userService;
         private User user;
@@ -77,7 +77,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             if (user.ID > 0)
             {
-                StateManager.Instance.CurrentUser = user;
+                StateManager.CurrentUser = user;
                 PostLogIn();
             }
             else
@@ -91,10 +91,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void PostLogIn()
         {
             var loggedInMessage = new NotificationMessage("LoggedIn");
-            Messenger.Default.Send<NotificationMessage>(loggedInMessage);
+            MessengerInstance.Send<NotificationMessage>(loggedInMessage);
 
             var msg = new ChangeViewModelMessage("MainMenu");
-            Messenger.Default.Send<ChangeViewModelMessage>(msg);
+            MessengerInstance.Send<ChangeViewModelMessage>(msg);
         }
     }
 }

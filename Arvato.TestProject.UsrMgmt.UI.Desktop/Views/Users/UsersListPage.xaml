@@ -10,10 +10,13 @@
     >
 
     <DockPanel Margin="12">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Add User" Name="addUserButton" MinWidth="75" Command="{Binding AddUserCommand}" />
-            <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
-        </StackPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+            <Button DockPanel.Dock="Right" Content="Main Menu" Command="{Binding MainMenuCommand}" />
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <Button Content="Add User" Name="addUserButton" MinWidth="75" Command="{Binding AddUserCommand}" Margin="0,0,10,0" />
+                <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
+            </StackPanel>
+        </DockPanel>
         <DockPanel>
             <ContentControl DockPanel.Dock="Right" Width="200" Content="{Binding FormViewModel}"/>
             <ScrollViewer>

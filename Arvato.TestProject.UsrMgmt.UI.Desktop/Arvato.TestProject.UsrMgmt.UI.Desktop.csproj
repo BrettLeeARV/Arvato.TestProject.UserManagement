@@ -79,6 +79,7 @@
     <Compile Include="ViewModels\BookingsCreateViewModel.cs" />
     <Compile Include="ViewModels\BookingsListViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />
     <Compile Include="Views\Bookings\BookingsCreatePage.xaml.cs">
       <DependentUpon>BookingsCreatePage.xaml</DependentUpon>

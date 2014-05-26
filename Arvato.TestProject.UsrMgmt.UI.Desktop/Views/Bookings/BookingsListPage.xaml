@@ -11,10 +11,14 @@
     >
 
     <DockPanel Margin="12">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Add User" Name="addUserButton" MinWidth="75" Command="{Binding AddUserCommand}" />
-            <Button Content="Delete User" Name="deleteUserButton" MinWidth="75" Command="{Binding DeleteUserCommand}" />
-        </StackPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+            <Button DockPanel.Dock="Right" Content="Main Menu" Command="{Binding MainMenuCommand}" />
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Add Booking" MinWidth="75" Command="{Binding AddBookingCommand}" Margin="0,0,10,0" />
+                <Button Content="Edit Booking" MinWidth="75" Command="{Binding EditBookingCommand}" Margin="0,0,10,0" />
+                <Button Content="Cancel Booking" MinWidth="75" Command="{Binding CancelBookingCommand}" Margin="0,0,10,0" />
+            </StackPanel>
+        </DockPanel>
         <DockPanel>
             <ScrollViewer>
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 
@@ -24,12 +28,12 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start Time" Binding="{Binding StartDate}" Width="*" />
                         <DataGridTextColumn Header="End Time" Binding="{Binding EndDate}" Width="*" />
-                        <DataGridTextColumn Header="Room" Binding="{Binding Room}" Width="*" />
+                        <DataGridTextColumn Header="Room" Binding="{Binding RoomID}" Width="*" />
                         <DataGridTextColumn Header="Booking Reference" Binding="{Binding RefNum}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>
         </DockPanel>
-        
+
     </DockPanel>
 </UserControl>

@@ -33,6 +33,10 @@
         <DataTemplate DataType="{x:Type ViewModels:BookingsCreateViewModel}">
             <Views:BookingsCreatePage />
         </DataTemplate>
+        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="10" />
+        </Style>
 
     </Application.Resources>
 </Application>

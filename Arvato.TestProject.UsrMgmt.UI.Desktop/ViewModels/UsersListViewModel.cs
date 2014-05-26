@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class UsersListViewModel : ViewModelBase
+    public class UsersListViewModel : PageViewModel
     {
 
         private IUserService userService;

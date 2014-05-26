@@ -7,11 +7,12 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
 
-    public class BookingsCreateViewModel : ViewModelBase
+    public class BookingsCreateViewModel : PageViewModel
     {
 
         public class TimeComboBoxItem
@@ -108,6 +109,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             // Wire up commands
             MakeBookingCommand = new RelayCommand(this.MakeBooking, () => !IsConflicting);
+            CancelCommand = new RelayCommand(this.Cancel);
         }
 
         #region Properties
@@ -286,6 +288,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
+        public ICommand CancelCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -297,7 +304,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _booking.RoomID = _room.ID;
             _booking.StartDate = StartDate.Add(StartTime);
             _booking.EndDate = EndDate.Add(EndTime);
-            _booking.UserID = StateManager.Instance.CurrentUser.ID;
+            _booking.UserID = StateManager.CurrentUser.ID;
 
             try
             {
@@ -310,6 +317,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             MessageBox.Show("Your booking has been made!", "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
 
+        }
+
+        private void Cancel()
+        {
+            MessengerInstance.Send(new ChangeViewModelMessage("BookingsList"));
         }
 
         #endregion
