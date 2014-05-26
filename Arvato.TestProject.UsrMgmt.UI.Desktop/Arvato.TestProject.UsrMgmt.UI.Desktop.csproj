@@ -73,7 +73,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\ChangeViewModelMessage.cs" />
+    <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\StateManager.cs" />
+    <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
     <Compile Include="ViewModels\BookingsCreateViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />

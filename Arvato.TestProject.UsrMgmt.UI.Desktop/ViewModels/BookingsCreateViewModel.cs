@@ -134,6 +134,17 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 RaisePropertyChanged("StartTime");
             }
         }
+        public TimeSpan CustomStartTime
+        {
+            get
+            {
+                return this.StartTime;
+            }
+            set
+            {
+                this.StartTime = value;
+            }
+        }
         public DateTime EndDate
         {
             get
@@ -164,6 +175,17 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
                 _endTime = value;
                 RaisePropertyChanged("EndTime");
+            }
+        }
+        public TimeSpan CustomEndTime
+        {
+            set
+            {
+                this.EndTime = value;
+            }
+            get
+            {
+                return this.EndTime;
             }
         }
         public bool IsConflicting

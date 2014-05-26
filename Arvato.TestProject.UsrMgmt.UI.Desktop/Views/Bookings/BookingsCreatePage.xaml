@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              xmlns:ViewModel="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
+             xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
              d:DesignHeight="469" d:DesignWidth="941"
              d:DataContext="{Binding BookingsCreate, Source={StaticResource Locator}}">
     <UserControl.Resources>
@@ -14,6 +15,7 @@
             <Setter Property="Margin" Value="0,0,0,10" />
         </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+        <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom">
@@ -64,12 +66,23 @@
                     <Label Content="Start time" Name="label2" Height="30" />
                     <WrapPanel Orientation="Horizontal">
                         <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=StartDate}" />
-                        <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=StartTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=StartTime}" SelectionChanged="comboBox2_SelectionChanged" />
+                        <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" 
+                                  ItemsSource="{Binding Path=StartTimeOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="Time" 
+                                  SelectedValue="{Binding Path=StartTime}"
+                                  Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}"
+                                  SelectionChanged="comboBox2_SelectionChanged" />
                     </WrapPanel>
                     <Label Content="End time" Name="label3" />
                     <WrapPanel Orientation="Horizontal">
                         <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=EndDate}" />
-                        <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" ItemsSource="{Binding Path=EndTimeOptions}" DisplayMemberPath="ValueString" SelectedValuePath="Time" SelectedValue="{Binding Path=EndTime}" />
+                        <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" 
+                                  ItemsSource="{Binding Path=EndTimeOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="Time" 
+                                  SelectedValue="{Binding Path=EndTime}"
+                                  Text="{Binding CustomEndTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
                     </WrapPanel>
                 </StackPanel>
             </Border>
