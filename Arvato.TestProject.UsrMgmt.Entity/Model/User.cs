@@ -15,6 +15,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
        // public string Gender { get; set; }
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
+        public virtual bool IsWindowAuthenticate { get; set; }
         //Etc
 
     }

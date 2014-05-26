@@ -22,7 +22,12 @@
         <br />
         <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
         <br />
-        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Update" />
+                    <asp:CheckBox ID="chkWindowAuthenticate" runat="server" 
+                        Text="Use Window Authentincate" AutoPostBack="True" 
+                        oncheckedchanged="chkWindowAuthenticate_CheckedChanged" />
+        <br />
+        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Update" 
+            style="height: 26px" />
 &nbsp;<asp:Label ID="lblstatus" runat="server"></asp:Label>
     </div>
     </form>

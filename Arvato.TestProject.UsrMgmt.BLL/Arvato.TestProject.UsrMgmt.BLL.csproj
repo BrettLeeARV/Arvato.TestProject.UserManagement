@@ -33,6 +33,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,11 +44,13 @@
   <ItemGroup>
     <Compile Include="Interface\IAssetService.cs" />
     <Compile Include="Interface\IBookingService.cs" />
+    <Compile Include="Interface\ILDAPServices.cs" />
     <Compile Include="Interface\IRoomService.cs" />
     <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\AssetService.cs" />
     <Compile Include="Service\BookingService.cs" />
+    <Compile Include="Service\LDAPService.cs" />
     <Compile Include="Service\RoomService.cs" />
     <Compile Include="Service\UserService.cs" />
   </ItemGroup>

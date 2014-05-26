@@ -12,7 +12,8 @@
     
         
         <asp:Label ID="Label1" runat="server" Text="UserLogin"></asp:Label>&nbsp;<asp:TextBox ID="txtloginid" runat="server"></asp:TextBox><br />
-        <asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>&nbsp;<asp:TextBox ID="txtpassword" runat="server"></asp:TextBox><br />
+        <asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>&nbsp;<asp:TextBox 
+            ID="txtpassword" runat="server" TextMode="Password"></asp:TextBox><br />
         <asp:Button ID="btnlogin" runat="server" Text="Login" onclick="Button1_Click" 
             style="height: 26px" />&nbsp;
         <asp:Label ID="lblstatus" runat="server"></asp:Label>

@@ -16,7 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         protected void Page_Load(object sender, EventArgs e)
         {
             User user = (User)Session["UserSession"];
-            Booking booking = (Booking)Session["Booking"];
+            //Booking booking = (Booking)Session["Booking"];
             IBookingService bookingservice = new BookingService();
             GridView1.DataSource = bookingservice.GetUserOwnBooking(user.ID.ToString());
             GridView1.DataBind();

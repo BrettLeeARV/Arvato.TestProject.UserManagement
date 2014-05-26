@@ -27,17 +27,18 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             myuser.Password = txtpassword.Text;
             
             try
-            {
-                us.Login(myuser);
-                if (myuser.ID > 0)
+            {   
+                if (us.Login(myuser))
                 {
                     Session["UserSession"] = myuser;
 
                     Response.Redirect("InsertBooking.aspx");
+
+
                 }
                 else
                 {
-                    lblstatus.Text = "Can Not";
+                    lblstatus.Text = "Login fail.";
                 }
               
             }

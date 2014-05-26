@@ -18,6 +18,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
            Map(x => x.Email);
            Map(x => x.LoginID);
            Map(x => x.Password);
+           Map(x => x.IsWindowAuthenticate);
         }
     }
 }

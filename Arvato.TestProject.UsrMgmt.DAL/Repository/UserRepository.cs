@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -94,15 +93,15 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 using (var session = factory.OpenSession())
                 {
-                    var user = new User
-                    {
-                        FirstName = entity.FirstName,
-                        LastName = entity.LastName,
-                        Email = entity.Email,
-                        LoginID = entity.LoginID,
-                        Password = entity.Password
-                    };
-                    session.Save(user);
+                    //var user = new User
+                    //{
+                    //    FirstName = entity.FirstName,
+                    //    LastName = entity.LastName,
+                    //    Email = entity.Email,
+                    //    LoginID = entity.LoginID,
+                    //    Password = entity.Password
+                    //};
+                    session.Save(entity);
                     return true;
                 }
             }
@@ -114,8 +113,9 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
   
 
         }
-        public void Login(User entity) // Added by Ben.
+        public bool Login(User entity) // Added by Ben.
         {
+            bool result = false;
            // int checkuser = 0;
             try
             {
@@ -131,38 +131,68 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 //    entity.LoginID = dr["LoginID"].ToString();
                 //    entity.Password = dr["Password"].ToString();
 
+
+
+                //var userlist = session.CreateSQLQuery("EXEC USP_USER_LOGIN :LoginID, :Password")
+                //       .AddEntity(typeof(User))
+                //       .SetParameter("LoginID", entity.LoginID)
+                //       .SetParameter("Password", entity.Password)
+                //       .List<User>();
+                //if (userlist.AsQueryable<User>().Count() > 0)
+                //{
+                //    foreach (User u in userlist.ToList<User>())
+                //    {
+                //        entity.ID = u.ID;
+                //        entity.FirstName = u.FirstName;
+                //        entity.LastName = u.LastName;
+                //        entity.Email = u.Email;
+                //        entity.LoginID = u.LoginID;
+                //        entity.Password = u.Password;
+                //    }
+                //}
+
                 SessionFactory sf = new SessionFactory();
                 var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+
+                var session = factory.OpenSession();
+                User user= session.Query<User>().Where(x => x.LoginID == entity.LoginID).Single();
+
+                if (user.IsWindowAuthenticate == false && user.Password == entity.Password)
                 {
                    // var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
-                    var userlist = session.CreateSQLQuery("EXEC USP_USER_LOGIN :LoginID, :Password")
-                        .AddEntity(typeof(User))
-                        .SetParameter("LoginID", entity.LoginID)
-                        .SetParameter("Password", entity.Password)
-                        .List<User>();
-                    if (userlist.AsQueryable<User>().Count() > 0)
-                    {
-                        foreach (User u in userlist.ToList<User>())
-                        {
-                            entity.ID = u.ID;
-                            entity.FirstName = u.FirstName;
-                            entity.LastName = u.LastName;
-                            entity.Email = u.Email;
-                            entity.LoginID = u.LoginID;
-                            entity.Password = u.Password;
-                        }
-                    }
-              
+                    result = true;
+                    entity.ID = user.ID;
                 }
-
-                
-                
+                else
+                {
+                    result = false;
+                    entity.IsWindowAuthenticate = user.IsWindowAuthenticate;
+                    entity.ID = user.ID;
+                }
+    
+                //using (var session = factory.OpenSession())
+                //{
+                //    var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
+                //    if (userlist.AsQueryable<User>().Count() > 0)
+                //    {
+                //        foreach (User u in userlist.ToList<User>())
+                //        {
+                //            entity.ID = u.ID;
+                //            entity.FirstName = u.FirstName;
+                //            entity.LastName = u.LastName;
+                //            entity.Email = u.Email;
+                //            entity.LoginID = u.LoginID;
+                //            entity.Password = u.Password;
+                //        }
+                //    }
+              
+                //}
             }
             catch (Exception)
             {
                 throw;
             }
+            return result;
              
         }
         public void userDetails(User entity)
