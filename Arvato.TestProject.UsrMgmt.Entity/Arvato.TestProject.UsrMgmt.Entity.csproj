@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\User.cs" />

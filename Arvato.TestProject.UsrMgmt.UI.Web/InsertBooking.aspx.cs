@@ -38,7 +38,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             {
               
                 bookingservice.AddBooking(user, booking);
-                lblBookingID.Text = "You have successfully booked room your refrence number is " + booking.refNum;
+                lblBookingID.Text = "You have successfully booked room your refrence number is " + "<b>" + booking.refNum + "</b>";
 
             }
             catch (Exception ex)
