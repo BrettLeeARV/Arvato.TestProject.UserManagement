@@ -17,8 +17,10 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
             if (!IsPostBack)
             {
+
                 User user = (User)Session["UserSession"];
                 lblloginID.Text = user.ID.ToString();
+
             }
         }
 
@@ -28,17 +30,18 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             IBookingService bookingservice = new BookingService();
             User user = new User();
             Booking booking = new Booking();
-            
-            user.ID = Convert.ToInt32(lblloginID.Text);
-            booking.roomID = int.Parse(DropDownList1.SelectedValue);
-            booking.startDate = clnstart.SelectedDate;
-            booking.endDate = clnEnd.SelectedDate;
+
+            booking.UserID = ((User)Session["UserSession"]).ID;
+            booking.RoomID = int.Parse(DropDownList1.SelectedValue);
+            booking.StartDate = clnstart.SelectedDate;
+            booking.EndDate = clnEnd.SelectedDate;
            // booking.refNum = lblBookingID.Text;
             try
             {
-              
-                bookingservice.AddBooking(user, booking);
-                lblBookingID.Text = "You have successfully booked room your refrence number is " + "<b>" + booking.refNum + "</b>";
+
+                bookingservice.AddBooking(booking);
+                lblBookingID.Text = "You have successfully booked room your refrence number is " + "<b>" + booking.RefNum + "</b>";
+
 
             }
             catch (Exception ex)

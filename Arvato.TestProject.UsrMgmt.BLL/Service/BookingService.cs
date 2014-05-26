@@ -51,11 +51,11 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 		throw ex;
 	}
        }
-       public void AddBooking(User user, Booking booking)
+       public void AddBooking(Booking booking)
         {
             try
             {
-                bookingRepository.AddBooking(user, booking);
+                bookingRepository.AddBooking(booking);
             }
             catch (Exception)
             {
@@ -63,12 +63,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
-        public void ViewBooking(User user,Booking booking)
+        public void ViewBooking(Booking booking)
         {
             try
             {
              
-                    bookingRepository.ViewBooking(user, booking);
+                    bookingRepository.ViewBooking(booking);
                 
                 if (booking.ID == 0)
                 {
@@ -84,11 +84,11 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
-        public void EditBooking(User user, Booking booking)
+        public void EditBooking(Booking booking)
         {
             try
             {
-                bookingRepository.EditBooking(user, booking);
+                bookingRepository.EditBooking(booking);
             }
             catch (Exception)
             {

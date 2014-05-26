@@ -23,15 +23,15 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             IBookingService bookingservice = new BookingService();
             User user = new User();
             Booking booking = new Booking();
-            booking.refNum = txtrefnum.Text;
+            booking.RefNum = txtrefnum.Text;
             try
             {
-                bookingservice.ViewBooking(user, booking);
+                bookingservice.ViewBooking(booking);
                 lblID.Text = booking.ID.ToString();
                 lblLoginID.Text = user.LoginID;
-               txtroomid.Text = booking.roomID.ToString();
-                txtstartdate.Text = booking.startDate.ToString();
-                txtenddate.Text = booking.endDate.ToString();
+               txtroomid.Text = booking.RoomID.ToString();
+                txtstartdate.Text = booking.StartDate.ToString();
+                txtenddate.Text = booking.EndDate.ToString();
             }
             catch (Exception ex)
             {
@@ -53,12 +53,12 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             {
               
                 booking.ID = int.Parse(lblID.Text);
-                booking.roomID = (int.Parse)(txtroomid.Text);
-                booking.startDate = DateTime.Parse(txtstartdate.Text);
-                booking.endDate = DateTime.Parse(txtenddate.Text);
-                bookingservice.EditBooking(user,booking);
+                booking.RoomID = (int.Parse)(txtroomid.Text);
+                booking.StartDate = DateTime.Parse(txtstartdate.Text);
+                booking.EndDate = DateTime.Parse(txtenddate.Text);
+                bookingservice.EditBooking(booking);
 
-                lblstatus.Text = "Your Booking has been update!" + booking.refNum;
+                lblstatus.Text = "Your Booking has been update!" + booking.RefNum;
                
                 
                     
