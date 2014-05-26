@@ -32,5 +32,35 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
               throw ex;
           }
       }
+      public bool InsertAsset(Asset entitiy)
+      {
+          bool result = false;
+
+          try
+          {
+              SessionFactory sf = new SessionFactory();
+              var factory = sf.CreateSessionFactory();
+
+              using (var session = factory.OpenSession())
+              {
+                  var asset = new Asset
+                  {
+                      RoomID = entitiy.RoomID,
+                      Name = entitiy.Name,
+                      IsEnabled = entitiy.IsEnabled
+                  };
+                  session.Save(asset);
+                  return true;
+
+
+              }
+
+          }
+          catch (Exception)
+          {
+              return false;
+              throw;
+          }
+      }
     }
 }

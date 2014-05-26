@@ -9,5 +9,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
    public interface IAssetService : IDisposable
     {
        List<Asset> GetList();
+       bool InsertAsset(Asset asset);
     }
 }
