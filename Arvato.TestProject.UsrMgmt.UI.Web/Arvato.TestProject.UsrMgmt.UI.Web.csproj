@@ -66,6 +66,7 @@
     <Content Include="InsertBooking.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="NewUser.aspx" />
+    <Content Include="UpdateAsset.aspx" />
     <Content Include="UserList.aspx" />
     <Content Include="UserListing.aspx" />
     <Content Include="UserPage.aspx" />
@@ -112,6 +113,13 @@
       <DependentUpon>NewUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateAsset.aspx.cs">
+      <DependentUpon>UpdateAsset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateAsset.aspx.designer.cs">
+      <DependentUpon>UpdateAsset.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
