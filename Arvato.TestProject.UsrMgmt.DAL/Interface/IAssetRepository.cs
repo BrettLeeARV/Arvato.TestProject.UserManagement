@@ -10,5 +10,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     {
         IQueryable<Asset> GetList();
         bool InsertAsset(Asset entity);
+        bool UpdateAsset(Asset entity);
+        Asset SelectAsset(Asset entity);
     }
 }

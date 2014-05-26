@@ -10,5 +10,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     {
        List<Asset> GetList();
        bool InsertAsset(Asset asset);
+       bool UpdateAsset(Asset entity);
+       Asset SelectAsset(Asset entity);
     }
 }

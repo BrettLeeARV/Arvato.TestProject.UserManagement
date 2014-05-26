@@ -50,6 +50,32 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                throw;
            }
        }
+       public bool UpdateAsset(Asset entity)
+       {
+           try
+           {
+               assetRepository.UpdateAsset(entity);
+               return true;
+           }
+           catch (Exception)
+           {
+               
+               throw;
+           }
+       }
+       public Asset SelectAsset(Asset entity)
+       {
+           try
+           {
+               return assetRepository.SelectAsset(entity);
+                   
+           }
+           catch (Exception)
+           {
+               
+               throw;
+           }
+       }
        #region IDisposable Implementation
        private bool disposed = false;
 
