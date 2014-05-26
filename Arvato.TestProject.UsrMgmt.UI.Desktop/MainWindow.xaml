@@ -8,7 +8,16 @@
     Height="500"
     Width="750"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <DockPanel>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
+    <Grid>
         <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding CurrentViewModel, Mode=OneWay}"/>
-    </DockPanel>
+        <Grid Background="#AAFFFFFF" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding LoadingText}" TextAlignment="Center" Margin="10" FontSize="16" FontWeight="SemiBold" />
+                <ProgressBar Name="progressBar1" Width="200" IsIndeterminate="True" Height="20" />
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Window>

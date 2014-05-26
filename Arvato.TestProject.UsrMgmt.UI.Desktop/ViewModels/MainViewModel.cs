@@ -27,6 +27,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private ViewModelLocator _locator;
 
+        private bool _isLoading;
+        private string _loadingText;
+        private const string _defaultLoadingText = "Please wait...";
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -40,6 +44,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             ////{
             ////    // Code runs "for real"
             ////}
+
+            IsLoading = false;
+            LoadingText = _defaultLoadingText;
 
             _locator =  new ViewModelLocator();
 
@@ -66,6 +73,46 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 this,
                 (action) => ReceiveNotificationMessage(action)
             );
+
+            Messenger.Default.Register<LoadingMessage>
+            (
+                this,
+                (action) => ReceiveLoadingMessage(action)
+            );
+        }
+
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value == _isLoading)
+                {
+                    return;
+                }
+                _isLoading = value;
+                RaisePropertyChanged("IsLoading");
+            }
+        }
+
+        public string LoadingText
+        {
+            get
+            {
+                return _loadingText;
+            }
+            set
+            {
+                if (value == _loadingText)
+                {
+                    return;
+                }
+                _loadingText = value;
+                RaisePropertyChanged("LoadingText");
+            }
         }
 
         public ViewModelBase CurrentViewModel
@@ -112,6 +159,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             if (action.Notification == "LoggedIn")
             {
                 LoadPostLoginViewModels();
+            }
+        }
+
+        private void ReceiveLoadingMessage(LoadingMessage action)
+        {
+            IsLoading = action.ShowLoading;
+            if (!String.IsNullOrEmpty(action.Text))
+            {
+                LoadingText = action.Text;
+            }
+            else
+            {
+                LoadingText = _defaultLoadingText;
             }
         }
 

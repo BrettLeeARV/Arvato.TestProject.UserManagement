@@ -9,6 +9,8 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Threading;
+using System.ComponentModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -65,25 +67,46 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         /// <param name="passwordBox">The PasswordBox control to read from.</param>
         private void SignIn(PasswordBox passwordBox)
         {
-            // the only way to extract the password out of a PasswordBox is by directly accessing its Password property
-            user.Password = passwordBox.Password;
-            try
+            MessengerInstance.Send(new LoadingMessage("Signing in..."));
+
+            Exception loginEx = null;
+            bool loggedIn = false;
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                userService.Login(user);
-            }
-            catch (Exception ex)
+                // the only way to extract the password out of a PasswordBox is by directly accessing its Password property
+                user.Password = passwordBox.Password;
+                try
+                {
+                    loggedIn = userService.Login(user);
+                }
+                catch (Exception ex)
+                {
+                    loginEx = ex;
+                }
+            };
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            if (user.ID > 0)
-            {
-                StateManager.CurrentUser = user;
-                PostLogIn();
-            }
-            else
-            {
-                MessageBox.Show("Invalid login ID or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                if (loggedIn)
+                {
+                    StateManager.CurrentUser = user;
+                    PostLogIn();
+                }
+                else
+                {
+                    if (loginEx == null)
+                    {
+                        MessageBox.Show("Invalid login ID or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(loginEx.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                MessengerInstance.Send(new LoadingMessage(false));
+            };
+            worker.RunWorkerAsync();
         }
 
         #endregion

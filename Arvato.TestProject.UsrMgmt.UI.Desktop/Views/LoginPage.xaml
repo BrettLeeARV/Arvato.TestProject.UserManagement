@@ -23,7 +23,7 @@
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
                 <PasswordBox Name="passwordTextBox" Password="password" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>
-                <TextBox Name="domainTextBox" Text="ARVATO" />
+                <TextBox Name="domainTextBox" Text="ARVATO" IsEnabled="False" />
                 <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=passwordTextBox}" />
             </StackPanel>
         </Grid>
