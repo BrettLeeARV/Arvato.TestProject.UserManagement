@@ -48,7 +48,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (users != value)
                 {
                     users = value;
-                    RaisePropertyChanged("Users");
+                    RaisePropertyChanged("Bookings");
                 }
             }
         }

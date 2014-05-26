@@ -27,6 +27,9 @@
         </DataTemplate>
 
         <!-- Bookings -->
+        <DataTemplate DataType="{x:Type ViewModels:BookingsListViewModel}">
+            <Views:BookingsListPage />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:BookingsCreateViewModel}">
             <Views:BookingsCreatePage />
         </DataTemplate>
