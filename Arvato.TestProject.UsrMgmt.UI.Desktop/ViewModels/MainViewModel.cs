@@ -25,6 +25,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private ViewModelBase _currentViewModel;
 
+        private ViewModelLocator _locator;
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -39,15 +41,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             ////    // Code runs "for real"
             ////}
 
-            ViewModelLocator vml = new ViewModelLocator();
+            _locator =  new ViewModelLocator();
 
             // Insert needed ViewModels into dictionary
             _viewModels = new Dictionary<string, ViewModelBase>();
-            _viewModels.Add("Login", vml.Login);
-            _viewModels.Add("MainMenu", vml.MainMenu);
-            _viewModels.Add("UsersList", vml.UsersList);
-            _viewModels.Add("BookingsList", vml.BookingsList);
-            _viewModels.Add("BookingsCreate", vml.BookingsCreate);
+            _viewModels.Add("Login", _locator.Login);
+            _viewModels.Add("MainMenu", _locator.MainMenu);
 
             // Set initial ViewModel
             CurrentViewModel = _viewModels["Login"];
@@ -60,6 +59,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             (
                  this,
                  (action) => ReceiveChangeViewModelMessage(action)
+            );
+
+            Messenger.Default.Register<NotificationMessage>
+            (
+                this,
+                (action) => ReceiveNotificationMessage(action)
             );
         }
 
@@ -100,6 +105,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void ReceiveChangeViewModelMessage(ChangeViewModelMessage action)
         {
             ChangeViewModel(action.ViewModelName);
+        }
+
+        private void ReceiveNotificationMessage(NotificationMessage action)
+        {
+            if (action.Notification == "LoggedIn")
+            {
+                LoadPostLoginViewModels();
+            }
+        }
+
+        private void LoadPostLoginViewModels()
+        {
+            _viewModels.Add("UsersList", _locator.UsersList);
+            _viewModels.Add("BookingsList", _locator.BookingsList);
+            _viewModels.Add("BookingsCreate", _locator.BookingsCreate);
         }
 
     }
