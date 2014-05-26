@@ -59,6 +59,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
+                LDAPService ADService = new LDAPService();
 
                 #region Field Validation Logic
                 //Perform business logic validation here
@@ -93,11 +94,15 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                     throw (new Exception("LoginID already exists"));
                 }
-                if (user.Password.Trim().Length == 0)
+                if (user.IsWindowAuthenticate == true && ADService.IsExistUser(user.LoginID) == false)
+                {
+                    throw (new Exception("LoginID is not valid!"));
+                }
+                if (user.Password.Trim().Length == 0 && user.IsWindowAuthenticate == false)
                 {
                     throw (new Exception("Password is a required field"));
                 }
-                else if (user.Password.Trim().Length < 8)
+                else if (user.Password.Trim().Length < 8 && user.IsWindowAuthenticate == false)
                 {
                     throw (new Exception("Password must at least 8 characters"));
                 }
@@ -128,11 +133,21 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            
         }
 
-        public void Login(User user)
+        public bool Login(User user)
         {
             try
             {
-                userRepository.Login(user);
+                LDAPService ldap = new LDAPService();
+
+                if (userRepository.Login(user))
+                    return true;
+                else
+                {
+                    if (user.IsWindowAuthenticate)
+                        return ldap.IsAuthenticated( user.LoginID, user.Password);
+                    else
+                        return false;
+                }
             }
             catch (Exception)
             {

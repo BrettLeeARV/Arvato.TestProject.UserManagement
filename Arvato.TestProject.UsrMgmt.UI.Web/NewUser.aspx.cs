@@ -47,25 +47,35 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
                 myuser.Email = txtEmail.Text;
                 myuser.LoginID = txtLoginID.Text;
                 myuser.Password = txtPassword.Text;
+                myuser.IsWindowAuthenticate = chkWindowAuthenticate.Checked;
 
                 try
                 {
                     userService.Save(myuser);
                     lblstatus.Text = "Success!";
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-
-              //  lblstatus.Text = ex.Message;
-            
-
-                    lblstatus.Text = "The Email address is already existed!";
+                    lblstatus.Text = ex.Message;
+                    //lblstatus.Text = "The Email address is already existed!";
                 }
             };
 
          
 
+        }
+
+        protected void chkWindowAuthenticate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkWindowAuthenticate.Checked)
+            {
+                txtPassword.Text = "";
+                txtPassword.Enabled = false;
+            }
+            else
+            {
+                txtPassword.Enabled = true;
+            }
         }
     }
 }

@@ -14,9 +14,13 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
-                lblloginID.Text = ((User)Session["UserSession"]).LoginID;
+
+                User user = (User)Session["UserSession"];
+                lblloginID.Text = user.ID.ToString();
+
             }
         }
 
@@ -34,8 +38,10 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
            // booking.refNum = lblBookingID.Text;
             try
             {
+
                 bookingservice.AddBooking(booking);
-                lblBookingID.Text = "You have successfully booked room your refrence number is " + booking.RefNum;
+                lblBookingID.Text = "You have successfully booked room your refrence number is " + "<b>" + booking.RefNum + "</b>";
+
 
             }
             catch (Exception ex)

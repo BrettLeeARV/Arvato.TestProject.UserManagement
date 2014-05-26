@@ -28,12 +28,17 @@
             </tr>
              <tr>
                 <td>Password:</td>
-                <td><asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox></td>
+                <td><asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:CheckBox ID="chkWindowAuthenticate" runat="server" 
+                        Text="Use Window Authentincate" AutoPostBack="True" 
+                        oncheckedchanged="chkWindowAuthenticate_CheckedChanged" />
+                </td>
             </tr>
         </table><br />
         <asp:Button runat="server" ID="btnSave" Text="Save" OnClick="btnSave_Click" />
     &nbsp;<asp:Label ID="lblstatus" runat="server"></asp:Label>
     </div>
     </form>
+
 </body>
 </html>

@@ -68,6 +68,7 @@
     <Content Include="UserList.aspx" />
     <Content Include="UserListing.aspx" />
     <Content Include="UserPage.aspx" />
+    <Content Include="ViewAssetList.aspx" />
     <Content Include="ViewBooking.aspx" />
     <Content Include="ViewBookingList.aspx" />
     <Content Include="ViewOwnBooking.aspx" />
@@ -123,6 +124,13 @@
     </Compile>
     <Compile Include="UserPage.aspx.designer.cs">
       <DependentUpon>UserPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAssetList.aspx.cs">
+      <DependentUpon>ViewAssetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAssetList.aspx.designer.cs">
+      <DependentUpon>ViewAssetList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBooking.aspx.cs">
       <DependentUpon>ViewBooking.aspx</DependentUpon>
