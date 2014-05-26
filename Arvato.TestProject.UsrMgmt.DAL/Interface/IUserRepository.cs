@@ -11,7 +11,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     public interface IUserRepository : IBaseRepository<User>, IDisposable
     {
 
-        void Login(User entity);
+        bool Login(User entity);
         bool IsExistingLoginID(string LoginID, int ID);
         
     }

@@ -39,6 +39,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 user.Email = TextBox4.Text;
                 user.LoginID = TextBox5.Text;
                 user.Password = TextBox6.Text;
+                user.IsWindowAuthenticate = chkWindowAuthenticate.Checked;
                 us.Update(user);
                 lblstatus.Text = "Success";
             }
