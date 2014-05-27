@@ -107,12 +107,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void AddBooking()
         {
-            MessengerInstance.Send(new ChangePageMessage(new BookingsCreateViewModel()));
+            MessengerInstance.Send(new ChangePageMessage(new BookingsFormViewModel()));
         }
 
         private void EditBooking()
         {
-            BookingsCreateViewModel formViewModel = new BookingsCreateViewModel(SelectedBooking);
+            BookingsFormViewModel formViewModel = new BookingsFormViewModel(SelectedBooking);
             MessengerInstance.Send(new ChangePageMessage(formViewModel));
         }
 

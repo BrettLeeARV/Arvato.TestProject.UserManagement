@@ -78,13 +78,13 @@
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\StateManager.cs" />
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
-    <Compile Include="ViewModels\BookingsCreateViewModel.cs" />
+    <Compile Include="ViewModels\BookingsFormViewModel.cs" />
     <Compile Include="ViewModels\BookingsListViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />
-    <Compile Include="Views\Bookings\BookingsCreatePage.xaml.cs">
-      <DependentUpon>BookingsCreatePage.xaml</DependentUpon>
+    <Compile Include="Views\Bookings\BookingsFormPage.xaml.cs">
+      <DependentUpon>BookingsFormPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Bookings\BookingsListPage.xaml.cs">
       <DependentUpon>BookingsListPage.xaml</DependentUpon>
@@ -105,7 +105,7 @@
     <Compile Include="Views\Users\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Bookings\BookingsCreatePage.xaml">
+    <Page Include="Views\Bookings\BookingsFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

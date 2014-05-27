@@ -18,9 +18,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
     /// <summary>
     /// Interaction logic for BookingsCreatePage.xaml
     /// </summary>
-    public partial class BookingsCreatePage : UserControl
+    public partial class BookingsFormPage : UserControl
     {
-        public BookingsCreatePage()
+        public BookingsFormPage()
         {
             InitializeComponent();
         }

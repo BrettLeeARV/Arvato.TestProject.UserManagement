@@ -98,11 +98,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public BookingsCreateViewModel BookingsCreate
+        public BookingsFormViewModel BookingsCreate
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<BookingsCreateViewModel>();
+                return ServiceLocator.Current.GetInstance<BookingsFormViewModel>();
             }
         }
         

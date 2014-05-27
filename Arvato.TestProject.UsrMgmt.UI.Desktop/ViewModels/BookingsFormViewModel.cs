@@ -12,7 +12,7 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
 
-    public class BookingsCreateViewModel : PageViewModel
+    public class BookingsFormViewModel : PageViewModel
     {
         #region Private fields
 
@@ -38,12 +38,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #endregion
 
-        public BookingsCreateViewModel()
+        public BookingsFormViewModel()
             : this(null)
         {
         }
 
-        public BookingsCreateViewModel(Booking booking)
+        public BookingsFormViewModel(Booking booking)
             : base()
         {
             _booking = booking;
