@@ -8,6 +8,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Validator;
+using FluentValidation.Results;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -22,7 +24,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _userService = new UserService();
 
             _currentUser = new User();
-            
+
             SaveUserCommand = new RelayCommand(this.SaveUser);
         }
 
@@ -50,8 +52,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void SaveUser()
         {
-            _userService.Save(_currentUser);
-            RaisePropertyChanged("CurrentUser");
+            UserValidator validator = new UserValidator();
+            ValidationResult results = validator.Validate(_currentUser);
+
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                }
+            }
+            else
+            {
+                _userService.Save(_currentUser);
+                RaisePropertyChanged("CurrentUser");
+            }
         }
     }
 }
