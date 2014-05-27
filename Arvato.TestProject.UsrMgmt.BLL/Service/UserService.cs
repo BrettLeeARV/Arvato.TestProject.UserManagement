@@ -148,7 +148,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
                     while (LoginAttempt < 3)
                     {
-                        if (user.IsWindowAuthenticate == false)
+                        if (user.IsWindowAuthenticate)
                         {
                             LoginStatus = true;
                             break;
