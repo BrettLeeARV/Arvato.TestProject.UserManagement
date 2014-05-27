@@ -10,9 +10,10 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     {
         List<Booking> GetList();
         void AddBooking(Booking booking);
-        void ViewBooking(Booking booking);
+        void ViewBooking(ref Booking booking);
         void EditBooking(Booking booking);
         void CancelBooking(Booking booking);
         List<Booking> GetUserOwnBooking(int userid);
+        void Save(Booking booking);
     }
 }

@@ -12,5 +12,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
        bool InsertAsset(Asset asset);
        bool UpdateAsset(Asset entity);
        Asset SelectAsset(Asset entity);
+       List<Asset> GetEnabledList();
+       List<Asset> GetEnabledListByRoomID(int RoomID);
     }
 }

@@ -98,5 +98,37 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 throw ex;
             }
         }
+
+        public IQueryable<Asset> GetAllEnabled()
+        {
+            try
+            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+
+                using (var session = factory.OpenSession())
+                {
+                    var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
+                    return assetList.AsQueryable<Asset>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }          
+        }
+
+        public IQueryable<Asset> GetByRoomID(int RoomID)
+        {
+            SessionFactory sf = new SessionFactory();
+            var factory = sf.CreateSessionFactory();
+
+            using (var session = factory.OpenSession())
+            {
+                var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true && x.RoomID == RoomID).List().OrderBy(x => x.Name);
+
+                return assetList.AsQueryable<Asset>();
+            }
+        }
     }
 }

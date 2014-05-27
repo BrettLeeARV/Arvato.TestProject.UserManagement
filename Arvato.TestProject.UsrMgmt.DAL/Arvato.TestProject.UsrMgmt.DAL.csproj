@@ -58,6 +58,7 @@
     <Compile Include="Interface\IBookingRepository.cs" />
     <Compile Include="Interface\IRoomRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Mapping\AssetBookingMapping.cs" />
     <Compile Include="Mapping\AssetMapping.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
     <Compile Include="Mapping\RoomMapping.cs" />

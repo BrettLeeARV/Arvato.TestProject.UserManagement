@@ -76,6 +76,34 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                throw;
            }
        }
+
+       public List<Asset> GetEnabledList()
+       {
+           try
+           {
+               return assetRepository.GetAllEnabled().ToList<Asset>();
+           }
+           catch (Exception ex)
+           {
+               //Insert error Logging/Handling Mechanism here
+               throw ex;
+           }
+
+       }
+
+       public List<Asset> GetEnabledListByRoomID(int RoomID)
+       {
+           try
+           {
+               return assetRepository.GetByRoomID(RoomID).ToList<Asset>();
+           }
+           catch (Exception ex)
+           {
+               //Insert error Logging/Handling Mechanism here
+               throw ex;
+           }
+
+       }
        #region IDisposable Implementation
        private bool disposed = false;
 

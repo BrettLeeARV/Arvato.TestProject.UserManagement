@@ -35,6 +35,20 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            }
 
        }
+
+       public List<Room> GetEnabledList()
+       {
+           try
+           {
+               return roomRepository.GetAllEnabled().ToList<Room>();
+           }
+           catch (Exception ex)
+           {
+               //Insert error Logging/Handling Mechanism here
+               throw ex;
+           }
+
+       }
        #region IDisposable Implementation
        private bool disposed = false;
 

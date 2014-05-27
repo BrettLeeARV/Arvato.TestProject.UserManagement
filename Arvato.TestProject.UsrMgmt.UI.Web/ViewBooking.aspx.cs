@@ -26,7 +26,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             booking.RefNum = txtrefnum.Text;
             try
             {
-                bookingservice.ViewBooking(booking);
+                bookingservice.ViewBooking(ref booking);
                 lblID.Text = booking.ID.ToString();
                 lblLoginID.Text = user.LoginID;
                txtroomid.Text = booking.RoomID.ToString();

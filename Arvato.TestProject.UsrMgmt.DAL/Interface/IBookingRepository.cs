@@ -11,7 +11,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
         IQueryable<Booking> GetList();
         IQueryable<Booking> GetUserOwnBooking(int userid);
         bool AddBooking(Booking booking);
-        bool ViewBooking(Booking booking);
+        IQueryable<Booking> ViewBooking(Booking booking);
         bool EditBooking(Booking booking);
         bool CancelBooking(Booking booking);
     }

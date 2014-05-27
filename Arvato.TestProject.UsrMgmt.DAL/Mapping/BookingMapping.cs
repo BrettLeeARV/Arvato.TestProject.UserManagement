@@ -12,14 +12,16 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
     {
        public BookingMapping()
        {
-           Id(x => x.ID);
+           Table("Booking");
+           Id(x => x.ID).GeneratedBy.Identity();
            Map(x => x.UserID);
            Map(x => x.RoomID);
            Map(x => x.StartDate);
            Map(x => x.EndDate);
            Map(x => x.RefNum);
-           Map(x => x.DateCreated);
+           Map(x => x.DateCreated).ReadOnly();
            Map(x => x.IsCanceled);
+           HasMany(x => x.AssetBookings).KeyColumn("BookingID").Not.LazyLoad();
        }
     }
 }
