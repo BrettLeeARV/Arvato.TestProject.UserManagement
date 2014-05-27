@@ -137,17 +137,31 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
+                bool LoginStatus = false;
                 LDAPService ldap = new LDAPService();
 
                 if (userRepository.Login(user))
-                    return true;
+                    LoginStatus =  true;
                 else
                 {
-                    if (user.IsWindowAuthenticate)
-                        return ldap.IsAuthenticated( user.LoginID, user.Password);
-                    else
-                        return false;
+                    int LoginAttempt = 0;
+
+                    while (LoginAttempt < 3)
+                    {
+                        if (user.IsWindowAuthenticate)
+                        {
+                            LoginStatus = true;
+                            break;
+                        }
+                        else
+                        {
+                            LoginStatus = false;
+                            LoginAttempt++;
+                        }
+                    }
                 }
+
+                return LoginStatus;
             }
             catch (Exception)
             {

@@ -28,11 +28,52 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            try
            {
                return assetRepository.GetList().ToList<Asset>();
+
            }
            catch (Exception ex)
            {
                
                throw ex;
+           }
+
+       }
+       public bool InsertAsset(Asset asset)
+       {
+           try
+           {
+               assetRepository.InsertAsset(asset);
+               return true;
+           }
+           catch (Exception)
+           {
+               
+               throw;
+           }
+       }
+       public bool UpdateAsset(Asset entity)
+       {
+           try
+           {
+               assetRepository.UpdateAsset(entity);
+               return true;
+           }
+           catch (Exception)
+           {
+               
+               throw;
+           }
+       }
+       public Asset SelectAsset(Asset entity)
+       {
+           try
+           {
+               return assetRepository.SelectAsset(entity);
+                   
+           }
+           catch (Exception)
+           {
+               
+               throw;
            }
        }
        #region IDisposable Implementation

@@ -9,5 +9,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     public interface IAssetRepository : IDisposable
     {
         IQueryable<Asset> GetList();
+        bool InsertAsset(Asset entity);
+        bool UpdateAsset(Asset entity);
+        Asset SelectAsset(Asset entity);
     }
 }

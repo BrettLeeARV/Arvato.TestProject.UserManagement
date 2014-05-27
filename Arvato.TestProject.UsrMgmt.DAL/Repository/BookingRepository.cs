@@ -38,7 +38,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 throw;
             }
         }
-        public IQueryable<Booking> GetUserOwnBooking(string userid) // TO Do For Tomorrow.
+        public IQueryable<Booking> GetUserOwnBooking(int userid) // TO Do For Tomorrow.
         {
             try
             {
