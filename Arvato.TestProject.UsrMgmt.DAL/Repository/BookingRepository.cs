@@ -97,7 +97,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 DataTable dt = null;
                 SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.VarChar,50) {Value = booking.RefNum}};
 
-              //  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
+                dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
                 foreach (DataRow dr in dt.Rows)
                 {
                     booking.ID = int.Parse(dr["ID"].ToString());
