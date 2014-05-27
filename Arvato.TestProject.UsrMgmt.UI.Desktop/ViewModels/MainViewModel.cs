@@ -23,11 +23,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private IDictionary<string, ViewModelBase> _viewModels;
-
-        private ViewModelBase _currentViewModel;
-
-        private ViewModelLocator _locator;
+        private PageViewModel _currentViewModel;
 
         private bool _isLoading;
         private string _loadingText;
@@ -38,32 +34,16 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-
             IsLoading = false;
             LoadingText = _defaultLoadingText;
 
-            _locator = (ViewModelLocator) Application.Current.Resources["Locator"];
-
-            // Insert needed ViewModels into dictionary
-            _viewModels = new Dictionary<string, ViewModelBase>();
-            _viewModels.Add("Login", _locator.Login);
-            _viewModels.Add("MainMenu", _locator.MainMenu);
-
             // Set initial ViewModel
-            CurrentViewModel = _viewModels["Login"];
+            ChangeViewModel(typeof(LoginViewModel));
 
             // Command to change the ViewModel, given a string representing the ViewModel name
             ChangePageCommand = new RelayCommand<Type>(this.ChangeViewModel);
 
-            // Subscribe to ChangeViewModelMessages
+            // Subscribe to ChangePageMessage (change view model)
             Messenger.Default.Register<ChangePageMessage>
             (
                  this,
@@ -117,7 +97,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public ViewModelBase CurrentViewModel
+        public PageViewModel CurrentViewModel
         {
             get
             {
@@ -126,8 +106,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             set
             {
                 if (_currentViewModel == value)
+                {
                     return;
+                }
+                if (_currentViewModel != null)
+                {
+                    _currentViewModel.IsCurrentlyShown = false;
+                }
                 _currentViewModel = value;
+                _currentViewModel.IsCurrentlyShown = true;
                 RaisePropertyChanged("CurrentViewModel");
             }
         }
@@ -140,7 +127,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void ChangeViewModel(Type type)
         {
-            var viewModel = (ViewModelBase) SimpleIoc.Default.GetInstance(type);
+            var viewModel = (PageViewModel) SimpleIoc.Default.GetInstance(type);
             if (viewModel != null)
             {
                 CurrentViewModel = viewModel;
@@ -161,28 +148,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             if (action.Notification == "LoggedIn")
             {
-                LoadPostLoginViewModels();
+                // do nothing for now
             }
         }
 
         private void ReceiveLoadingMessage(LoadingMessage action)
         {
             IsLoading = action.ShowLoading;
-            if (!String.IsNullOrEmpty(action.Text))
-            {
-                LoadingText = action.Text;
-            }
-            else
+            if (String.IsNullOrEmpty(action.Text))
             {
                 LoadingText = _defaultLoadingText;
             }
-        }
-
-        private void LoadPostLoginViewModels()
-        {
-            _viewModels.Add("UsersList", _locator.UsersList);
-            _viewModels.Add("BookingsList", _locator.BookingsList);
-            _viewModels.Add("BookingsCreate", _locator.BookingsCreate);
+            else
+            {
+                LoadingText = action.Text;
+            }
         }
 
     }

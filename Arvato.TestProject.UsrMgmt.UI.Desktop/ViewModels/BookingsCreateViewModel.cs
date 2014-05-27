@@ -54,6 +54,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         #endregion
 
         public BookingsCreateViewModel()
+            : base()
         {
             _booking = new Booking();
             // Default booking dates are today

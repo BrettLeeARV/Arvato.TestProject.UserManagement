@@ -20,6 +20,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private User user;
 
         public LoginViewModel()
+            : base()
         {
             // set up model data
             userService = new UserService();

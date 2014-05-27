@@ -17,6 +17,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private User _currentUser;
 
         public UsersFormViewModel()
+            : base()
         {
             _userService = new UserService();
 

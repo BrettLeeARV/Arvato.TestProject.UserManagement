@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Messages
 {
-    public class LoadingMessage
+    public class LoadingMessage : MessageBase
     {
         public LoadingMessage()
         {

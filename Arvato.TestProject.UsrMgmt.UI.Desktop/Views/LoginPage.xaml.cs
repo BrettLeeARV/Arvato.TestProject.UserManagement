@@ -22,6 +22,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         public LoginPage()
         {
             InitializeComponent();
+
+#if DEBUG
+            // for convenience when testing
+            passwordTextBox.Password = "password";
+#endif
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using GalaSoft.MvvmLight.Messaging;
+
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Messages
 {
-    public class ChangePageMessage
+    public class ChangePageMessage : MessageBase
     {
         public ChangePageMessage()
         {

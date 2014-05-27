@@ -23,6 +23,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private ICollection<Booking> bookings;
 
         public BookingsListViewModel()
+            : base()
         {
             // set up model data
             bookingService = new BookingService();
@@ -73,6 +74,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         }
 
         #endregion
+
+        protected override void OnNavigatingTo(object s, EventArgs e)
+        {
+            RefreshBookings();
+        }
 
         private void RefreshBookings()
         {

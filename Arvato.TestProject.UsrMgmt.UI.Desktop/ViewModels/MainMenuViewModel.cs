@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class MainMenuViewModel : ViewModelBase
+    public class MainMenuViewModel : PageViewModel
     {
         public class MainMenuItem
         {
@@ -25,15 +25,16 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 set;
             }
         }
-        
+
         public MainMenuViewModel()
+            : base()
         {
             MenuItems = new List<MainMenuItem>()
             {
                 new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
                 new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }
             };
-            
+
             NavigateToCommand = new RelayCommand<Type>(this.NavigateTo);
         }
 
