@@ -74,8 +74,7 @@
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="Time" 
                                   SelectedValue="{Binding Path=StartTime}"
-                                  Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}"
-                                  SelectionChanged="comboBox2_SelectionChanged" />
+                                  Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
                     </WrapPanel>
                     <Label Content="End time" Name="label3" />
                     <WrapPanel Orientation="Horizontal">

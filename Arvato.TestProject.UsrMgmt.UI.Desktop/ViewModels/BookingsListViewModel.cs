@@ -76,7 +76,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshBookings()
         {
-            Bookings = bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID.ToString());
+            Bookings = bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID);
         }
 
         #region Command methods

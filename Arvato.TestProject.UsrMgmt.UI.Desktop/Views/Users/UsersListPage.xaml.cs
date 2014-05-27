@@ -23,37 +23,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
     /// </summary>
     public partial class UsersListPage : UserControl
     {
-
-        User selectedUser = null;
-
         public UsersListPage()
         {
             InitializeComponent();
-        }
-
-        private void deleteUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            var message = String.Format("Are you sure you want to delete the user \"{0}\"?", selectedUser.LoginID);
-            var result = MessageBox.Show(message, "Deleting user", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            
-            if (result == MessageBoxResult.Yes)
-            {
-                var success = false;
-                try
-                {
-                    IUserService userService = new UserService();
-                    userService.Delete(selectedUser);
-                    success = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Couldn't delete user", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                if (success)
-                {
-                    //NavigationService.Refresh();
-                }
-            }
         }
     }
 }

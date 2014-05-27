@@ -24,11 +24,5 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         {
             InitializeComponent();
         }
-
-        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var box = (ComboBox)sender;
-            Debug.WriteLine(box.Items);
-        }
     }
 }
