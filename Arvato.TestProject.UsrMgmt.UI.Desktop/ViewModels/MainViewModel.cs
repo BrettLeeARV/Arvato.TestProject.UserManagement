@@ -38,16 +38,16 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             LoadingText = _defaultLoadingText;
 
             // Set initial ViewModel
-            ChangeViewModel(typeof(LoginViewModel));
+            ChangeViewModelByType(typeof(LoginViewModel));
 
             // Command to change the ViewModel, given a string representing the ViewModel name
-            ChangePageCommand = new RelayCommand<Type>(this.ChangeViewModel);
+            ChangePageCommand = new RelayCommand<Type>(this.ChangeViewModelByType);
 
             // Subscribe to ChangePageMessage (change view model)
             Messenger.Default.Register<ChangePageMessage>
             (
                  this,
-                 (action) => ReceiveChangeViewModelMessage(action)
+                 (action) => ReceiveChangePageMessage(action)
             );
 
             Messenger.Default.Register<NotificationMessage>
@@ -125,7 +125,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             private set;
         }
 
-        private void ChangeViewModel(Type type)
+        private void ReceiveChangePageMessage(ChangePageMessage action)
+        {
+            if (action.ChangeBy == ChangePageMessage.MessageType.Type)
+            {
+                ChangeViewModelByType(action.ViewModelType);
+            }
+            else
+            {
+                ChangeViewModelByInstance(action.ViewModelInstance);
+            }
+        }
+
+        private void ChangeViewModelByType(Type type)
         {
             var viewModel = (PageViewModel) SimpleIoc.Default.GetInstance(type);
             if (viewModel != null)
@@ -135,13 +147,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             else
             {
                 // TODO: exception handling
-                throw new Exception("MainViewModel.ChangeViewModel: View model not found");
+                throw new Exception("MainViewModel.ChangeViewModelByType: View model not found");
             }
         }
 
-        private void ReceiveChangeViewModelMessage(ChangePageMessage action)
+        private void ChangeViewModelByInstance(PageViewModel instance)
         {
-            ChangeViewModel(action.ViewModel);
+            var viewModel = instance;
+            if (viewModel != null)
+            {
+                CurrentViewModel = viewModel;
+            }
+            else
+            {
+                // TODO: exception handling
+                throw new Exception("MainViewModel.ChangeViewModelByInstance: View model not found");
+            }
         }
 
         private void ReceiveNotificationMessage(NotificationMessage action)

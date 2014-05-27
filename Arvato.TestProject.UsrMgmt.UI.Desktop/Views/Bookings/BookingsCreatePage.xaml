@@ -44,7 +44,7 @@
                         <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
                     </GroupBox>
 
-                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room}">
+                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="5">

@@ -24,7 +24,7 @@
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 
                           VerticalAlignment="Stretch" ItemsSource="{Binding Bookings}" 
                           IsReadOnly="True"
-                          SelectedItem="{Binding FormViewModel.CurrentUser}">
+                          SelectedItem="{Binding SelectedBooking}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Start Time" Binding="{Binding StartDate}" Width="*" />
                         <DataGridTextColumn Header="End Time" Binding="{Binding EndDate}" Width="*" />

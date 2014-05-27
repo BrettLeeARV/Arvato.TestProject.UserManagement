@@ -48,7 +48,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             SimpleIoc.Default.Register<UsersListViewModel>();
             SimpleIoc.Default.Register<UsersFormViewModel>();
             SimpleIoc.Default.Register<BookingsListViewModel>();
-            SimpleIoc.Default.Register<BookingsCreateViewModel>();
         }
 
         public MainViewModel Main

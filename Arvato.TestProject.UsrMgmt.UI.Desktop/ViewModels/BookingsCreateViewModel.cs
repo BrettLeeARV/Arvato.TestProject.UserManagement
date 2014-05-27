@@ -16,10 +16,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
         #region Private fields
 
+        private bool _isNewBooking;
+
         private IBookingService _bookingService;
         private IRoomService _roomService;
 
-        private Booking _booking; // don't expose properties of this object, set manually in code
+        private Booking _booking;
         private Room _room;
 
         // Separate date and time into two fields/properties, so we can validate date and time fields separately
@@ -37,28 +39,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         #endregion
 
         public BookingsCreateViewModel()
+            : this(null)
+        {
+        }
+
+        public BookingsCreateViewModel(Booking booking)
             : base()
         {
-            _booking = new Booking();
-            // Default booking dates are today
-            _startDate = DateTime.Today;
-            _endDate = DateTime.Today;
-            // Default booking start time is now + rounded up to next half hour
-            var startHour = DateTime.Now.Hour;
-            var startMinute = DateTime.Now.Minute;
-            if (startMinute < 30 && startMinute > 0)
-            {
-                startMinute = 30;
-            }
-            else if (startMinute > 30)
-            {
-                startMinute = 0;
-                startHour++;
-            }
-            _startTime = new TimeSpan(startHour, startMinute, 0);
-            // Default booking end time is one hour later
-            _endTime = _startTime + TimeSpan.FromHours(1);
-            
+            _booking = booking;
+
             // Initialize fields
             if (IsInDesignMode)
             {
@@ -78,6 +67,53 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 _bookingService = new BookingService();
                 _roomService = new RoomService();
                 _isConflicting = false;
+                RefreshRooms();
+            }
+
+            if (_booking == null)
+            {
+                // New booking
+                _isNewBooking = true;
+                _booking = new Booking();
+
+                // Default booking dates are today
+                _startDate = DateTime.Today;
+                _endDate = DateTime.Today;
+                // Default booking start time is now + rounded up to next half hour
+                var startHour = DateTime.Now.Hour;
+                var startMinute = DateTime.Now.Minute;
+                if (startMinute < 30 && startMinute > 0)
+                {
+                    startMinute = 30;
+                }
+                else if (startMinute > 30)
+                {
+                    startMinute = 0;
+                    startHour++;
+                }
+                _startTime = new TimeSpan(startHour, startMinute, 0);
+                // Default booking end time is one hour later
+                _endTime = _startTime + TimeSpan.FromHours(1);
+            }
+            else
+            {
+                // Edit booking
+                _isNewBooking = false;
+
+                _startDate = _booking.StartDate.Date;
+                _startTime = _booking.StartDate.TimeOfDay;
+                _endDate = _booking.EndDate.Date;
+                _endTime = _booking.EndDate.TimeOfDay;
+                // Since we do not have navigational properties on Booking and properly 
+                // implemented Compare methods on Room, have to do it the ugly way
+                foreach (var r in RoomList)
+                {
+                    if (r.ID == _booking.RoomID)
+                    {
+                        _room = r;
+                        break;
+                    }
+                }
             }
 
             // Generate TimeComboBoxitems from 00:00 to 23:30, in 30 minute increments
@@ -215,6 +251,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public Booking Booking
+        {
+            get
+            {
+                return _booking;
+            }
+            set
+            {
+                if (value == _booking)
+                {
+                    return;
+                }
+                _booking = value;
+                RaisePropertyChanged("Booking");
+            }
+        }
         public Room Room
         {
             get
@@ -294,14 +346,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #endregion
 
-        protected override void OnNavigatingTo(object s, EventArgs e)
-        {
-            if(!IsInDesignMode)
-            {
-                RefreshRooms();
-            }
-        }
-
         private void RefreshRooms()
         {
             RoomList = new ObservableCollection<Room>(_roomService.GetList());
@@ -319,14 +363,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             try
             {
-                _bookingService.AddBooking(_booking);
+                if (_isNewBooking)
+                {
+                    _bookingService.AddBooking(_booking);
+                }
+                else
+                {
+                    _bookingService.EditBooking(_booking);
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBox.Show("Your booking has been made!", "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (_isNewBooking)
+            {
+                MessageBox.Show(
+                    String.Format(@"Your booking has been made!
+Your booking reference number is: {0}", _booking.RefNum), "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Your booking has been updated.", "Booking updated", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
         }
 

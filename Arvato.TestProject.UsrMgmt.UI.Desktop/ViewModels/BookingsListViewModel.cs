@@ -19,21 +19,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     public class BookingsListViewModel : PageViewModel
     {
 
-        private IBookingService bookingService;
-        private ICollection<Booking> bookings;
+        private IBookingService _bookingService;
+        private ICollection<Booking> _bookings;
+        private Booking _selectedBooking;
 
         public BookingsListViewModel()
             : base()
         {
             // set up model data
-            bookingService = new BookingService();
+            _bookingService = new BookingService();
             RefreshBookings();
 
             // set up commands
             AddBookingCommand = new RelayCommand(this.AddBooking);
-            //EditBookingCommand = new RelayCommand(this.EditBooking,
-            //    // Enable Edit Booking button if a booking is selected
-            //    () => CurrentBooking != null);
+            EditBookingCommand = new RelayCommand(this.EditBooking,
+                // Enable Edit Booking button if a booking is selected
+                () => SelectedBooking != null);
             //CancelBookingCommand = new RelayCommand(this.CancelBooking, 
             //    // enable Delete User button if a user is selected
             //    () => CurrentBooking != null);
@@ -43,15 +44,32 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return bookings;
+                return _bookings;
             }
             set
             {
-                if (bookings != value)
+                if (_bookings != value)
                 {
-                    bookings = value;
+                    _bookings = value;
                     RaisePropertyChanged("Bookings");
                 }
+            }
+        }
+
+        public Booking SelectedBooking
+        {
+            get
+            {
+                return _selectedBooking;
+            }
+            set
+            {
+                if (_selectedBooking == value)
+                {
+                    return;
+                }
+                _selectedBooking = value;
+                RaisePropertyChanged("SelectedBooking");
             }
         }
 
@@ -82,19 +100,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshBookings()
         {
-            Bookings = bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID);
+            Bookings = _bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID);
         }
 
         #region Command methods
 
         private void AddBooking()
         {
-            MessengerInstance.Send(new ChangePageMessage(typeof(BookingsCreateViewModel)));
+            MessengerInstance.Send(new ChangePageMessage(new BookingsCreateViewModel()));
         }
 
-        private void EditBooking(User user)
+        private void EditBooking()
         {
-            throw new NotImplementedException();
+            BookingsCreateViewModel formViewModel = new BookingsCreateViewModel(SelectedBooking);
+            MessengerInstance.Send(new ChangePageMessage(formViewModel));
         }
 
         private void CancelBooking()
