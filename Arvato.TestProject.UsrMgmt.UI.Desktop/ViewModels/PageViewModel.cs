@@ -31,7 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void GoToMainMenu()
         {
-            MessengerInstance.Send(new ChangeViewModelMessage("MainMenu"));
+            MessengerInstance.Send(new ChangePageMessage(typeof(MainMenuViewModel)));
         }
     }
 }

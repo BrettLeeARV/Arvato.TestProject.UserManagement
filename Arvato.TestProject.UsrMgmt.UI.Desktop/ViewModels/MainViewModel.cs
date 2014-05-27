@@ -4,6 +4,8 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -48,7 +50,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             IsLoading = false;
             LoadingText = _defaultLoadingText;
 
-            _locator =  new ViewModelLocator();
+            _locator = (ViewModelLocator) Application.Current.Resources["Locator"];
 
             // Insert needed ViewModels into dictionary
             _viewModels = new Dictionary<string, ViewModelBase>();
@@ -59,10 +61,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             CurrentViewModel = _viewModels["Login"];
 
             // Command to change the ViewModel, given a string representing the ViewModel name
-            ChangeViewModelCommand = new RelayCommand<string>(this.ChangeViewModel);
+            ChangePageCommand = new RelayCommand<Type>(this.ChangeViewModel);
 
             // Subscribe to ChangeViewModelMessages
-            Messenger.Default.Register<ChangeViewModelMessage>
+            Messenger.Default.Register<ChangePageMessage>
             (
                  this,
                  (action) => ReceiveChangeViewModelMessage(action)
@@ -130,17 +132,18 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public RelayCommand<string> ChangeViewModelCommand
+        public RelayCommand<Type> ChangePageCommand
         {
             get;
             private set;
         }
 
-        private void ChangeViewModel(string name)
+        private void ChangeViewModel(Type type)
         {
-            if (_viewModels.ContainsKey(name))
+            var viewModel = (ViewModelBase) SimpleIoc.Default.GetInstance(type);
+            if (viewModel != null)
             {
-                CurrentViewModel = _viewModels[name];
+                CurrentViewModel = viewModel;
             }
             else
             {
@@ -149,9 +152,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        private void ReceiveChangeViewModelMessage(ChangeViewModelMessage action)
+        private void ReceiveChangeViewModelMessage(ChangePageMessage action)
         {
-            ChangeViewModel(action.ViewModelName);
+            ChangeViewModel(action.ViewModel);
         }
 
         private void ReceiveNotificationMessage(NotificationMessage action)

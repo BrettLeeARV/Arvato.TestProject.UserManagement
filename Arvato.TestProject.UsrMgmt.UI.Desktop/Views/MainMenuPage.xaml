@@ -17,7 +17,7 @@
             <DataTemplate>
                 <Button Content="{Binding Title}" 
                         Command="{Binding DataContext.NavigateToCommand, ElementName=MainMenuControl}" 
-                        CommandParameter="{Binding ViewModelName}" 
+                        CommandParameter="{Binding ViewModel}" 
                         MinWidth="200" MinHeight="150" Margin="20" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>

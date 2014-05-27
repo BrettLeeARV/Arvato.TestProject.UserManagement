@@ -83,7 +83,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void AddBooking()
         {
-            MessengerInstance.Send(new ChangeViewModelMessage("BookingsCreate"));
+            MessengerInstance.Send(new ChangePageMessage(typeof(BookingsCreateViewModel)));
         }
 
         private void EditBooking(User user)

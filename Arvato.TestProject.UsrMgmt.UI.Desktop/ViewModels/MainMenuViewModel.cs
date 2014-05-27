@@ -19,7 +19,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 get;
                 set;
             }
-            public string ViewModelName
+            public Type ViewModel
             {
                 get;
                 set;
@@ -30,11 +30,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             MenuItems = new List<MainMenuItem>()
             {
-                new MainMenuItem() { Title = "Manage Users" , ViewModelName = "UsersList" },
-                new MainMenuItem() { Title = "Manage Bookings" , ViewModelName = "BookingsList" }
+                new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
+                new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }
             };
             
-            NavigateToCommand = new RelayCommand<string>(this.NavigateTo);
+            NavigateToCommand = new RelayCommand<Type>(this.NavigateTo);
         }
 
         public IList<MainMenuItem> MenuItems
@@ -55,10 +55,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #region Command methods
 
-        private void NavigateTo(string viewModelName)
+        private void NavigateTo(Type viewModel)
         {
-            var msg = new ChangeViewModelMessage(viewModelName);
-            Messenger.Default.Send<ChangeViewModelMessage>(msg);
+            var msg = new ChangePageMessage(viewModel);
+            Messenger.Default.Send<ChangePageMessage>(msg);
         }
 
         #endregion

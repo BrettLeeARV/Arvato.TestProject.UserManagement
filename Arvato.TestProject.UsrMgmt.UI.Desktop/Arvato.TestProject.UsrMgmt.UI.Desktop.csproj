@@ -73,7 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Messages\ChangeViewModelMessage.cs" />
+    <Compile Include="Messages\ChangePageMessage.cs" />
     <Compile Include="Messages\LoadingMessage.cs" />
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\StateManager.cs" />

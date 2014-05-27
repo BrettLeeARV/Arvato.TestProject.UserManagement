@@ -321,7 +321,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void Cancel()
         {
-            MessengerInstance.Send(new ChangeViewModelMessage("BookingsList"));
+            MessengerInstance.Send(new ChangePageMessage(typeof(BookingsListViewModel)));
         }
 
         #endregion

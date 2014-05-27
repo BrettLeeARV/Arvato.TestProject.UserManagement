@@ -116,8 +116,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             var loggedInMessage = new NotificationMessage("LoggedIn");
             MessengerInstance.Send<NotificationMessage>(loggedInMessage);
 
-            var msg = new ChangeViewModelMessage("MainMenu");
-            MessengerInstance.Send<ChangeViewModelMessage>(msg);
+            var msg = new ChangePageMessage(typeof(MainMenuViewModel));
+            MessengerInstance.Send<ChangePageMessage>(msg);
         }
     }
 }
