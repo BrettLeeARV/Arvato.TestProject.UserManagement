@@ -23,8 +23,8 @@
                 <Button Content="Book It" Padding="30,10,30,10" Margin="0,0,20,0" Command="{Binding MakeBookingCommand}" />
                 <Button Content="Cancel" Padding="30,10,30,10" Command="{Binding CancelCommand}" />
             </StackPanel>
-            <Grid Visibility="{Binding Path=IsConflicting, Converter={StaticResource BooleanToVisibility}}">
-                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" Visibility="{Binding}" />
+            <Grid Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
+                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" />
             </Grid>
         </DockPanel>
         <Grid>

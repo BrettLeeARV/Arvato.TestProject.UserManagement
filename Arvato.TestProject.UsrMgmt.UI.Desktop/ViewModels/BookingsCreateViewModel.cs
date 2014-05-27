@@ -14,23 +14,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
     public class BookingsCreateViewModel : PageViewModel
     {
-
-        public class TimeComboBoxItem
-        {
-            public string ValueString
-            {
-                get
-                {
-                    return new DateTime(0).Add(Time).ToShortTimeString();
-                }
-            }
-            public TimeSpan Time
-            {
-                get;
-                set;
-            }
-        }
-
         #region Private fields
 
         private IBookingService _bookingService;
@@ -94,8 +77,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 _bookingService = new BookingService();
                 _roomService = new RoomService();
-                RoomList = new ObservableCollection<Room>(_roomService.GetList());
-
                 _isConflicting = false;
             }
 
@@ -111,6 +92,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // Wire up commands
             MakeBookingCommand = new RelayCommand(this.MakeBooking, () => !IsConflicting);
             CancelCommand = new RelayCommand(this.Cancel);
+        }
+
+        public class TimeComboBoxItem
+        {
+            public string ValueString
+            {
+                get
+                {
+                    return new DateTime(0).Add(Time).ToShortTimeString();
+                }
+            }
+            public TimeSpan Time
+            {
+                get;
+                set;
+            }
         }
 
         #region Properties
@@ -296,6 +293,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         }
 
         #endregion
+
+        protected override void OnNavigatingTo(object s, EventArgs e)
+        {
+            if(!IsInDesignMode)
+            {
+                RefreshRooms();
+            }
+        }
+
+        private void RefreshRooms()
+        {
+            RoomList = new ObservableCollection<Room>(_roomService.GetList());
+        }
 
         #region Command methods
 
