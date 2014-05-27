@@ -35,9 +35,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             EditBookingCommand = new RelayCommand(this.EditBooking,
                 // Enable Edit Booking button if a booking is selected
                 () => SelectedBooking != null);
-            //CancelBookingCommand = new RelayCommand(this.CancelBooking, 
-            //    // enable Delete User button if a user is selected
-            //    () => CurrentBooking != null);
+            CancelBookingCommand = new RelayCommand(this.CancelBooking,
+                // enable Delete User button if a user is selected
+                () => SelectedBooking != null);
         }
 
         public ICollection<Booking> Bookings
@@ -118,30 +118,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void CancelBooking()
         {
-            //var result = MessageBox.Show(
-            //    String.Format(@"Are you sure you want to delete user ""{0}""?", FormViewModel.CurrentUser.LoginID),
-            //    "Deleting user",
-            //    MessageBoxButton.YesNo,
-            //    MessageBoxImage.Warning);
+            var result = MessageBox.Show(
+                String.Format(@"Are you sure you want to cancel booking ""{0}""?", SelectedBooking.RefNum),
+                "Cancelling booking",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
 
-            //if (result == MessageBoxResult.No)
-            //{
-            //    return;
-            //}
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
 
-            //try
-            //{
-            //    //bookingService.Delete(FormViewModel.CurrentUser);
-            //}
-            //catch (Exception)
-            //{
-            //    // TODO: implement messaging to move MessageBox calls to view code-behind
-            //    MessageBox.Show("There was a problem deleting the user.");
-            //    return;
-            //}
+            try
+            {
+                _bookingService.CancelBooking(SelectedBooking);
+            }
+            catch (Exception)
+            {
+                // TODO: implement messaging to move MessageBox calls to view code-behind
+                MessageBox.Show("There was a problem cancelling the booking.");
+                return;
+            }
 
-            ////FormViewModel.CurrentUser = null;
-            //RefreshBookings();
+            SelectedBooking = null;
+            RefreshBookings();
         }
 
         #endregion
