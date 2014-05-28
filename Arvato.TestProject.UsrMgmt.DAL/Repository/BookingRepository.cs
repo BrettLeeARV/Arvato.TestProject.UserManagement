@@ -142,7 +142,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 SqlParameter[] paramiters = { new SqlParameter("@ID", SqlDbType.Int) { Value = booking.ID } };
-              //  result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
+                result = executeUpdateQuery("USP_CANCEL_BOOKING", paramiters);
             }
             catch (Exception)
             {

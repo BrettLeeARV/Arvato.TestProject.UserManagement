@@ -12,7 +12,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
         void AddBooking(Booking booking);
         void ViewBooking(Booking booking);
         void EditBooking(Booking booking);
-        void CancelBooking(Booking booking);
+        bool CancelBooking(Booking booking);
         List<Booking> GetUserOwnBooking(int userid);
     }
 }

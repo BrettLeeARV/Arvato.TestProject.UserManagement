@@ -23,5 +23,27 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
         }
 
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                using (IBookingService bookingservice = new BookingService())
+                {
+                    Booking booking = new Booking();
+                    booking.ID = int.Parse(GridView1.DataKeys[Int32.Parse(e.CommandArgument.ToString())].Value.ToString());
+                    bookingservice.CancelBooking(booking);
+                    lblID.Text = "Your Booking has been cnaceled";
+                    Response.Redirect("~/ViewOwnBooking.aspx");
+                   
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+
     }
 }

@@ -11,7 +11,13 @@
     <div>
         <asp:Label ID="lblID" runat="server"></asp:Label>
     </div>
-    <asp:GridView ID="GridView1" runat="server" >
+    <asp:GridView ID="GridView1" runat="server" onrowcommand="GridView1_RowCommand" DataKeyNames="ID" 
+        >
+   <Columns>
+   <asp:ButtonField ButtonType="Link" CommandName="CancelBooking" 
+         HeaderText="Cancel Booking" Text="Cancel Booking" />
+
+   </Columns>
     </asp:GridView>
     </form>
 </body>

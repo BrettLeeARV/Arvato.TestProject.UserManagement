@@ -96,7 +96,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
-        public void CancelBooking(Booking booking)
+        public bool CancelBooking(Booking booking)
         {
             try
             {
@@ -108,6 +108,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 {
                 
                 }
+                return true;
             }
             catch (Exception)
             {
