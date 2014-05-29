@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
-using Arvato.TestProject.UsrMgmt.BLL.Validator;
+using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels

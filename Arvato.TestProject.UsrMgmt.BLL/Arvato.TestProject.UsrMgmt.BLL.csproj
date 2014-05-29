@@ -58,7 +58,6 @@
     <Compile Include="Service\LDAPService.cs" />
     <Compile Include="Service\RoomService.cs" />
     <Compile Include="Service\UserService.cs" />
-    <Compile Include="Validator\UserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

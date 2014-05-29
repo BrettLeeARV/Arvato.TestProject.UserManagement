@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
-    public class User
+    public partial class User
     {
         public virtual int ID { get; set; }
         public virtual string FirstName { get; set; }
