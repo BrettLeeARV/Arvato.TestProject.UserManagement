@@ -47,6 +47,7 @@
     <Compile Include="IDataErrorInfo\User.cs" />
     <Compile Include="IDataErrorInfo\ValidationResult.cs" />
     <Compile Include="Model\Asset.cs" />
+    <Compile Include="Model\AssetBooking.cs" />
     <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\User.cs" />

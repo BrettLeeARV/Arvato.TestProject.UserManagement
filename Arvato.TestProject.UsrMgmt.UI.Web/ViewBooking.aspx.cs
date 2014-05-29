@@ -19,46 +19,80 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
         protected void btnviewbooking_Click(object sender, EventArgs e)
         {
-            IUserService userservice = new UserService();
+            //IUserService userservice = new UserService();
+            //IBookingService bookingservice = new BookingService();
+            //User user = new User();
+            //Booking booking = new Booking();
+            //booking.RefNum = txtrefnum.Text;
+            //try
+            //{
+            //    bookingservice.ViewBooking(ref booking);
+            //    lblID.Text = booking.ID.ToString();
+            //    lblLoginID.Text = user.LoginID;
+            //   txtroomid.Text = booking.RoomID.ToString();
+            //    txtstartdate.Text = booking.StartDate.ToString();
+            //    txtenddate.Text = booking.EndDate.ToString();
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (IsPostBack)
+            //    {
+            //        lblstatus.Text = ex.Message;
+            //    }
+            //}
             IBookingService bookingservice = new BookingService();
-            User user = new User();
+            //   User user = new User();
             Booking booking = new Booking();
-            booking.RefNum = txtrefnum.Text;
             try
             {
-                bookingservice.ViewBooking(booking);
-                lblID.Text = booking.ID.ToString();
-                lblLoginID.Text = user.LoginID;
-               txtroomid.Text = booking.RoomID.ToString();
+
+                //booking.ID = int.Parse(lblID.Text);
+                //booking.RoomID = (int.Parse)(txtroomid.Text);
+                //booking.StartDate = DateTime.Parse(txtstartdate.Text);
+                //booking.EndDate = DateTime.Parse(txtenddate.Text);
+                booking.RefNum = txtrefnum.Text;
+                bookingservice.ViewBooking(ref booking);
+                txtroomid.Text = booking.RoomID.ToString();
                 txtstartdate.Text = booking.StartDate.ToString();
                 txtenddate.Text = booking.EndDate.ToString();
+
+
+                // lblstatus.Text = "Your Booking has been update!" + booking.RefNum;
+
+
+
+
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                if (IsPostBack)
-                {
-                    lblstatus.Text = ex.Message;
-                }
+
+                throw;
             }
            
            
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            IUserService userservice = new UserService();
+          //  IUserService userservice = new UserService();
             IBookingService bookingservice = new BookingService();
-            User user = new User();
+         //   User user = new User();
             Booking booking = new Booking();
             try
             {
               
-                booking.ID = int.Parse(lblID.Text);
-                booking.RoomID = (int.Parse)(txtroomid.Text);
-                booking.StartDate = DateTime.Parse(txtstartdate.Text);
-                booking.EndDate = DateTime.Parse(txtenddate.Text);
-                bookingservice.EditBooking(booking);
+                //booking.ID = int.Parse(lblID.Text);
+                //booking.RoomID = (int.Parse)(txtroomid.Text);
+                //booking.StartDate = DateTime.Parse(txtstartdate.Text);
+                //booking.EndDate = DateTime.Parse(txtenddate.Text);
+                booking.RefNum = txtrefnum.Text;
+                bookingservice.ViewBooking(ref booking);
+                txtroomid.Text = booking.RoomID.ToString();
+                txtstartdate.Text = booking.StartDate.ToString();
+                txtenddate.Text = booking.EndDate.ToString();
+                
 
-                lblstatus.Text = "Your Booking has been update!" + booking.RefNum;
+               // lblstatus.Text = "Your Booking has been update!" + booking.RefNum;
                
                 
                     

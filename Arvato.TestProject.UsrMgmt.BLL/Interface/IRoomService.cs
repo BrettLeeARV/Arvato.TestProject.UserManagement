@@ -9,5 +9,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     public interface IRoomService : IDisposable
     {
         List<Room> GetList();
+        List<Room> GetEnabledList();
     }
 }

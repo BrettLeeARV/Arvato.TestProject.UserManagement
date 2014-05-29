@@ -11,47 +11,47 @@ using System.Configuration;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 {
-   public class BookingService : IBookingService
-   {
-       #region Fields
-       IBookingRepository bookingRepository;
-       #endregion
+    public class BookingService : IBookingService
+    {
+        #region Fields
+        IBookingRepository bookingRepository;
+        #endregion
 
-       #region Constructor
-       public BookingService()
+        #region Constructor
+        public BookingService()
         {
             bookingRepository = new BookingRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }
-       #endregion
+        #endregion
 
-       #region IBookingService Implementation
+        #region IBookingService Implementation
 
-       public List<Booking> GetList()
-       {
-           try
-           {
-               return bookingRepository.GetList().ToList<Booking>();
-           }
-           catch (Exception ex)
-           {
-               //Insert error Logging/Handling Mechanism here
-               throw ex;
-           }
+        public List<Booking> GetList()
+        {
+            try
+            {
+                return bookingRepository.GetList().ToList<Booking>();
+            }
+            catch (Exception ex)
+            {
+                //Insert error Logging/Handling Mechanism here
+                throw ex;
+            }
 
-       }
-       public List<Booking> GetUserOwnBooking(int userid)
-       {
-          try 
-	{	        
-		return bookingRepository.GetUserOwnBooking(userid).ToList<Booking>();
-	}
-	catch (Exception ex)
-	{
-		
-		throw ex;
-	}
-       }
-       public void AddBooking(Booking booking)
+        }
+        public List<Booking> GetUserOwnBooking(int userid)
+        {
+            try
+            {
+                return bookingRepository.GetUserOwnBooking(userid).ToList<Booking>();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public void AddBooking(Booking booking)
         {
             try
             {
@@ -63,24 +63,39 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
-        public void ViewBooking(Booking booking)
+        public void ViewBooking(ref Booking booking)
         {
             try
             {
-             
-                    bookingRepository.ViewBooking(booking);
-                
-                if (booking.ID == 0)
+
+                List<Booking> detail = bookingRepository.ViewBooking(booking).ToList();
+
+                foreach (Booking book in detail)
                 {
-                    throw (new Exception("your refrence number is not valid."));
-                    
+                    if (book.ID == 0)
+                    {
+                        throw (new Exception("your refrence number is not valid."));
+
+                    }
+                    else
+                    {
+                        List<AssetBooking> assetList = new List<AssetBooking>();
+                        foreach (AssetBooking asset in book.AssetBookings)
+                        {
+                            if (asset.Status == 1)
+                            {
+                                assetList.Add(asset);
+                            }
+                        }
+
+                        book.AssetBookings = assetList;
+                    }
+                    booking = book;
                 }
 
-                
             }
             catch (Exception)
             {
-                
                 throw;
             }
         }
@@ -92,7 +107,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
         }
@@ -106,17 +121,37 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 }
                 else
                 {
-                
+
                 }
+                //return true;
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
 
         }
-       #endregion
+
+        public void Save(Booking booking)
+        {
+            try
+            {
+                if (booking.ID > 0)
+                {
+                    bookingRepository.EditBooking(booking);
+                }
+                else
+                {
+                    bookingRepository.AddBooking(booking);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
 
         #region IDisposable Implementation
         private bool disposed = false;
@@ -139,5 +174,5 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
         #endregion
 
-   }
+    }
 }

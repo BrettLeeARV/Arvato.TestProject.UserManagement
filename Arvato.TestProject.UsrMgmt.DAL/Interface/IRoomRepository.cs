@@ -9,5 +9,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     public interface IRoomRepository : IBaseRepository<Room>,IDisposable
     {
          //IQueryable<Room> SelectRoom();
+        IQueryable<Room> GetAllEnabled();
     }
 }
