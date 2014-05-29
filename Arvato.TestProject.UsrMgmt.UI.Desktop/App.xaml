@@ -17,7 +17,7 @@
         <DataTemplate DataType="{x:Type ViewModels:MainMenuViewModel}">
             <Views:MainMenuPage />
         </DataTemplate>
-        
+
         <!-- Users -->
         <DataTemplate DataType="{x:Type ViewModels:UsersListViewModel}">
             <Views:UsersListPage />
@@ -33,7 +33,7 @@
         <DataTemplate DataType="{x:Type ViewModels:BookingsFormViewModel}">
             <Views:BookingsFormPage />
         </DataTemplate>
-        
+
         <Style TargetType="{x:Type Button}">
             <Setter Property="Padding" Value="10" />
         </Style>

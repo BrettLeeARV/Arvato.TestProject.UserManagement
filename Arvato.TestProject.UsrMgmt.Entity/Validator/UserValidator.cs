@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentValidation;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+using FluentValidation.Validators;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Validator
 {
@@ -15,9 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
             RuleFor(user => user.LastName).NotEmpty();
             RuleFor(user => user.Email).NotEmpty().EmailAddress();
             RuleFor(user => user.LoginID).NotEmpty().Length(6, 50);
-            // not existing loginID
-            // is a valid AD loginID
-            // password is required and longer than 8 chars, if not Windows Authenticate
+            RuleFor(user => user.Password).NotEmpty().Length(8, 50).When(user => user.IsWindowAuthenticate);
         }
     }
 }

@@ -10,10 +10,11 @@ using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
+using System.ComponentModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class UsersFormViewModel : PageViewModel
+    public class UsersFormViewModel : PageViewModel, IDataErrorInfo
     {
         private IUserService _userService;
         private User _currentUser;
@@ -26,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _currentUser = new User();
 
             SaveUserCommand = new RelayCommand(this.SaveUser,
-                () => CurrentUser.IsValid);
+                () => IsValid);
         }
 
         public User CurrentUser
@@ -69,5 +70,37 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 RaisePropertyChanged("CurrentUser");
             }
         }
+
+        #region FluentValidation Members
+
+        public bool IsValid
+        {
+            get { return SelfValidate().IsValid; }
+        }
+
+        public ValidationResult SelfValidate()
+        {
+            return ValidationHelper.Validate<UsersFormValidator, UsersFormViewModel>(this);
+        }
+
+        #endregion
+
+        #region IDataErrorInfo Members
+        public string Error
+        {
+            get { return ValidationHelper.GetError(SelfValidate()); }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var __ValidationResults = SelfValidate();
+                if (__ValidationResults == null) return string.Empty;
+                var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
+                return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+            }
+        }
+        #endregion
     }
 }
