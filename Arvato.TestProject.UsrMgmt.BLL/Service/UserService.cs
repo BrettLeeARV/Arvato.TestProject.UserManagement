@@ -195,6 +195,18 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
            
         }
+
+        public bool IsExistingLoginID(string LoginID, int ID)
+        {
+            try
+            {
+                return userRepository.IsExistingLoginID(LoginID, ID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
 
         #region IDisposable Implementation

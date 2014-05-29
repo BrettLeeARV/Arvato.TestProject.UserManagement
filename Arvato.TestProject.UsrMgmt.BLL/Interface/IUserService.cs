@@ -16,5 +16,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
         void Delete(User user);
         bool Login(User user);
         void Update(User user);
+        bool IsExistingLoginID(string LoginID, int ID);
     }
 }
