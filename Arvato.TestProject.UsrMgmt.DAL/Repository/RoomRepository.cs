@@ -62,7 +62,19 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
        {
            throw  new NotImplementedException();
        }
-        
+
+       public IQueryable<Room> GetAllEnabled()
+       {
+          SessionFactory sf = new SessionFactory();
+               var factory = sf.CreateSessionFactory();
+
+               using (var session = factory.OpenSession())
+               {
+                   var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
+
+                   return roomList.AsQueryable<Room>();
+               }
+       }
 
         //public IQueryable<User> SelectRoom()
         //{

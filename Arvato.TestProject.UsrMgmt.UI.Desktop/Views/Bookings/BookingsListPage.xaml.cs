@@ -11,24 +11,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
+using Arvato.TestProject.UsrMgmt.Entity.Model;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
+using Arvato.TestProject.UsrMgmt.BLL.Service;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for BookingsCreatePage.xaml
+    /// Interaction logic for MainMenuPage.xaml
     /// </summary>
-    public partial class BookingsCreatePage : UserControl
+    public partial class BookingsListPage : UserControl
     {
-        public BookingsCreatePage()
+        public BookingsListPage()
         {
             InitializeComponent();
-        }
-
-        private void comboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var box = (ComboBox)sender;
-            Debug.WriteLine(box.Items);
         }
     }
 }

@@ -4,6 +4,8 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -21,48 +23,81 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private IDictionary<string, ViewModelBase> _viewModels;
+        private PageViewModel _currentViewModel;
 
-        private ViewModelBase _currentViewModel;
+        private bool _isLoading;
+        private string _loadingText;
+        private const string _defaultLoadingText = "Please wait...";
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-
-            ViewModelLocator vml = new ViewModelLocator();
-
-            // Insert needed ViewModels into dictionary
-            _viewModels = new Dictionary<string, ViewModelBase>();
-            _viewModels.Add("Login", vml.Login);
-            _viewModels.Add("MainMenu", vml.MainMenu);
-            _viewModels.Add("UsersList", vml.UsersList);
-            _viewModels.Add("BookingsCreate", vml.BookingsCreate);
+            IsLoading = false;
+            LoadingText = _defaultLoadingText;
 
             // Set initial ViewModel
-            CurrentViewModel = _viewModels["Login"];
+            ChangeViewModelByType(typeof(LoginViewModel));
 
             // Command to change the ViewModel, given a string representing the ViewModel name
-            ChangeViewModelCommand = new RelayCommand<string>(this.ChangeViewModel);
+            ChangePageCommand = new RelayCommand<Type>(this.ChangeViewModelByType);
 
-            // Subscribe to ChangeViewModelMessages
-            Messenger.Default.Register<ChangeViewModelMessage>
+            // Subscribe to ChangePageMessage (change view model)
+            Messenger.Default.Register<ChangePageMessage>
             (
                  this,
-                 (action) => ReceiveChangeViewModelMessage(action)
+                 (action) => ReceiveChangePageMessage(action)
+            );
+
+            Messenger.Default.Register<NotificationMessage>
+            (
+                this,
+                (action) => ReceiveNotificationMessage(action)
+            );
+
+            Messenger.Default.Register<LoadingMessage>
+            (
+                this,
+                (action) => ReceiveLoadingMessage(action)
             );
         }
 
-        public ViewModelBase CurrentViewModel
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                if (value == _isLoading)
+                {
+                    return;
+                }
+                _isLoading = value;
+                RaisePropertyChanged("IsLoading");
+            }
+        }
+
+        public string LoadingText
+        {
+            get
+            {
+                return _loadingText;
+            }
+            set
+            {
+                if (value == _loadingText)
+                {
+                    return;
+                }
+                _loadingText = value;
+                RaisePropertyChanged("LoadingText");
+            }
+        }
+
+        public PageViewModel CurrentViewModel
         {
             get
             {
@@ -71,34 +106,84 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             set
             {
                 if (_currentViewModel == value)
+                {
                     return;
+                }
+                if (_currentViewModel != null)
+                {
+                    _currentViewModel.IsCurrentlyShown = false;
+                }
                 _currentViewModel = value;
+                _currentViewModel.IsCurrentlyShown = true;
                 RaisePropertyChanged("CurrentViewModel");
             }
         }
 
-        public RelayCommand<string> ChangeViewModelCommand
+        public RelayCommand<Type> ChangePageCommand
         {
             get;
             private set;
         }
 
-        private void ChangeViewModel(string name)
+        private void ReceiveChangePageMessage(ChangePageMessage action)
         {
-            if (_viewModels.ContainsKey(name))
+            if (action.ChangeBy == ChangePageMessage.MessageType.Type)
             {
-                CurrentViewModel = _viewModels[name];
+                ChangeViewModelByType(action.ViewModelType);
+            }
+            else
+            {
+                ChangeViewModelByInstance(action.ViewModelInstance);
+            }
+        }
+
+        private void ChangeViewModelByType(Type type)
+        {
+            var viewModel = (PageViewModel) SimpleIoc.Default.GetInstance(type);
+            if (viewModel != null)
+            {
+                CurrentViewModel = viewModel;
             }
             else
             {
                 // TODO: exception handling
-                throw new Exception("MainViewModel.ChangeViewModel: View model not found");
+                throw new Exception("MainViewModel.ChangeViewModelByType: View model not found");
             }
         }
 
-        private void ReceiveChangeViewModelMessage(ChangeViewModelMessage action)
+        private void ChangeViewModelByInstance(PageViewModel instance)
         {
-            ChangeViewModel(action.ViewModelName);
+            var viewModel = instance;
+            if (viewModel != null)
+            {
+                CurrentViewModel = viewModel;
+            }
+            else
+            {
+                // TODO: exception handling
+                throw new Exception("MainViewModel.ChangeViewModelByInstance: View model not found");
+            }
+        }
+
+        private void ReceiveNotificationMessage(NotificationMessage action)
+        {
+            if (action.Notification == "LoggedIn")
+            {
+                // do nothing for now
+            }
+        }
+
+        private void ReceiveLoadingMessage(LoadingMessage action)
+        {
+            IsLoading = action.ShowLoading;
+            if (String.IsNullOrEmpty(action.Text))
+            {
+                LoadingText = _defaultLoadingText;
+            }
+            else
+            {
+                LoadingText = action.Text;
+            }
         }
 
     }

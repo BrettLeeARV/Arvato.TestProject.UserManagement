@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class MainMenuViewModel : ViewModelBase
+    public class MainMenuViewModel : PageViewModel
     {
         public class MainMenuItem
         {
@@ -19,22 +19,23 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 get;
                 set;
             }
-            public string ViewModelName
+            public Type ViewModel
             {
                 get;
                 set;
             }
         }
-        
+
         public MainMenuViewModel()
+            : base()
         {
             MenuItems = new List<MainMenuItem>()
             {
-                new MainMenuItem() { Title = "Manage Users" , ViewModelName = "UsersList" },
-                new MainMenuItem() { Title = "Manage Bookings" , ViewModelName = "BookingsCreate" }
+                new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
+                new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }
             };
-            
-            NavigateToCommand = new RelayCommand<string>(this.NavigateTo);
+
+            NavigateToCommand = new RelayCommand<Type>(this.NavigateTo);
         }
 
         public IList<MainMenuItem> MenuItems
@@ -55,14 +56,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         #region Command methods
 
-        /// <summary>
-        /// This slightly breaks the MMV
-        /// </summary>
-        /// <param name="passwordBox">The PasswordBox control to read from.</param>
-        private void NavigateTo(string viewModelName)
+        private void NavigateTo(Type viewModel)
         {
-            var msg = new ChangeViewModelMessage(viewModelName);
-            Messenger.Default.Send<ChangeViewModelMessage>(msg);
+            var msg = new ChangePageMessage(viewModel);
+            Messenger.Default.Send<ChangePageMessage>(msg);
         }
 
         #endregion

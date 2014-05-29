@@ -65,6 +65,7 @@
     <Content Include="InsertAsset.aspx" />
     <Content Include="InsertBooking.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="NewBooking.aspx" />
     <Content Include="NewUser.aspx" />
     <Content Include="UpdateAsset.aspx" />
     <Content Include="UserList.aspx" />
@@ -72,6 +73,7 @@
     <Content Include="UserPage.aspx" />
     <Content Include="ViewAssetList.aspx" />
     <Content Include="ViewBooking.aspx" />
+    <Content Include="ViewBookingDetails.aspx" />
     <Content Include="ViewBookingList.aspx" />
     <Content Include="ViewOwnBooking.aspx" />
     <Content Include="ViewRoom.aspx" />
@@ -104,6 +106,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewBooking.aspx.cs">
+      <DependentUpon>NewBooking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewBooking.aspx.designer.cs">
+      <DependentUpon>NewBooking.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewUser.aspx.cs">
       <DependentUpon>NewUser.aspx</DependentUpon>
@@ -155,6 +164,13 @@
     <Compile Include="ViewBooking.aspx.designer.cs">
       <DependentUpon>ViewBooking.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewBookingDetails.aspx.cs">
+      <DependentUpon>ViewBookingDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBookingDetails.aspx.designer.cs">
+      <DependentUpon>ViewBookingDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewBookingList.aspx.cs">
       <DependentUpon>ViewBookingList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -204,7 +220,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60315</DevelopmentServerPort>
+          <DevelopmentServerPort>57012</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

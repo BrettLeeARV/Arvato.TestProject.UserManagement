@@ -27,9 +27,16 @@
         </DataTemplate>
 
         <!-- Bookings -->
-        <DataTemplate DataType="{x:Type ViewModels:BookingsCreateViewModel}">
-            <Views:BookingsCreatePage />
+        <DataTemplate DataType="{x:Type ViewModels:BookingsListViewModel}">
+            <Views:BookingsListPage />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:BookingsFormViewModel}">
+            <Views:BookingsFormPage />
+        </DataTemplate>
+        
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="10" />
+        </Style>
 
     </Application.Resources>
 </Application>

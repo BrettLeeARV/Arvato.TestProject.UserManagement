@@ -11,12 +11,13 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class UsersFormViewModel : ViewModelBase
+    public class UsersFormViewModel : PageViewModel
     {
         private IUserService _userService;
         private User _currentUser;
 
         public UsersFormViewModel()
+            : base()
         {
             _userService = new UserService();
 

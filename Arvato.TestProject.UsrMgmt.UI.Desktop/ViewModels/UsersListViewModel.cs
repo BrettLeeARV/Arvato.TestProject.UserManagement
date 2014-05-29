@@ -15,26 +15,24 @@ using System.Windows;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class UsersListViewModel : ViewModelBase
+    public class UsersListViewModel : PageViewModel
     {
 
         private IUserService userService;
         private ICollection<User> users;
 
         public UsersListViewModel()
+            : base()
         {
             // set up model data
             userService = new UserService();
-            RefreshUsers();
-
             FormViewModel = new UsersFormViewModel();
-            
+
             // set up commands
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
-            DeleteUserCommand = new RelayCommand(this.DeleteUser, 
+            DeleteUserCommand = new RelayCommand(this.DeleteUser,
                 // enable Delete User button if a user is selected
                 () => FormViewModel.CurrentUser != null);
-            SelectedUserCommand = new RelayCommand<User>(this.SelectedUser);
         }
 
         public ICollection<User> Users
@@ -48,7 +46,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (users != value)
                 {
                     users = value;
-                    RaisePropertyChanged("Users");
+                    RaisePropertyChanged("Bookings");
                 }
             }
         }
@@ -71,13 +69,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
-        public ICommand SelectedUserCommand
-        {
-            get;
-            private set;
-        }
 
         #endregion
+
+        protected override void OnNavigatingTo(object s, EventArgs e)
+        {
+            RefreshUsers();
+        }
 
         private void RefreshUsers()
         {
@@ -117,11 +115,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             FormViewModel.CurrentUser = null;
             RefreshUsers();
-        }
-
-        private void SelectedUser(User user)
-        {
-            FormViewModel.CurrentUser = user;
         }
 
         #endregion

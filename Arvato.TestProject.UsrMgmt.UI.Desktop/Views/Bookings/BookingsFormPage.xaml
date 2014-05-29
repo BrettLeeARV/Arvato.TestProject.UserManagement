@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Views.BookingsCreatePage"
+﻿<UserControl x:Class="Arvato.TestProject.UsrMgmt.UI.Desktop.Views.BookingsFormPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,9 +19,12 @@
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom">
-            <Button DockPanel.Dock="Right" Content="Book It" Padding="30,10,30,10" Command="{Binding MakeBookingCommand}" />
-            <Grid Visibility="{Binding Path=IsConflicting, Converter={StaticResource BooleanToVisibility}}">
-                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" Visibility="{Binding}" />
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="Book It" Padding="30,10,30,10" Margin="0,0,20,0" Command="{Binding MakeBookingCommand}" />
+                <Button Content="Cancel" Padding="30,10,30,10" Command="{Binding CancelCommand}" />
+            </StackPanel>
+            <Grid Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
+                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" />
             </Grid>
         </DockPanel>
         <Grid>
@@ -41,7 +44,7 @@
                         <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
                     </GroupBox>
 
-                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room}">
+                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="5">
@@ -71,8 +74,7 @@
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="Time" 
                                   SelectedValue="{Binding Path=StartTime}"
-                                  Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}"
-                                  SelectionChanged="comboBox2_SelectionChanged" />
+                                  Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
                     </WrapPanel>
                     <Label Content="End time" Name="label3" />
                     <WrapPanel Orientation="Horizontal">

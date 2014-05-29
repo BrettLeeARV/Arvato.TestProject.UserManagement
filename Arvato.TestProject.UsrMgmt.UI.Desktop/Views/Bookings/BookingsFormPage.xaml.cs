@@ -11,22 +11,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for BookingsCreatePage.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class BookingsFormPage : UserControl
     {
-        public LoginPage()
+        public BookingsFormPage()
         {
             InitializeComponent();
-
-#if DEBUG
-            // for convenience when testing
-            passwordTextBox.Password = "password";
-#endif
         }
     }
 }
