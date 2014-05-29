@@ -11,30 +11,19 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
             <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveUserCommand}"/>
         </StackPanel>
-        <StackPanel DataContext="{Binding CurrentUser}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="First Name" Name="firstNameLabel" Target="{Binding ElementName=firstNameTextBox}"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
-                <Label Grid.Row="1" Grid.Column="0" Content="Last Name" Name="lastNameLabel" Target="{Binding ElementName=lastNameTextBox}"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
-                <Label Grid.Row="2" Grid.Column="0" Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Name="loginIDTextBox" Text="{Binding LoginID, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
-                <Label Grid.Row="3" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
-                <Label Grid.Row="4" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
-                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" />
-            </Grid>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel DataContext="{Binding CurrentUser}" Margin="5" >
+                <Label Content="First Name" Name="firstNameLabel" Target="{Binding ElementName=firstNameTextBox}" />
+                <TextBox Grid.Row="0" Grid.Column="1" Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Last Name" Name="lastNameLabel" Target="{Binding ElementName=lastNameTextBox}" />
+                <TextBox Grid.Row="1" Grid.Column="1" Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}" />
+                <TextBox Grid.Row="2" Grid.Column="1" Name="loginIDTextBox" Text="{Binding LoginID, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Grid.Row="3" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
+                <TextBox Grid.Row="3" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Grid.Row="4" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
+                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" />
+            </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

@@ -25,7 +25,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             _currentUser = new User();
 
-            SaveUserCommand = new RelayCommand(this.SaveUser);
+            SaveUserCommand = new RelayCommand(this.SaveUser,
+                () => CurrentUser.IsValid);
         }
 
         public User CurrentUser
