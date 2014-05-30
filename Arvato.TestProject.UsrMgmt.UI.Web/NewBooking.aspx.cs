@@ -116,7 +116,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     foreach (ListItem selectedItem in lstSelectedAsset.Items)
                     {
                         AssetBooking bookAsset = new AssetBooking();
-                        bookAsset.Status = 1;
+                        bookAsset.Status = true;
                         bookAsset.AssetID = int.Parse(selectedItem.Value);
 
                         detail.AssetBookings.Add(bookAsset);
@@ -127,9 +127,9 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
                 lblMessage.Text = "Booking created successful, your reference number is <b>" + detail.RefNum + "</b>"; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblMessage.Text = "Fail to create booking";
+                lblMessage.Text = "Fail to create booking. " + ex.Message;
             }
         }
 

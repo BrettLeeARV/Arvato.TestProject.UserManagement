@@ -17,9 +17,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class BookingRepository : BaseRepository, IBookingRepository
     {
-        public BookingRepository(SqlConnection dbConnection):base(dbConnection)
+        public BookingRepository(SqlConnection dbConnection)
+            : base(dbConnection)
         {
-            
+
         }
 
         public IQueryable<Booking> GetList()
@@ -37,7 +38,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
         }
@@ -49,7 +50,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 var factory = sf.CreateSessionFactory();
                 using (var session = factory.OpenSession())
                 {
-                   // var specificFields = session.CreateQuery("FROM Booking WHERE UserID = '" + userid + "'").List<Booking>();
+                    // var specificFields = session.CreateQuery("FROM Booking WHERE UserID = '" + userid + "'").List<Booking>();
                     var specificFields = session.QueryOver<Booking>().Where(x => x.UserID == userid).List();
 
                     return specificFields.AsQueryable<Booking>();
@@ -127,21 +128,21 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             //bool result = false;
             try
             {
-              //  DataTable dt = null;
-              //  SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.VarChar,50) {Value = booking.RefNum}};
+                //  DataTable dt = null;
+                //  SqlParameter[] paramiters = {new SqlParameter("@RefNum", SqlDbType.VarChar,50) {Value = booking.RefNum}};
 
-           
 
-              ////  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
-              //  foreach (DataRow dr in dt.Rows)
-              //  {
-              //      booking.ID = int.Parse(dr["ID"].ToString());
-              //      booking.RoomID = (int.Parse)(dr["RoomID"].ToString());
-              //      booking.StartDate = DateTime.Parse(dr["StartDate"].ToString());
-              //      booking.EndDate = DateTime.Parse(dr["EndDate"].ToString());
-              //  }
 
-              //  return true;
+                ////  dt = executeSelectQuery("USP_VIEW_BOOKING", paramiters);
+                //  foreach (DataRow dr in dt.Rows)
+                //  {
+                //      booking.ID = int.Parse(dr["ID"].ToString());
+                //      booking.RoomID = (int.Parse)(dr["RoomID"].ToString());
+                //      booking.StartDate = DateTime.Parse(dr["StartDate"].ToString());
+                //      booking.EndDate = DateTime.Parse(dr["EndDate"].ToString());
+                //  }
+
+                //  return true;
 
                 SessionFactory sf = new SessionFactory();
                 var factory = sf.CreateSessionFactory();
@@ -152,7 +153,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                     return bookingList.AsQueryable<Booking>();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -171,7 +172,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 //                                new SqlParameter("@StartDate" , SqlDbType.DateTime) { Value = booking.StartDate},
                 //                                new SqlParameter("@EndDate" , SqlDbType.DateTime) { Value = booking.EndDate}};
 
-           //     result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
+                //     result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
 
                 SessionFactory sf = new SessionFactory();
                 var factory = sf.CreateSessionFactory();
@@ -197,7 +198,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
             return result;
@@ -212,31 +213,56 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         //    }
         //    catch (Exception)
         //    {
-                
+
         //        throw;
         //    }
         //    return result;
-     public void CancelBooking(Booking booking)
-     {
-         try 
-	{	        
-		SessionFactory sf = new SessionFactory();
-             var factory = sf.CreateSessionFactory();
-             using(var session = factory.OpenSession())
-             {
+        public void CancelBooking(Booking booking)
+        {
+            try
+            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                using (var session = factory.OpenSession())
+                {
 
-                 var update = session.CreateSQLQuery("USP_CANCEL_BOOKING :ID")
-                     .SetParameter("ID", booking.ID)
-                     .UniqueResult();
-                // session.SaveOrUpdate(booking);
-             }
-	}
-	catch (Exception)
-	{
-		
-		throw;
-	}
-     }
+                    var update = session.CreateSQLQuery("USP_CANCEL_BOOKING :ID")
+                        .SetParameter("ID", booking.ID)
+                        .UniqueResult();
+                    // session.SaveOrUpdate(booking);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
-    
+
+        public IQueryable<string> CheckBookingAvailability(Booking booking, string AssetList, string Type)
+        {
+            try
+            {
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                var session = factory.OpenSession();
+
+                var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID, :AssetID, :Type")
+                       .SetParameter("ID", booking.ID)
+                       .SetParameter("StartDate", booking.StartDate)
+                       .SetParameter("EndDate", booking.EndDate)
+                       .SetParameter("RoomID", booking.RoomID, NHibernateUtil.Int32)
+                       .SetParameter("AssetID", AssetList)
+                       .SetParameter("Type", Type)
+                       .List<string>();
+
+                return bookingList.AsQueryable<string>();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
 }
