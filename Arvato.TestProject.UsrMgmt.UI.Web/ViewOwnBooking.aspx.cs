@@ -43,7 +43,6 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     booking.ID = int.Parse(GridView1.DataKeys[Int32.Parse(e.CommandArgument.ToString())].Value.ToString());
                     bookingservice.CancelBooking(booking);
                     lblID.Text = "Your Booking has been cnaceled";
-                    //Response.Redirect("~/ViewOwnBooking.aspx");
                     RefreshGridView();
                    
                 }

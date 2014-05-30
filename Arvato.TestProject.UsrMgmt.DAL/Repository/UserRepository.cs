@@ -37,27 +37,42 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         public IQueryable<User> GetAll()
         {
-            DataTable resultQuery = null;
-            resultQuery = executeSelectQuery("USP_USER_SELECTDETAILS", null);
+            //DataTable resultQuery = null;
+            //resultQuery = executeSelectQuery("USP_USER_SELECTDETAILS", null);
 
-            var userList = new List<User>(resultQuery.Rows.Count);
+            //var userList = new List<User>(resultQuery.Rows.Count);
 
-            //Manual Mapping of DT columns into Entity classes
-            foreach (DataRow currentRow in resultQuery.Rows)
+            ////Manual Mapping of DT columns into Entity classes
+            //foreach (DataRow currentRow in resultQuery.Rows)
+            //{
+            //    var values = currentRow.ItemArray;
+            //    var user = new User()
+            //    {
+            //        ID = Convert.ToInt32(currentRow["ID"]),
+            //        FirstName = currentRow["FirstName"].ToString(),
+            //        LastName = currentRow["LastName"].ToString(),
+            //        Email = currentRow["Email"].ToString(),
+            //        LoginID = currentRow["LoginID"].ToString()
+            //    };
+            //    userList.Add(user);
+            //}
+
+            //return userList.AsQueryable<User>();
+            try
             {
-                var values = currentRow.ItemArray;
-                var user = new User()
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+                using (var session = factory.OpenSession())
                 {
-                    ID = Convert.ToInt32(currentRow["ID"]),
-                    FirstName = currentRow["FirstName"].ToString(),
-                    LastName = currentRow["LastName"].ToString(),
-                    Email = currentRow["Email"].ToString(),
-                    LoginID = currentRow["LoginID"].ToString()
-                };
-                userList.Add(user);
+                    var Fields = session.CreateQuery("FROM User").List<User>();
+                    return Fields.AsQueryable<User>();
+                }
             }
-
-            return userList.AsQueryable<User>();
+            catch (Exception)
+            {
+                
+                throw;
+            }
 
         }
         
