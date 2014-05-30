@@ -370,11 +370,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 if (_isNewBooking)
                 {
-                    _bookingService.AddBooking(_booking);
+                    _bookingService.Save(_booking);
                 }
                 else
                 {
-                    _bookingService.EditBooking(_booking);
+                    _bookingService.Save(_booking);
                 }
             }
             catch (Exception e)
