@@ -82,7 +82,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                         List<AssetBooking> assetList = new List<AssetBooking>();
                         foreach (AssetBooking asset in book.AssetBookings)
                         {
-                            if (asset.Status == 1)
+                            if (asset.Status == true)
                             {
                                 assetList.Add(asset);
                             }
@@ -137,6 +137,45 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
+                string assetList = "";
+                foreach (AssetBooking List in booking.AssetBookings)
+                {
+                    assetList = assetList + "|" + List.AssetID;
+                }
+
+                if (booking.StartDate.ToShortDateString() == "1/1/0001")
+                    throw new Exception("StartDate is a require field");
+                if (booking.EndDate.ToShortDateString() == "1/1/0001")
+                    throw new Exception("EndDate is a require field");
+                if(booking.StartDate >= booking.EndDate)
+                    throw new Exception("EndDate must be greater than StartDate");
+                if ((booking.RoomID == 0 || booking.RoomID == null) && booking.AssetBookings.Count == 0)
+                    throw new Exception("Please select a room or asset to book");
+
+                string conflict = "";
+                List<string> conflictBooking = bookingRepository.CheckBookingAvailability(booking, "", "Room").ToList();
+
+                if (conflictBooking.Count() > 0)
+                { 
+                    foreach (string message in conflictBooking)
+                    {
+                        conflict = conflict + message + ";";
+                    }
+                    throw new Exception("Room booking conflict : " + conflict);
+                }
+
+                conflict = "";
+                conflictBooking = bookingRepository.CheckBookingAvailability(booking, assetList, "Asset").ToList();
+
+                if (conflictBooking.Count() > 0)
+                {
+                    foreach (string message in conflictBooking)
+                    {
+                        conflict = conflict + message + ";";
+                    }
+                    throw new Exception("Asset booking conflict : " + conflict);
+                }
+
                 if (booking.ID > 0)
                 {
                     bookingRepository.EditBooking(booking);

@@ -10,6 +10,10 @@
         {
             width: 37px;
         }
+        .style3
+        {
+            width: 513px;
+        }
     </style>
 </head>
 <body>
@@ -20,7 +24,7 @@
                 <td>
                     <asp:Label ID="Label1" runat="server" Text="Start Date :"></asp:Label>
                 </td>
-                <td>
+                <td class="style3">
                     <asp:Calendar ID="calStartDate" runat="server"></asp:Calendar>
                 </td>
             </tr>
@@ -28,7 +32,7 @@
                 <td>
                     <asp:Label ID="Label2" runat="server" Text="End Date"></asp:Label>
                 </td>
-                <td>
+                <td class="style3">
                     <asp:Calendar ID="calEndDate" runat="server"></asp:Calendar>
                 </td>
             </tr>
@@ -36,7 +40,7 @@
                 <td>
                     <asp:Label ID="Label3" runat="server" Text="Room :"></asp:Label>
                 </td>
-                <td>
+                <td class="style3">
                     <asp:DropDownList ID="ddlRoom" runat="server" Width="400px" AutoPostBack="True" 
                         onselectedindexchanged="ddlRoom_SelectedIndexChanged">
                     </asp:DropDownList>
@@ -46,7 +50,7 @@
                 <td>
                     <asp:Label ID="Label4" runat="server" Text="Asset :"></asp:Label>
                 </td>
-                <td>
+                <td class="style3">
                     <table width="100%">
                         <tr>
                             <td>
@@ -68,7 +72,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td>
+                <td class="style3">
                     <asp:Button ID="btnSave" runat="server" Text="Save" onclick="btnSave_Click" />
                     <asp:Label ID="lblMessage" runat="server"></asp:Label>
                 </td>

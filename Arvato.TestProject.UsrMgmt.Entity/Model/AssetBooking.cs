@@ -9,7 +9,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
     {
         public virtual int ID { get; set; }
         public virtual int AssetID { get; set; }
-        public virtual int Status { get; set; }
+        public virtual bool Status { get; set; }
         public virtual Booking Booking { get; set; }
     }
 }
