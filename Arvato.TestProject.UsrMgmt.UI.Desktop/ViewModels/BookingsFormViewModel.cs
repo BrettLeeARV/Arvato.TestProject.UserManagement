@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using FluentValidation.Results;
+using GalaSoft.MvvmLight.Command;
+
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
 
-    public class BookingsFormViewModel : PageViewModel
+    public class BookingsFormViewModel : PageViewModel, IDataErrorInfo
     {
         #region Private fields
 
@@ -126,7 +131,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => !IsConflicting);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid);
             CancelCommand = new RelayCommand(this.Cancel);
         }
 
@@ -395,6 +400,47 @@ Your booking reference number is: {0}", _booking.RefNum), "Booking created", Mes
             MessengerInstance.Send(new ChangePageMessage(typeof(BookingsListViewModel)));
         }
 
+        #endregion
+
+        #region FluentValidation Members
+
+        public bool IsValid
+        {
+            get { return SelfValidate().IsValid; }
+        }
+
+        public ValidationResult SelfValidate()
+        {
+            var r = ValidationHelper.Validate<BookingsFormValidator, BookingsFormViewModel>(this);
+            foreach (var er in r.Errors)
+            {
+                Debug.WriteLine(er.ErrorMessage);
+            }
+            return r;
+        }
+
+        #endregion
+
+        #region IDataErrorInfo Members
+        public string Error
+        {
+            get
+            {
+                var r = ValidationHelper.GetError(SelfValidate());
+                return r;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var __ValidationResults = SelfValidate();
+                if (__ValidationResults == null) return string.Empty;
+                var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
+                return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+            }
+        }
         #endregion
 
     }
