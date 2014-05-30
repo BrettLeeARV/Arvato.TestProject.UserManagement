@@ -15,8 +15,11 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
     {
         public UsersFormValidator()
         {
-            RuleFor(vm => vm.CurrentUser).SetValidator(new UserValidator());
-            RuleFor(vm => vm.CurrentUser.LoginID).NotNull().SetValidator(new LoginIDMustNotExist());
+            var uv = new UserValidator();
+            uv.RuleFor(x => x.LoginID).SetValidator(new LoginIDMustNotExist());
+            RuleFor(vm => vm.CurrentUser).SetValidator(uv);
+            
+            //RuleFor(vm => vm.CurrentUser.LoginID).NotNull().SetValidator(new LoginIDMustNotExist());
         }
 
         private class LoginIDMustNotExist : PropertyValidator
@@ -30,7 +33,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
 
             protected override bool IsValid(PropertyValidatorContext context)
             {
-                var user = ((UsersFormViewModel)context.Instance).CurrentUser;
+                var user = ((User)context.Instance);
                 if (String.IsNullOrEmpty(user.LoginID))
                 {
                     return false;

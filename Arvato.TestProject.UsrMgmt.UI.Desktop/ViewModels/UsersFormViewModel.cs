@@ -11,6 +11,7 @@ using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -80,7 +81,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public ValidationResult SelfValidate()
         {
-            return ValidationHelper.Validate<UsersFormValidator, UsersFormViewModel>(this);
+            var r = ValidationHelper.Validate<UsersFormValidator, UsersFormViewModel>(this);
+            foreach (var er in r.Errors)
+            {
+                Debug.WriteLine(er.ErrorMessage);
+            }
+            return r;
         }
 
         #endregion
@@ -88,7 +94,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         #region IDataErrorInfo Members
         public string Error
         {
-            get { return ValidationHelper.GetError(SelfValidate()); }
+            get { 
+                var r = ValidationHelper.GetError(SelfValidate());
+                return r;
+            }
         }
 
         public string this[string columnName]
