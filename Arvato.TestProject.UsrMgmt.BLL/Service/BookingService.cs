@@ -82,7 +82,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                         List<AssetBooking> assetList = new List<AssetBooking>();
                         foreach (AssetBooking asset in book.AssetBookings)
                         {
-                            if (asset.Status == 1)
+                            if (asset.Status == true)
                             {
                                 assetList.Add(asset);
                             }

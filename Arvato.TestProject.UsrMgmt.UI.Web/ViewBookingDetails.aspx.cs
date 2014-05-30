@@ -153,7 +153,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     foreach (ListItem selectedItem in lstSelectedAsset.Items)
                     {
                         AssetBooking bookAsset = new AssetBooking();
-                        bookAsset.Status = 1;
+                        bookAsset.Status = true;
                         bookAsset.AssetID = int.Parse(selectedItem.Value);
 
                         detail.AssetBookings.Add(bookAsset);
