@@ -25,6 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private IBookingService _bookingService;
         private IRoomService _roomService;
+        private IAssetService _assetService;
 
         private Booking _booking;
         private Room _room;
@@ -64,15 +65,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 };
 
                 _isConflicting = true;
-
-                RoomAssets = "Epson projector, whiteboard";
             }
             else
             {
                 _bookingService = new BookingService();
                 _roomService = new RoomService();
+                _assetService = new AssetService();
                 _isConflicting = false;
                 RefreshRooms();
+                RefreshAssets();
             }
 
             if (_booking == null)
@@ -301,6 +302,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             private set;
         }
 
+        public ObservableCollection<Asset> AssetList
+        {
+            get;
+            private set;
+        }
+
         public ObservableCollection<TimeComboBoxItem> StartTimeOptions
         {
             get
@@ -354,6 +361,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void RefreshRooms()
         {
             RoomList = new ObservableCollection<Room>(_roomService.GetList());
+        }
+
+        private void RefreshAssets()
+        {
+            AssetList = new ObservableCollection<Asset>(_assetService.GetList());
         }
 
         #region Command methods

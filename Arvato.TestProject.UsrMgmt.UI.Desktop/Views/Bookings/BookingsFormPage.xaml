@@ -39,12 +39,7 @@
             <Border Grid.Column="0" Margin="0,0,5,0">
                 <DockPanel Margin="10">
                     <TextBlock DockPanel.Dock="Top" Text="Which room?" Style="{StaticResource PanelHeaderStyle}" />
-
-                    <GroupBox DockPanel.Dock="Bottom" Header="Room Assets" MinHeight="80" Name="groupBox1">
-                        <TextBlock HorizontalAlignment="Left" Text="{Binding RoomAssets}" Margin="5" />
-                    </GroupBox>
-
-                    <ListBox ItemsSource="{Binding Path=RoomList}" Margin="0,0,0,20" SelectedItem="{Binding Room, Mode=TwoWay}">
+                    <ListBox ItemsSource="{Binding Path=RoomList}" SelectedItem="{Binding Room, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="5">
@@ -89,9 +84,25 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="2" Margin="5,0,0,0">
-                <StackPanel Margin="10">
-                    <TextBlock Text="Anything else?" Style="{StaticResource PanelHeaderStyle}" />
-                </StackPanel>
+                <DockPanel Height="Auto" Margin="10">
+                    <TextBlock DockPanel.Dock="Top" Text="What else?" Style="{StaticResource PanelHeaderStyle}" />
+                    <Button DockPanel.Dock="Bottom" Content="Select all assets in this room" />
+                    <ListBox ItemsSource="{Binding Path=AssetList}" Margin="0,0,0,20" Height="Auto" SelectionMode="Multiple">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" />
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="Available, " />
+                                            <TextBlock Text="{Binding RoomID}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
             </Border>
         </Grid>
 
