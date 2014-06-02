@@ -26,14 +26,16 @@
                 <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
                 <Label Content="and..." />
                 <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
-                <Label Content="for the room..." />
-                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding Rooms}" 
-                                  DisplayMemberPath="Name" 
-                                  SelectedItem="{Binding FilterRoom}"/>
+                <Label Content="for..." />
+                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RoomOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="Room"
+                                  SelectedValue="{Binding FilterRoom}"/>
                 <Label Content="booked by..." />
-                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding Users}" 
-                                  DisplayMemberPath="FirstName" 
-                                  SelectedItem="{Binding FilterUser}" />
+                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding UserOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="User"
+                                  SelectedValue="{Binding FilterUser}" />
             </StackPanel>
             <ScrollViewer>
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 

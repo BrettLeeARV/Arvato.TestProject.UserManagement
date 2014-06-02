@@ -21,27 +21,51 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
 
         private IBookingService _bookingService;
-        // Should there be a app-wide list of rooms/users? So we don't need to keep pinging the server
         private IRoomService _roomService;
         private IUserService _userService;
-        private ICollection<Booking> _bookings;
+        private ObservableCollection<Booking> _bookings;
         private Booking _selectedBooking;
+
+        private Room _filterRoom;
+        private User _filterUser;
+
+        // ComboBox options
+        // If these options will be reused in other parts of the app, consider putting them somewhere global and cache them
+        private ObservableCollection<RoomComboBoxItem> _allRoomOptions;
+        private ObservableCollection<UserComboBoxItem> _allUserOptions;
 
         public BookingsListViewModel()
             : base()
         {
-            // set up model data
-            _bookingService = new BookingService();
-            RefreshBookings();
-
             // set up options for filtering
             _roomService = new RoomService();
             _userService = new UserService();
-            Rooms = _roomService.GetList();
-            Users = _userService.GetList();
+            var rooms = _roomService.GetList();
+            _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
+            {
+                new RoomComboBoxItem()
+            };
+            foreach (var room in rooms)
+            {
+                _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
+            }
+            var users = _userService.GetList();
+            _allUserOptions = new ObservableCollection<UserComboBoxItem>()
+            {
+                new UserComboBoxItem()
+            };
+            foreach (var user in users)
+            {
+                _allUserOptions.Add(new UserComboBoxItem() { User = user });
+            }
+
             FilterStartDate = DateTime.Today;
             FilterEndDate = DateTime.Today;
             FilterUser = StateManager.CurrentUser;
+
+            // set up model data
+            _bookingService = new BookingService();
+            RefreshBookings();
 
             // set up commands
             AddBookingCommand = new RelayCommand(this.AddBooking);
@@ -53,7 +77,45 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 () => SelectedBooking != null);
         }
 
-        public ICollection<Booking> Bookings
+        public class RoomComboBoxItem
+        {
+            public Room Room { get; set; }
+            public string ValueString
+            {
+                get
+                {
+                    if (Room == null)
+                    {
+                        return "Any room";
+                    }
+                    else
+                    {
+                        return Room.Name;
+                    }
+                }
+            }
+        }
+
+        public class UserComboBoxItem
+        {
+            public User User { get; set; }
+            public string ValueString
+            {
+                get
+                {
+                    if (User == null)
+                    {
+                        return "Anyone";
+                    }
+                    else
+                    {
+                        return String.Format("{0}, {1}", User.LastName, User.FirstName);
+                    }
+                }
+            }
+        }
+
+        public ObservableCollection<Booking> Bookings
         {
             get
             {
@@ -69,16 +131,38 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public ICollection<Room> Rooms
+        public ObservableCollection<RoomComboBoxItem> RoomOptions
         {
-            get;
-            set;
+            get
+            {
+                return _allRoomOptions;
+            }
+            private set
+            {
+                if (value == _allRoomOptions)
+                {
+                    return;
+                }
+                _allRoomOptions = value;
+                RaisePropertyChanged("RoomOptions");
+            }
         }
-        
-        public ICollection<User> Users
+
+        public ObservableCollection<UserComboBoxItem> UserOptions
         {
-            get;
-            set;
+            get
+            {
+                return _allUserOptions;
+            }
+            private set
+            {
+                if (value == _allUserOptions)
+                {
+                    return;
+                }
+                _allUserOptions = value;
+                RaisePropertyChanged("UserOptions");
+            }
         }
 
         public Booking SelectedBooking
@@ -112,14 +196,36 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public Room FilterRoom
         {
-            get;
-            set;
+            get
+            {
+                return _filterRoom;
+            }
+            set
+            {
+                if (value == _filterRoom)
+                {
+                    return;
+                }
+                _filterRoom = value;
+                RaisePropertyChanged("FilterRoom");
+            }
         }
 
         public User FilterUser
         {
-            get;
-            set;
+            get
+            {
+                return _filterUser;
+            }
+            set
+            {
+                if (value == _filterUser)
+                {
+                    return;
+                }
+                _filterUser = value;
+                RaisePropertyChanged("FilterRoom");
+            }
         }
 
         #region Command properties
@@ -149,7 +255,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshBookings()
         {
-            Bookings = _bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID);
+            Bookings = new ObservableCollection<Booking>(_bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID));
         }
 
         #region Command methods
