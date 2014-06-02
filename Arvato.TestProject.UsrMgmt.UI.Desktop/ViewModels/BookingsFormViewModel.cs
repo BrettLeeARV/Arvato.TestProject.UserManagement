@@ -12,6 +12,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
@@ -106,6 +107,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // Edit booking
                 _isNewBooking = false;
 
+                // also need to re-get the booking from BookingService
+                _bookingService.ViewBooking(ref booking);
+
                 _startDate = _booking.StartDate.Date;
                 _startTime = _booking.StartDate.TimeOfDay;
                 _endDate = _booking.EndDate.Date;
@@ -120,6 +124,17 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                         break;
                     }
                 }
+
+                // pre-select booked assets
+                foreach (var bookedAsset in _booking.AssetBookings)
+                {
+                    var asset = AssetList.First(a => a.Asset.ID == bookedAsset.AssetID);
+                    if (asset != null)
+                    {
+                        asset.IsSelected = true;
+                    }
+                }
+
             }
 
             // Generate TimeComboBoxitems from 00:00 to 23:30, in 30 minute increments
@@ -134,6 +149,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // Wire up commands
             MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid);
             CancelCommand = new RelayCommand(this.Cancel);
+        }
+
+        public class AssetListItem
+        {
+            public Asset Asset { get; set; }
+            public Room Room { get; set; }
+            public bool IsSelected { get; set; }
         }
 
         public class TimeComboBoxItem
@@ -296,16 +318,16 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             private set;
         }
 
-        public string RoomAssets
+        public ObservableCollection<AssetListItem> AssetList
         {
             get;
             private set;
         }
 
-        public ObservableCollection<Asset> AssetList
+        public ObservableCollection<Asset> SelectedAssets
         {
             get;
-            private set;
+            set;
         }
 
         public ObservableCollection<TimeComboBoxItem> StartTimeOptions
@@ -365,7 +387,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshAssets()
         {
-            AssetList = new ObservableCollection<Asset>(_assetService.GetList());
+            var assets = _assetService.GetEnabledList();
+            if (RoomList == null)
+            {
+                RefreshRooms();
+            }
+            AssetList = new ObservableCollection<AssetListItem>();
+            foreach (var asset in assets)
+            {
+                AssetList.Add(new AssetListItem()
+                {
+                    Asset = asset,
+                    Room = RoomList.First(r => r.ID == asset.RoomID),
+                    IsSelected = false
+                });
+            }
         }
 
         #region Command methods
@@ -377,6 +413,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _booking.StartDate = StartDate.Add(StartTime);
             _booking.EndDate = EndDate.Add(EndTime);
             _booking.UserID = StateManager.CurrentUser.ID;
+
+            // Assets
+            _booking.AssetBookings = new List<AssetBooking>();
+            foreach (var asset in AssetList)
+            {
+                if (asset.IsSelected)
+                {
+                    _booking.AssetBookings.Add(new AssetBooking()
+                    {
+                        AssetID = asset.Asset.ID,
+                        Status = true
+                    });
+                }
+            }
 
             try
             {

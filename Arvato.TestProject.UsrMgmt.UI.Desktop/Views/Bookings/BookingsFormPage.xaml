@@ -86,16 +86,21 @@
             <Border Grid.Column="2" Margin="5,0,0,0">
                 <DockPanel Height="Auto" Margin="10">
                     <TextBlock DockPanel.Dock="Top" Text="What else?" Style="{StaticResource PanelHeaderStyle}" />
-                    <Button DockPanel.Dock="Bottom" Content="Select all assets in this room" />
+                    <Button DockPanel.Dock="Bottom" Content="Select all assets in selected room" />
                     <ListBox ItemsSource="{Binding Path=AssetList}" Margin="0,0,0,20" Height="Auto" SelectionMode="Multiple">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                            </Style>
+                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="5">
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Asset.Name}" />
                                         <StackPanel Orientation="Horizontal" Margin="5">
                                             <TextBlock Text="Available, " />
-                                            <TextBlock Text="{Binding RoomID}" />
+                                            <TextBlock Text="{Binding Room.Name}" />
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
