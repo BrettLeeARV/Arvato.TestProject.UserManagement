@@ -200,9 +200,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             try
             {
 #if DEBUG
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
 #endif
-                return bookingRepository.GetListByFilters(start, end, userId, roomId, isCanceled).ToList<Booking>();
+                // add 1 day, so that a search for 1/1/2001 to 1/1/2001, will actually be performed as 1/1/2001 to 2/1/2001,
+                // which will produce the expected result
+                end = end.AddDays(1);
+                return bookingRepository.GetListByFilters(start, end, userId, roomId, isCanceled).ToList();
             }
             catch (Exception ex)
             {

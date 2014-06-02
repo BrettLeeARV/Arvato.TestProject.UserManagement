@@ -132,11 +132,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             set
             {
-                if (_bookings != value)
+                if (value == _bookings)
                 {
-                    _bookings = value;
-                    RaisePropertyChanged("Bookings");
+                    return;
                 }
+                _bookings = value;
+                RaisePropertyChanged("Bookings");
             }
         }
 
@@ -337,8 +338,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                //results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
-                results = _bookingService.GetList();
+                results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
+                //results = _bookingService.GetList();
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {

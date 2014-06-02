@@ -258,11 +258,11 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 // FIX ME
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var bookingList = session.Query<Booking>();
+                    var bookingList = session.QueryOver<Booking>();
                     // filter by date
-                    bookingList.Where(x => 
-                        (x.StartDate >= start && x.StartDate <= end) 
-                        || (x.EndDate >= start && x.StartDate <= end)
+                    bookingList.Where(x =>
+                        (x.StartDate >= start && x.StartDate < end)
+                        || (x.EndDate >= start && x.EndDate < end)
                     );
                     // if set, filter by user
                     if (userId > 0)
@@ -283,9 +283,9 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                     {
                         bookingList.Where(x => x.IsCanceled == false); // only non-canceled bookings
                     }
-                    
 
-                    return bookingList.AsQueryable<Booking>();
+
+                    return bookingList.List<Booking>().AsQueryable();
                 }
             }
             catch (Exception ex)
