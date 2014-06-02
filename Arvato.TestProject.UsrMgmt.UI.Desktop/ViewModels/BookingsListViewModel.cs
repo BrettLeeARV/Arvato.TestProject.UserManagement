@@ -28,6 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private Room _filterRoom;
         private User _filterUser;
+        private bool _filterCanceled;
 
         // ComboBox options
         // If these options will be reused in other parts of the app, consider putting them somewhere global and cache them
@@ -62,6 +63,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             FilterStartDate = DateTime.Today;
             FilterEndDate = DateTime.Today;
             FilterUser = StateManager.CurrentUser;
+            FilterCanceled = false;
 
             // set up model data
             _bookingService = new BookingService();
@@ -228,6 +230,23 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public bool FilterCanceled
+        {
+            get
+            {
+                return _filterCanceled;
+            }
+            set
+            {
+                if (value == _filterCanceled)
+                {
+                    return;
+                }
+                _filterCanceled = value;
+                RaisePropertyChanged("FilterCanceled");
+            }
+        }
+
         #region Command properties
 
         public ICommand AddBookingCommand
@@ -255,7 +274,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshBookings()
         {
-            Bookings = new ObservableCollection<Booking>(_bookingService.GetUserOwnBooking(StateManager.CurrentUser.ID));
+            var userId = 0;
+            var roomId = 0;
+            if (FilterUser != null)
+            {
+                userId = FilterUser.ID;
+            }
+            if (FilterRoom != null)
+            {
+                roomId = FilterRoom.ID;
+            }
+            //var results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
+            var results = _bookingService.GetList();
+            Bookings = new ObservableCollection<Booking>(results);
         }
 
         #region Command methods

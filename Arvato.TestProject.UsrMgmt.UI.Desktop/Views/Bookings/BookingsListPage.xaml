@@ -36,6 +36,7 @@
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="User"
                                   SelectedValue="{Binding FilterUser}" />
+                <CheckBox Content="Show canceled bookings as well" IsChecked="{Binding FilterCanceled}"/>
             </StackPanel>
             <ScrollViewer>
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 
