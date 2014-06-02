@@ -107,13 +107,27 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void AddBooking()
         {
-            MessengerInstance.Send(new ChangePageMessage(new BookingsFormViewModel()));
+            SelectedBooking = null;
+            EditBooking();
         }
 
         private void EditBooking()
         {
-            BookingsFormViewModel formViewModel = new BookingsFormViewModel(SelectedBooking);
-            MessengerInstance.Send(new ChangePageMessage(formViewModel));
+            BookingsFormViewModel formViewModel = null;
+
+            MessengerInstance.Send(new LoadingMessage(true));
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
+            {
+                formViewModel = new BookingsFormViewModel(SelectedBooking);
+            };
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                MessengerInstance.Send(new LoadingMessage(false));
+                MessengerInstance.Send(new ChangePageMessage(formViewModel));
+            };
+            worker.RunWorkerAsync();
         }
 
         private void CancelBooking()
