@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using System.Collections.ObjectModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -20,6 +21,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
 
         private IBookingService _bookingService;
+        // Should there be a app-wide list of rooms/users? So we don't need to keep pinging the server
+        private IRoomService _roomService;
+        private IUserService _userService;
         private ICollection<Booking> _bookings;
         private Booking _selectedBooking;
 
@@ -29,6 +33,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up model data
             _bookingService = new BookingService();
             RefreshBookings();
+
+            // set up options for filtering
+            _roomService = new RoomService();
+            _userService = new UserService();
+            Rooms = _roomService.GetList();
+            Users = _userService.GetList();
+            FilterStartDate = DateTime.Today;
+            FilterEndDate = DateTime.Today;
+            FilterUser = StateManager.CurrentUser;
 
             // set up commands
             AddBookingCommand = new RelayCommand(this.AddBooking);
@@ -56,6 +69,18 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public ICollection<Room> Rooms
+        {
+            get;
+            set;
+        }
+        
+        public ICollection<User> Users
+        {
+            get;
+            set;
+        }
+
         public Booking SelectedBooking
         {
             get
@@ -71,6 +96,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 _selectedBooking = value;
                 RaisePropertyChanged("SelectedBooking");
             }
+        }
+
+        public DateTime FilterStartDate
+        {
+            get;
+            set;
+        }
+
+        public DateTime FilterEndDate
+        {
+            get;
+            set;
+        }
+
+        public Room FilterRoom
+        {
+            get;
+            set;
+        }
+
+        public User FilterUser
+        {
+            get;
+            set;
         }
 
         #region Command properties

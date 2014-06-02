@@ -9,11 +9,6 @@
              d:DesignHeight="469" d:DesignWidth="941"
              d:DataContext="{Binding BookingsCreate, Source={StaticResource Locator}}">
     <UserControl.Resources>
-        <Style x:Key="PanelHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Margin" Value="0,0,0,10" />
-        </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
     </UserControl.Resources>

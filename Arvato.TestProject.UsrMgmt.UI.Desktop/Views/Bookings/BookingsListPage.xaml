@@ -20,6 +20,21 @@
             </StackPanel>
         </DockPanel>
         <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="200" Margin="12">
+                <TextBlock Text="Show bookings..." Style="{StaticResource PanelHeaderStyle}" />
+                <Label Content="dated between..." />
+                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
+                <Label Content="and..." />
+                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
+                <Label Content="for the room..." />
+                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding Rooms}" 
+                                  DisplayMemberPath="Name" 
+                                  SelectedItem="{Binding FilterRoom}"/>
+                <Label Content="booked by..." />
+                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding Users}" 
+                                  DisplayMemberPath="FirstName" 
+                                  SelectedItem="{Binding FilterUser}" />
+            </StackPanel>
             <ScrollViewer>
                 <DataGrid AutoGenerateColumns="False" Name="dataGrid1" 
                           VerticalAlignment="Stretch" ItemsSource="{Binding Bookings}" 
@@ -30,6 +45,7 @@
                         <DataGridTextColumn Header="End Time" Binding="{Binding EndDate}" Width="*" />
                         <DataGridTextColumn Header="Room" Binding="{Binding RoomID}" Width="*" />
                         <DataGridTextColumn Header="Booking Reference" Binding="{Binding RefNum}" Width="*" />
+                        <DataGridTextColumn Header="Booked by" Binding="{Binding UserID}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

@@ -38,5 +38,11 @@
             <Setter Property="Padding" Value="10" />
         </Style>
 
+        <Style x:Key="PanelHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+
     </Application.Resources>
 </Application>
