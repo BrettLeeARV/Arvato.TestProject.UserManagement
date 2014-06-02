@@ -8,6 +8,7 @@ using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.DAL.Repository;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Threading;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Service
 {
@@ -30,6 +31,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
+#if DEBUG
+                Thread.Sleep(3000);
+#endif
                 return bookingRepository.GetList().ToList<Booking>();
             }
             catch (Exception ex)
@@ -195,6 +199,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
+#if DEBUG
+                Thread.Sleep(3000);
+#endif
                 return bookingRepository.GetListByFilters(start, end, userId, roomId, isCanceled).ToList<Booking>();
             }
             catch (Exception ex)

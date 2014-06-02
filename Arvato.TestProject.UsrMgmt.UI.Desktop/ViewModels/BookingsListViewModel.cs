@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -26,9 +27,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private ObservableCollection<Booking> _bookings;
         private Booking _selectedBooking;
 
+        private DateTime _filterStartDate;
+        private DateTime _filterEndDate;
         private Room _filterRoom;
         private User _filterUser;
         private bool _filterCanceled;
+
+        private bool _isLoadingBookings;
 
         // ComboBox options
         // If these options will be reused in other parts of the app, consider putting them somewhere global and cache them
@@ -77,6 +82,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             CancelBookingCommand = new RelayCommand(this.CancelBooking,
                 // enable Delete User button if a user is selected
                 () => SelectedBooking != null);
+
+            this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
         }
 
         public class RoomComboBoxItem
@@ -186,14 +193,36 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public DateTime FilterStartDate
         {
-            get;
-            set;
+            get
+            {
+                return _filterStartDate;
+            }
+            set
+            {
+                if (value == _filterStartDate)
+                {
+                    return;
+                }
+                _filterStartDate = value.Date;
+                RaisePropertyChanged("FilterStartDate");
+            }
         }
 
         public DateTime FilterEndDate
         {
-            get;
-            set;
+            get
+            {
+                return _filterEndDate;
+            }
+            set
+            {
+                if (value == _filterEndDate || value == null) // don't allow null
+                {
+                    return;
+                }
+                _filterEndDate = value.Date;
+                RaisePropertyChanged("FilterEndDate");
+            }
         }
 
         public Room FilterRoom
@@ -247,6 +276,23 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public bool IsLoadingBookings
+        {
+            get
+            {
+                return _isLoadingBookings;
+            }
+            set
+            {
+                if (value == _isLoadingBookings)
+                {
+                    return;
+                }
+                _isLoadingBookings = value;
+                RaisePropertyChanged("IsLoadingBookings");
+            }
+        }
+
         #region Command properties
 
         public ICommand AddBookingCommand
@@ -276,6 +322,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             var userId = 0;
             var roomId = 0;
+            List<Booking> results = null;
+
             if (FilterUser != null)
             {
                 userId = FilterUser.ID;
@@ -284,9 +332,35 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 roomId = FilterRoom.ID;
             }
-            //var results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
-            var results = _bookingService.GetList();
-            Bookings = new ObservableCollection<Booking>(results);
+
+            IsLoadingBookings = true;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
+            {
+                //results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
+                results = _bookingService.GetList();
+            };
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                Bookings = new ObservableCollection<Booking>(results);
+                IsLoadingBookings = false;
+            };
+            worker.RunWorkerAsync();
+        }
+
+        private void BookingsListViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "FilterStartDate":
+                case "FilterEndDate":
+                case "FilterRoom":
+                case "FilterUser":
+                case "FilterCanceled":
+                    Debug.WriteLine("\n------ Refreshing bookings\n");
+                    RefreshBookings();
+                    break;
+            }
         }
 
         #region Command methods

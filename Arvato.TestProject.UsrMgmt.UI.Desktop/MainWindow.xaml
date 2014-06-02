@@ -8,9 +8,6 @@
     Height="500"
     Width="750"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
-    </Window.Resources>
     <Grid>
         <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding CurrentViewModel, Mode=OneWay}"/>
         <Grid Background="#AAFFFFFF" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">

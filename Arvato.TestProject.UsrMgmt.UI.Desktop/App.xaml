@@ -44,5 +44,7 @@
             <Setter Property="Margin" Value="0,0,0,10" />
         </Style>
 
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+
     </Application.Resources>
 </Application>
