@@ -214,6 +214,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
         }
 
+        public List<string> CheckRoomAvailability(Booking booking, string assetList, string type)
+        {
+            List<string> conflictBooking = bookingRepository.CheckBookingAvailability(booking, "", "Room").ToList();
+            return conflictBooking;
+        }
+
         #endregion
 
         #region IDisposable Implementation

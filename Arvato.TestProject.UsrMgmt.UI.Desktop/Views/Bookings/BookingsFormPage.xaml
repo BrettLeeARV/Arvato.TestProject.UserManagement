@@ -13,14 +13,11 @@
         <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
     </UserControl.Resources>
     <DockPanel Margin="20">
-        <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom">
+        <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button Content="Book It" Padding="30,10,30,10" Margin="0,0,20,0" Command="{Binding MakeBookingCommand}" />
                 <Button Content="Cancel" Padding="30,10,30,10" Command="{Binding CancelCommand}" />
             </StackPanel>
-            <Grid Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
-                <TextBlock Name="textBlock1" Text="[ ! ] Your booking conflicts with other bookings." Foreground="Crimson" VerticalAlignment="Center" />
-            </Grid>
         </DockPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -76,6 +73,22 @@
                                   SelectedValue="{Binding Path=EndTime}"
                                   Text="{Binding CustomEndTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
                     </WrapPanel>
+
+                    <StackPanel Margin="0,30,0,0" Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
+                        <TextBlock Text="Your booking conflicts with the following bookings:" Foreground="Crimson" VerticalAlignment="Center" TextWrapping="Wrap" />
+                        <ItemsControl ItemsSource="{Binding RoomConflicts}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </StackPanel>
             </Border>
             <Border Grid.Column="2" Margin="5,0,0,0">

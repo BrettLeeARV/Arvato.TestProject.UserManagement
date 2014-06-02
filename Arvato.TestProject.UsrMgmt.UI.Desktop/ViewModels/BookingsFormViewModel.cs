@@ -42,6 +42,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         // Status fields
         private bool _isConflicting;
+        private ObservableCollection<string> _roomConflicts;
 
         #endregion
 
@@ -147,8 +148,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid && !IsConflicting);
             CancelCommand = new RelayCommand(this.Cancel);
+
+            // Subscribe to own PropertyChanging event, to AJAX-ly call BLL validations
+            this.PropertyChanged += new PropertyChangedEventHandler(BookingsFormViewModel_PropertyChanged);
         }
 
         public class AssetListItem
@@ -363,6 +367,39 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public ObservableCollection<string> RoomConflicts
+        {
+            get
+            {
+                return _roomConflicts;
+            }
+            private set
+            {
+                if (value == _roomConflicts)
+                {
+                    return;
+                }
+                _roomConflicts = value;
+                RaisePropertyChanged("RoomConflicts");
+            }
+        }
+
+        private DateTime StartDateTime
+        {
+            get
+            {
+                return _startDate.Add(_startTime);
+            }
+        }
+
+        private DateTime EndDateTime
+        {
+            get
+            {
+                return _endDate.Add(_endTime);
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -460,6 +497,56 @@ Your booking reference number is: {0}", _booking.RefNum), "Booking created", Mes
         private void Cancel()
         {
             MessengerInstance.Send(new ChangePageMessage(typeof(BookingsListViewModel)));
+        }
+
+        private void BookingsFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Room":
+                case "StartDate":
+                case "StartTime":
+                case "EndDate":
+                case "EndTime":
+                    Debug.WriteLine("\n------ Checking availability\n");
+                    CheckAvailability();
+                    break;
+            }
+        }
+
+        private void CheckAvailability()
+        {
+            // Execute only if all required fields have been filled and are validated
+            if (!IsValid)
+            {
+                return;
+            }
+            var booking = new Booking()
+            {
+                StartDate = StartDateTime,
+                EndDate = EndDateTime,
+                RoomID = Room.ID
+            };
+            // TODO: change to List<Booking> once stored-proc is updated
+            List<string> results = null;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
+            {
+                results = _bookingService.CheckRoomAvailability(booking, "", "Room");
+            };
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                RoomConflicts = new ObservableCollection<string>(results);
+                if (results.Count > 0)
+                {
+                    IsConflicting = true;
+                }
+                else
+                {
+                    IsConflicting = false;
+                }
+            };
+            worker.RunWorkerAsync();
         }
 
         #endregion
