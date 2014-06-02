@@ -10,20 +10,19 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
    public class RoomRepository : BaseRepository,IRoomRepository
     {
+       static string connString = "";
+
        public RoomRepository(SqlConnection dbConnection)
            : base(dbConnection)
        {
-
+           connString = dbConnection.ConnectionString;
        }
 
        public IQueryable<Room> GetAll()
        {
            try
            {
-               SessionFactory sf = new SessionFactory();
-               var factory = sf.CreateSessionFactory();
-
-               using (var session = factory.OpenSession())
+               using (var session = NHibernateHelper.OpenSession(connString))
                {
                    // var room = new Room
                    //  {
@@ -65,15 +64,12 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
        public IQueryable<Room> GetAllEnabled()
        {
-          SessionFactory sf = new SessionFactory();
-               var factory = sf.CreateSessionFactory();
+           using (var session = NHibernateHelper.OpenSession(connString))
+           {
+               var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
 
-               using (var session = factory.OpenSession())
-               {
-                   var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
-
-                   return roomList.AsQueryable<Room>();
-               }
+               return roomList.AsQueryable<Room>();
+           }
        }
 
         //public IQueryable<User> SelectRoom()

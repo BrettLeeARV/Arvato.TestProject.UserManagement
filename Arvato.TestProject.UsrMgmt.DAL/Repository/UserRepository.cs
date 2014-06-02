@@ -20,17 +20,20 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class UserRepository: BaseRepository, IUserRepository 
     {
+        static string connString = "";
+
         SessionFactory sessionfactroy;
         public UserRepository()
             : base()
         {
-             
+            
         }
 
         public UserRepository(SqlConnection dbConnection)
             : base(dbConnection)
         {
             sessionfactroy = new SessionFactory();
+            connString = dbConnection.ConnectionString;
         }
 
         #region IUserRepository Implementations
@@ -60,9 +63,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             //return userList.AsQueryable<User>();
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var Fields = session.CreateQuery("FROM User").List<User>();
                     return Fields.AsQueryable<User>();
@@ -103,10 +104,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             //return Convert.ToBoolean(addrow);
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     //var user = new User
                     //{
@@ -166,23 +164,22 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 //    }
                 //}
 
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                var session = factory.OpenSession();
-                User user= session.Query<User>().Where(x => x.LoginID == entity.LoginID).Single();
-
-                if (user.IsWindowAuthenticate == false && user.Password == entity.Password)
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                   // var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
-                    result = true;
-                    entity.ID = user.ID;
-                }
-                else
-                {
-                    result = false;
-                    entity.IsWindowAuthenticate = user.IsWindowAuthenticate;
-                    entity.ID = user.ID;
+                    User user = session.Query<User>().Where(x => x.LoginID == entity.LoginID).Single();
+
+                    if (user.IsWindowAuthenticate == false && user.Password == entity.Password)
+                    {
+                        // var userlist = session.Query<User>().Where(x => x.LoginID == entity.LoginID && x.Password == entity.Password).ToList();
+                        result = true;
+                        entity.ID = user.ID;
+                    }
+                    else
+                    {
+                        result = false;
+                        entity.IsWindowAuthenticate = user.IsWindowAuthenticate;
+                        entity.ID = user.ID;
+                    }
                 }
     
                 //using (var session = factory.OpenSession())

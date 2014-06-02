@@ -10,18 +10,19 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class AssetRepository : BaseRepository, IAssetRepository
     {
+        static string connString = "";
+
         public AssetRepository(SqlConnection dbConnection)
             : base(dbConnection)
         {
-
+            connString = dbConnection.ConnectionString;
         }
+
         public IQueryable<Asset> GetList()
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var Fields = session.CreateQuery("FROM Asset").List<Asset>();
                     return Fields.AsQueryable<Asset>();
@@ -35,15 +36,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         }
         public bool InsertAsset(Asset entitiy)
         {
-            bool result = false;
-
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
-                {     
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {    
                     session.Save(entitiy);
                     return true;
                 }
@@ -58,13 +54,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
-
-          
                     session.Update(entity);
 
                     return true;
@@ -81,12 +72,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
-
                     var asset = session.QueryOver<Asset>().Where(x => x.ID == entity.ID).SingleOrDefault(); 
 
                     return asset;
@@ -103,10 +90,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
                     return assetList.AsQueryable<Asset>();
@@ -120,10 +104,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         public IQueryable<Asset> GetByRoomID(int RoomID)
         {
-            SessionFactory sf = new SessionFactory();
-            var factory = sf.CreateSessionFactory();
-
-            using (var session = factory.OpenSession())
+            using (var session = NHibernateHelper.OpenSession(connString))
             {
                 var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true && x.RoomID == RoomID).List().OrderBy(x => x.Name);
 
