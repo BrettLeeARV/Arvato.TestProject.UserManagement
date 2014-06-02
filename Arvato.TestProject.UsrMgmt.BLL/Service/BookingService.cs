@@ -190,6 +190,20 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 throw;
             }
         }
+
+        public List<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled)
+        {
+            try
+            {
+                return bookingRepository.GetListByFilters(start, end, userId, roomId, isCanceled).ToList<Booking>();
+            }
+            catch (Exception ex)
+            {
+                //Insert error Logging/Handling Mechanism here
+                throw ex;
+            }
+        }
+
         #endregion
 
         #region IDisposable Implementation

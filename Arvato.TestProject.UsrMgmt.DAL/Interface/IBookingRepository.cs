@@ -15,5 +15,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
         bool EditBooking(Booking booking);
         void CancelBooking(Booking booking);
         IQueryable<string> CheckBookingAvailability(Booking booking, string AssetList, string Type);
+        IQueryable<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled);
     }
 }

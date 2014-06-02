@@ -15,5 +15,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
         void CancelBooking(Booking booking);
         List<Booking> GetUserOwnBooking(int userid);
         void Save(Booking booking);
+        List<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled);
     }
 }

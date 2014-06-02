@@ -263,6 +263,52 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 throw ex;
             }
         }
+
+        public IQueryable<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled)
+        {
+            try
+            {
+                // FIX ME
+                SessionFactory sf = new SessionFactory();
+                var factory = sf.CreateSessionFactory();
+
+                using (var session = factory.OpenSession())
+                {
+                    var bookingList = session.Query<Booking>();
+                    // filter by date
+                    bookingList.Where(x => 
+                        (x.StartDate >= start && x.StartDate <= end) 
+                        || (x.EndDate >= start && x.StartDate <= end)
+                    );
+                    // if set, filter by user
+                    if (userId > 0)
+                    {
+                        bookingList.Where(x => x.UserID == userId);
+                    }
+                    // if set, filter by room
+                    if (roomId > 0)
+                    {
+                        bookingList.Where(x => x.RoomID == roomId);
+                    }
+                    // filter by isCanceled
+                    if (isCanceled)
+                    {
+                        // do nothing and both canceled and non-canceled bookings will be returned
+                    }
+                    else
+                    {
+                        bookingList.Where(x => x.IsCanceled == false); // only non-canceled bookings
+                    }
+                    
+
+                    return bookingList.AsQueryable<Booking>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
 }
