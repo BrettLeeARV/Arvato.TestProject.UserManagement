@@ -18,5 +18,22 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual bool IsWindowAuthenticate { get; set; }
         //Etc
 
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+            {
+                return this.ID == ((User)obj).ID;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
     }
 }
