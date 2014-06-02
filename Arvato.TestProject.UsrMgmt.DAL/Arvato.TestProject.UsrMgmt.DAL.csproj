@@ -67,6 +67,7 @@
     <Compile Include="Repository\AssetRepository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\BookingRepository.cs" />
+    <Compile Include="Repository\NHibernateHelper.cs" />
     <Compile Include="Repository\RoomRepository.cs" />
     <Compile Include="Repository\SessionFactory.cs" />
     <Compile Include="Repository\UserRepository.cs" />

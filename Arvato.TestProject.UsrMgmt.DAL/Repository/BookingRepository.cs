@@ -17,19 +17,19 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class BookingRepository : BaseRepository, IBookingRepository
     {
+        static string connString = "";
+
         public BookingRepository(SqlConnection dbConnection)
             : base(dbConnection)
         {
-
+            connString = dbConnection.ConnectionString;
         }
 
         public IQueryable<Booking> GetList()
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var specificFields = session.CreateQuery("FROM Booking").List<Booking>();
 
@@ -46,9 +46,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     // var specificFields = session.CreateQuery("FROM Booking WHERE UserID = '" + userid + "'").List<Booking>();
                     var specificFields = session.QueryOver<Booking>().Where(x => x.UserID == userid).List();
@@ -84,10 +82,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 //booking.RefNum = returnValue.ToString();
 
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var book = session.CreateSQLQuery("EXEC USP_MAKE_BOOKING :UserID, :RoomID, :StartDate, :EndDate")
                            .AddEntity(typeof(Booking))
@@ -144,10 +139,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 //  return true;
 
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var bookingList = session.Query<Booking>().Where(x => x.IsCanceled == false && x.RefNum == booking.RefNum).ToList();
 
@@ -174,10 +166,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 //     result = executeUpdateQuery("USP_EDIT_BOOKING", paramiters);
 
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var book = session.CreateSQLQuery("EXEC USP_EDIT_BOOKING :ID, :RoomID, :StartDate, :EndDate")
                            .SetParameter("ID", booking.ID)
@@ -221,9 +210,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
 
                     var update = session.CreateSQLQuery("USP_CANCEL_BOOKING :ID")
@@ -243,20 +230,20 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-                var session = factory.OpenSession();
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
 
-                var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID, :AssetID, :Type")
-                       .SetParameter("ID", booking.ID)
-                       .SetParameter("StartDate", booking.StartDate)
-                       .SetParameter("EndDate", booking.EndDate)
-                       .SetParameter("RoomID", booking.RoomID, NHibernateUtil.Int32)
-                       .SetParameter("AssetID", AssetList)
-                       .SetParameter("Type", Type)
-                       .List<string>();
+                    var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID, :AssetID, :Type")
+                           .SetParameter("ID", booking.ID)
+                           .SetParameter("StartDate", booking.StartDate)
+                           .SetParameter("EndDate", booking.EndDate)
+                           .SetParameter("RoomID", booking.RoomID, NHibernateUtil.Int32)
+                           .SetParameter("AssetID", AssetList)
+                           .SetParameter("Type", Type)
+                           .List<string>();
 
-                return bookingList.AsQueryable<string>();
+                    return bookingList.AsQueryable<string>();
+                }
             }
             catch (Exception ex)
             {
@@ -269,10 +256,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             try
             {
                 // FIX ME
-                SessionFactory sf = new SessionFactory();
-                var factory = sf.CreateSessionFactory();
-
-                using (var session = factory.OpenSession())
+                using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var bookingList = session.Query<Booking>();
                     // filter by date
