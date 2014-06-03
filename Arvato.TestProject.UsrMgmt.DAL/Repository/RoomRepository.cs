@@ -66,7 +66,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
        {
            using (var session = NHibernateHelper.OpenSession(connString))
            {
-               var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
+               var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).OrderBy(x => x.Name).Asc.List();
 
                return roomList.AsQueryable<Room>();
            }
