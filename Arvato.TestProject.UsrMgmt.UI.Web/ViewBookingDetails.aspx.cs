@@ -52,7 +52,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
             calStartDate.SelectedDate = book.StartDate;
             calEndDate.SelectedDate = book.EndDate;
-            ddlRoom.SelectedValue = book.RoomID.ToString();
+            ddlRoom.SelectedValue = book.Room.ID.ToString();
 
             foreach (AssetBooking asset in book.AssetBookings)
             {
@@ -136,15 +136,16 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
                 detail.ID = int.Parse(lblID.Text);
                 detail.IsCanceled = false;
-                detail.UserID = 3;
+                //detail.UserID = 3;
+                detail.User.ID = 3;
                 detail.RefNum = txtRefNum.Text.Trim();
                 detail.StartDate = calStartDate.SelectedDate;
                 detail.EndDate = calEndDate.SelectedDate;
 
                 if (ddlRoom.SelectedIndex > 0)
-                    detail.RoomID = int.Parse(ddlRoom.SelectedValue);
+                    detail.Room.ID = int.Parse(ddlRoom.SelectedValue);
                 else
-                    detail.RoomID = null;
+                    detail.Room.ID = 0;
 
                 if (lstSelectedAsset.Items.Count > 0)
                 {

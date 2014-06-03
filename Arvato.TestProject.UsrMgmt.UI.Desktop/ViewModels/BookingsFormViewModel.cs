@@ -119,7 +119,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // implemented Compare methods on Room, have to do it the ugly way
                 foreach (var r in RoomList)
                 {
-                    if (r.ID == _booking.RoomID)
+                    if (r.ID == _booking.Room.ID)
                     {
                         _room = r;
                         break;
@@ -446,10 +446,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void MakeBooking()
         {
             // Fill in the blanks
-            _booking.RoomID = _room.ID;
+            _booking.Room.ID = _room.ID;
             _booking.StartDate = StartDate.Add(StartTime);
             _booking.EndDate = EndDate.Add(EndTime);
-            _booking.UserID = StateManager.CurrentUser.ID;
+            //_booking.UserID = StateManager.CurrentUser.ID;
+            _booking.User.ID = StateManager.CurrentUser.ID;
 
             // Assets
             _booking.AssetBookings = new List<AssetBooking>();
