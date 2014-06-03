@@ -12,5 +12,6 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual string Location { get; set; }
         public virtual int Capacity { get; set; }
         public virtual bool IsEnabled { get; set; }
+        public virtual IList<Booking> Booking { get; set; }
     }
 }

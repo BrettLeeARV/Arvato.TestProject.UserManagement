@@ -156,7 +156,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                     throw new Exception("EndDate is a require field");
                 if(booking.StartDate >= booking.EndDate)
                     throw new Exception("EndDate must be greater than StartDate");
-                if ((booking.RoomID == 0 || booking.RoomID == null) && booking.AssetBookings.Count == 0)
+                if ((booking.Room.ID == 0 || booking.Room.ID == null) && booking.AssetBookings.Count == 0)
                     throw new Exception("Please select a room or asset to book");
 
                 string conflict = "";
