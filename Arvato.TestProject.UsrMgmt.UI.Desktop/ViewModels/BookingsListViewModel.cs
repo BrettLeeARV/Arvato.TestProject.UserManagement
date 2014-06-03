@@ -316,7 +316,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
-            {
+            {   
                 // set up options for filtering
                 _roomService = new RoomService();
                 _userService = new UserService();
@@ -329,6 +329,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
                 }
+                RaisePropertyChanged("RoomOptions");
                 var users = _userService.GetList();
                 _allUserOptions = new ObservableCollection<UserComboBoxItem>()
                 {
@@ -338,6 +339,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _allUserOptions.Add(new UserComboBoxItem() { User = user });
                 }
+                RaisePropertyChanged("UserOptions");
 
                 // set up sensible defaults for filters
                 FilterStartDate = DateTime.Today;
@@ -357,15 +359,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 _isInitialized = true;
                 MessengerInstance.Send(new LoadingMessage(false));
 
-                // set up model data
+                // Finally, get the bookings needed (will start it's own BackgroundWorker)
                 _bookingService = new BookingService();
-                RefreshBookings();
+                RefreshBookings(true);
             };
             worker.RunWorkerAsync();
             
         }
 
-        private void RefreshBookings()
+        private void RefreshBookings(bool showModal = false)
         {
             var userId = 0;
             var roomId = 0;
@@ -380,7 +382,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 roomId = FilterRoom.ID;
             }
 
-            MessengerInstance.Send(new LoadingMessage("Getting bookings..."));
+            if (showModal)
+            {
+                MessengerInstance.Send(new LoadingMessage("Getting bookings..."));
+            }
             IsLoadingBookings = true;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
@@ -391,7 +396,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 Bookings = new ObservableCollection<Booking>(results);
                 IsLoadingBookings = false;
-                MessengerInstance.Send(new LoadingMessage(false));
+                if (showModal)
+                {
+                    MessengerInstance.Send(new LoadingMessage(false));
+                }
             };
             worker.RunWorkerAsync();
         }

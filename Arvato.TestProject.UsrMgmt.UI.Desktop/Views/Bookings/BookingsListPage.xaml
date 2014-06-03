@@ -39,7 +39,7 @@
         <DockPanel>
             <DockPanel DockPanel.Dock="Right" Width="200" Margin="12">
                 <DockPanel DockPanel.Dock="Bottom" Visibility="{Binding IsLoadingBookings, Converter={StaticResource BooleanToVisibility}}">
-                    <TextBlock Text="Filtering..." Margin="0,0,10,0" />
+                    <TextBlock Text="Refreshing..." Margin="0,0,10,0" />
                     <ProgressBar Height="20" IsIndeterminate="True" />
                 </DockPanel>
                 <StackPanel Orientation="Vertical">
