@@ -1,51 +1,72 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Service;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
-using GalaSoft.MvvmLight;
+using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Threading;
-using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
-    public class LoginViewModel : PageViewModel
+    public class LoginViewModel : PageViewModel, IDataErrorInfo
     {
-        private IUserService userService;
-        private User user;
+        private IUserService _userService;
+        private User _user;
+        private string _loginID;
+        private string _password;
 
         public LoginViewModel()
             : base()
         {
             // set up model data
-            userService = new UserService();
-            user = new User();
+            _userService = new UserService();
+            _user = new User();
             // for convenience
 #if DEBUG
-            user.LoginID = "jingtao";
+            _loginID = "jingtao";
+            _password = "password";
 #endif
 
             // set up commands
-            SignInCommand = new RelayCommand<PasswordBox>(this.SignIn);
+            SignInCommand = new RelayCommand(this.SignIn, () => IsValid);
         }
 
-        public User User
+        public string LoginID
         {
             get
             {
-                return user;
+                return _loginID;
             }
             set
             {
-                if (user != value)
+                if (_loginID != value)
                 {
-                    user = value;
-                    RaisePropertyChanged("User");
+                    _loginID = value;
+                    RaisePropertyChanged("LoginID");
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                if (_password != value)
+                {
+                    _password = value;
+                    RaisePropertyChanged("Password");
                 }
             }
         }
@@ -66,9 +87,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         /// This slightly breaks the MMV
         /// </summary>
         /// <param name="passwordBox">The PasswordBox control to read from.</param>
-        private void SignIn(PasswordBox passwordBox)
+        private void SignIn()
         {
             MessengerInstance.Send(new LoadingMessage("Signing in..."));
+
+            _user.LoginID = _loginID;
+            _user.Password = _password;
 
             Exception loginEx = null;
             bool loggedIn = false;
@@ -76,11 +100,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                // the only way to extract the password out of a PasswordBox is by directly accessing its Password property
-                user.Password = passwordBox.Password;
                 try
                 {
-                    loggedIn = userService.Login(user);
+                    loggedIn = _userService.Login(_user);
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +113,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 if (loggedIn)
                 {
-                    StateManager.CurrentUser = user;
+                    StateManager.CurrentUser = _user;
                     PostLogIn();
                 }
                 else
@@ -120,5 +142,46 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             var msg = new ChangePageMessage(typeof(MainMenuViewModel));
             MessengerInstance.Send<ChangePageMessage>(msg);
         }
+
+        #region FluentValidation Members
+
+        public bool IsValid
+        {
+            get { return SelfValidate().IsValid; }
+        }
+
+        public FluentValidation.Results.ValidationResult SelfValidate()
+        {
+            var r = ValidationHelper.Validate<LoginFormValidator, LoginViewModel>(this);
+            foreach (var er in r.Errors)
+            {
+                Debug.WriteLine(er.ErrorMessage);
+            }
+            return r;
+        }
+
+        #endregion
+
+        #region IDataErrorInfo Members
+        public string Error
+        {
+            get
+            {
+                var r = ValidationHelper.GetError(SelfValidate());
+                return r;
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var __ValidationResults = SelfValidate();
+                if (__ValidationResults == null) return string.Empty;
+                var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
+                return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+            }
+        }
+        #endregion
     }
 }

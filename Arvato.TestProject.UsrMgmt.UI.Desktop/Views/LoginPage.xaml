@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
              mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="750">
     <StackPanel Margin="10" MaxWidth="400" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -19,12 +20,12 @@
 
             <StackPanel Name="stackPanel1" Margin="0,10" Grid.Column="0" Grid.Row="0">
                 <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}"/>
-                <TextBox Name="loginIDTextBox" Text="{Binding Path=User.LoginID}" />
+                <TextBox Name="loginIDTextBox" Text="{Binding Path=LoginID, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
-                <PasswordBox Name="passwordTextBox" />
+                <PasswordBox Name="passwordTextBox" Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>
                 <TextBox Name="domainTextBox" Text="ARVATO" IsEnabled="False" />
-                <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=passwordTextBox}" />
+                <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Command="{Binding SignInCommand}" />
             </StackPanel>
         </Grid>
     </StackPanel>
