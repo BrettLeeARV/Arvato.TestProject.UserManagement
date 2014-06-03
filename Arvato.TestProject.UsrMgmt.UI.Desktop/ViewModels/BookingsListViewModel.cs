@@ -20,6 +20,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class BookingsListViewModel : PageViewModel
     {
+        private bool _isInitialized;
 
         private IBookingService _bookingService;
         private IRoomService _roomService;
@@ -65,44 +66,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                // set up options for filtering
-                _roomService = new RoomService();
-                _userService = new UserService();
-                var rooms = _roomService.GetList();
-                _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
-                {
-                    new RoomComboBoxItem()
-                };
-                foreach (var room in rooms)
-                {
-                    _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
-                }
-                var users = _userService.GetList();
-                _allUserOptions = new ObservableCollection<UserComboBoxItem>()
-                {
-                    new UserComboBoxItem()
-                };
-                foreach (var user in users)
-                {
-                    _allUserOptions.Add(new UserComboBoxItem() { User = user });
-                }
-
-                // set up sensible defaults for filters
-                FilterStartDate = DateTime.Today;
-                FilterEndDate = FilterStartDate.AddMonths(1);
-                FilterUser = StateManager.CurrentUser;
-                FilterCanceled = false;
-
-                // set up model data
-                _bookingService = new BookingService();
-                RefreshBookings(true);
-
-                // set up commands
-                AddBookingCommand = new RelayCommand(this.AddBooking);
-                EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
-                CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
-
-                this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
+                _isInitialized = false;
             }
         }
 
@@ -336,10 +300,72 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         protected override void OnNavigatingTo(object s, EventArgs e)
         {
-            RefreshBookings();
+            if (_isInitialized)
+            {
+                RefreshBookings();
+            }
+            else
+            {
+                Initialize();
+            }
         }
 
-        private void RefreshBookings(bool modal = false)
+        private void Initialize()
+        {
+            MessengerInstance.Send(new LoadingMessage("Please wait..."));
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
+            {
+                // set up options for filtering
+                _roomService = new RoomService();
+                _userService = new UserService();
+                var rooms = _roomService.GetList();
+                _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
+                {
+                    new RoomComboBoxItem()
+                };
+                foreach (var room in rooms)
+                {
+                    _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
+                }
+                var users = _userService.GetList();
+                _allUserOptions = new ObservableCollection<UserComboBoxItem>()
+                {
+                    new UserComboBoxItem()
+                };
+                foreach (var user in users)
+                {
+                    _allUserOptions.Add(new UserComboBoxItem() { User = user });
+                }
+
+                // set up sensible defaults for filters
+                FilterStartDate = DateTime.Today;
+                FilterEndDate = FilterStartDate.AddMonths(1);
+                FilterUser = StateManager.CurrentUser;
+                FilterCanceled = false;
+
+                // set up commands
+                AddBookingCommand = new RelayCommand(this.AddBooking);
+                EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
+                CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
+
+                this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
+            }; 
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                _isInitialized = true;
+                MessengerInstance.Send(new LoadingMessage(false));
+
+                // set up model data
+                _bookingService = new BookingService();
+                RefreshBookings();
+            };
+            worker.RunWorkerAsync();
+            
+        }
+
+        private void RefreshBookings()
         {
             var userId = 0;
             var roomId = 0;
@@ -354,14 +380,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 roomId = FilterRoom.ID;
             }
 
-            if (modal)
-            {
-                MessengerInstance.Send(new LoadingMessage("Fetching bookings..."));
-            }
-            else
-            {
-                IsLoadingBookings = true;
-            }
+            MessengerInstance.Send(new LoadingMessage("Getting bookings..."));
+            IsLoadingBookings = true;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
@@ -370,15 +390,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
                 Bookings = new ObservableCollection<Booking>(results);
-
-                if (modal)
-                {
-                    MessengerInstance.Send(new LoadingMessage(false));
-                }
-                else
-                {
-                    IsLoadingBookings = false;
-                }
+                IsLoadingBookings = false;
+                MessengerInstance.Send(new LoadingMessage(false));
             };
             worker.RunWorkerAsync();
         }
