@@ -43,44 +43,63 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public BookingsListViewModel()
             : base()
         {
-            // set up options for filtering
-            _roomService = new RoomService();
-            _userService = new UserService();
-            var rooms = _roomService.GetList();
-            _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
+
+            if (IsInDesignMode)
             {
-                new RoomComboBoxItem()
-            };
-            foreach (var room in rooms)
-            {
-                _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
+                // set up sample model data
+                Bookings = new ObservableCollection<Booking>()
+                {
+                    new Booking() { 
+                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), RoomID = 1, UserID = 1, RefNum = "abc123" },
+                    new Booking() { 
+                        ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), RoomID = 2, UserID = 1, RefNum = "def456"},
+                    new Booking() { 
+                        ID = 3, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(2).AddHours(1), RoomID = 1, UserID = 2, RefNum="ghi789" }
+                };
+
+                SelectedBooking = Bookings[2];
             }
-            var users = _userService.GetList();
-            _allUserOptions = new ObservableCollection<UserComboBoxItem>()
+            else
             {
-                new UserComboBoxItem()
-            };
-            foreach (var user in users)
-            {
-                _allUserOptions.Add(new UserComboBoxItem() { User = user });
+                // set up options for filtering
+                _roomService = new RoomService();
+                _userService = new UserService();
+                var rooms = _roomService.GetList();
+                _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
+                {
+                    new RoomComboBoxItem()
+                };
+                foreach (var room in rooms)
+                {
+                    _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
+                }
+                var users = _userService.GetList();
+                _allUserOptions = new ObservableCollection<UserComboBoxItem>()
+                {
+                    new UserComboBoxItem()
+                };
+                foreach (var user in users)
+                {
+                    _allUserOptions.Add(new UserComboBoxItem() { User = user });
+                }
+
+                // set up sensible defaults for filters
+                FilterStartDate = DateTime.Today;
+                FilterEndDate = FilterStartDate.AddMonths(1);
+                FilterUser = StateManager.CurrentUser;
+                FilterCanceled = false;
+
+                // set up model data
+                _bookingService = new BookingService();
+                RefreshBookings();
+
+                // set up commands
+                AddBookingCommand = new RelayCommand(this.AddBooking);
+                EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
+                CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
+
+                this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
             }
-
-            // set up sensible defaults for filters
-            FilterStartDate = DateTime.Today;
-            FilterEndDate = FilterStartDate.AddMonths(1);
-            FilterUser = StateManager.CurrentUser;
-            FilterCanceled = false;
-
-            // set up model data
-            _bookingService = new BookingService();
-            RefreshBookings();
-
-            // set up commands
-            AddBookingCommand = new RelayCommand(this.AddBooking);
-            EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
-            CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
-
-            this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
         }
 
         public class RoomComboBoxItem
