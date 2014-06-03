@@ -91,7 +91,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
                 // set up model data
                 _bookingService = new BookingService();
-                RefreshBookings();
+                RefreshBookings(true);
 
                 // set up commands
                 AddBookingCommand = new RelayCommand(this.AddBooking);
@@ -335,7 +335,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             RefreshBookings();
         }
 
-        private void RefreshBookings()
+        private void RefreshBookings(bool modal = false)
         {
             var userId = 0;
             var roomId = 0;
@@ -350,7 +350,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 roomId = FilterRoom.ID;
             }
 
-            IsLoadingBookings = true;
+            if (modal)
+            {
+                MessengerInstance.Send(new LoadingMessage("Fetching bookings..."));
+            }
+            else
+            {
+                IsLoadingBookings = true;
+            }
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
@@ -360,7 +367,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
                 Bookings = new ObservableCollection<Booking>(results);
-                IsLoadingBookings = false;
+
+                if (modal)
+                {
+                    MessengerInstance.Send(new LoadingMessage(false));
+                }
+                else
+                {
+                    IsLoadingBookings = false;
+                }
             };
             worker.RunWorkerAsync();
         }

@@ -465,32 +465,51 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
             }
 
-            try
+            MessengerInstance.Send(new LoadingMessage("Saving booking..."));
+
+            Exception exceptionResult = null;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
+                try
+                {
+                    if (_isNewBooking)
+                    {
+                        _bookingService.Save(_booking);
+                    }
+                    else
+                    {
+                        _bookingService.Save(_booking);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    exceptionResult = ex;
+                }
+            };
+            worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+            {
+                if (exceptionResult != null)
+                {
+                    MessageBox.Show(exceptionResult.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 if (_isNewBooking)
                 {
-                    _bookingService.Save(_booking);
+                    MessageBox.Show(
+                        String.Format(@"Your booking has been made!
+Your booking reference number is: {0}", _booking.RefNum), "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    _bookingService.Save(_booking);
+                    MessageBox.Show("Your booking has been updated.", "Booking updated", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (_isNewBooking)
-            {
-                MessageBox.Show(
-                    String.Format(@"Your booking has been made!
-Your booking reference number is: {0}", _booking.RefNum), "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("Your booking has been updated.", "Booking updated", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+                MessengerInstance.Send(new LoadingMessage(false));
+
+                // Go back to bookings list
+                Cancel();
+            };
+            worker.RunWorkerAsync();
 
         }
 

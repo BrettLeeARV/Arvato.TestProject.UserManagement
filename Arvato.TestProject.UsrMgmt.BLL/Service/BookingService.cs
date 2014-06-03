@@ -139,6 +139,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
         public void Save(Booking booking)
         {
+#if DEBUG
+            Thread.Sleep(3000);
+#endif
             try
             {
                 string assetList = "";
