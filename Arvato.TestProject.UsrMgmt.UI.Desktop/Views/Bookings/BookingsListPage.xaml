@@ -19,6 +19,11 @@
                 <!--SelectedItem without focus-->
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
             </Style.Resources>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCanceled}" Value="True">
+                    <Setter Property="Opacity" Value="0.5" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -61,6 +66,25 @@
                          SelectedItem="{Binding SelectedBooking}" HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
+                            <DataTemplate.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True" Binding="{Binding IsCanceled}">
+                                            <Setter Property="TextDecorations">
+                                                <Setter.Value>
+                                                    <TextDecorationCollection>
+                                                        <TextDecoration Location="Strikethrough">
+                                                            <TextDecoration.Pen>
+                                                                <Pen Brush="Black" />
+                                                            </TextDecoration.Pen>
+                                                        </TextDecoration>
+                                                    </TextDecorationCollection>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataTemplate.Resources>
                             <DataTemplate.Triggers>
                                 <DataTrigger Value="True" Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}">
                                     <Setter Property="Control.Foreground" Value="Black"/>
@@ -74,7 +98,7 @@
                                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
                                                 <Setter Property="Border.Background">
                                                     <Setter.Value>
-                                                        <SolidColorBrush Color="Red" />
+                                                        <SolidColorBrush Color="Black" />
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -98,6 +122,7 @@
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <!--<TextBlock Text="Canceled: " Visibility="{Binding IsCanceled, Converter={StaticResource BooleanToVisibility}}"/>-->
                                             <TextBlock Margin="0,0,5,0" FontSize="16">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} - {1}">

@@ -50,7 +50,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 Bookings = new ObservableCollection<Booking>()
                 {
                     new Booking() { 
-                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), RoomID = 1, UserID = 1, RefNum = "abc123" },
+                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), RoomID = 1, UserID = 1, RefNum = "abc123", IsCanceled = true },
                     new Booking() { 
                         ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), RoomID = 2, UserID = 1, RefNum = "def456"},
                     new Booking() { 
