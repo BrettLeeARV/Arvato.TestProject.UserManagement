@@ -92,7 +92,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true).List().OrderBy(x => x.Name);
+                    var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true).OrderBy(x => x.Name).Asc.List();
                     return assetList.AsQueryable<Asset>();
                 }
             }
@@ -106,7 +106,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             using (var session = NHibernateHelper.OpenSession(connString))
             {
-                var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true && x.RoomID == RoomID).List().OrderBy(x => x.Name);
+                var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true && x.RoomID == RoomID).OrderBy(x => x.Name).Asc.List();
 
                 return assetList.AsQueryable<Asset>();
             }
