@@ -65,8 +65,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 _allUserOptions.Add(new UserComboBoxItem() { User = user });
             }
 
+            // set up sensible defaults for filters
             FilterStartDate = DateTime.Today;
-            FilterEndDate = DateTime.Today;
+            FilterEndDate = FilterStartDate.AddMonths(1);
             FilterUser = StateManager.CurrentUser;
             FilterCanceled = false;
 
@@ -76,12 +77,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             // set up commands
             AddBookingCommand = new RelayCommand(this.AddBooking);
-            EditBookingCommand = new RelayCommand(this.EditBooking,
-                // Enable Edit Booking button if a booking is selected
-                () => SelectedBooking != null);
-            CancelBookingCommand = new RelayCommand(this.CancelBooking,
-                // enable Delete User button if a user is selected
-                () => SelectedBooking != null);
+            EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
+            CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
 
             this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
         }
@@ -417,6 +414,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             SelectedBooking = null;
             RefreshBookings();
+        }
+
+        private bool CanEditSelectedBooking()
+        {
+            // TODO: add authorisation (can edit own/other's bookings)
+            return SelectedBooking != null && !SelectedBooking.IsCanceled;
         }
 
         #endregion
