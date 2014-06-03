@@ -94,8 +94,7 @@
             <Border Grid.Column="2" Margin="5,0,0,0">
                 <DockPanel Height="Auto" Margin="10">
                     <TextBlock DockPanel.Dock="Top" Text="What else?" Style="{StaticResource PanelHeaderStyle}" />
-                    <Button DockPanel.Dock="Bottom" Content="Select all assets in selected room" />
-                    <ListBox ItemsSource="{Binding Path=AssetList}" Margin="0,0,0,20" Height="Auto" SelectionMode="Multiple">
+                    <ListBox ItemsSource="{Binding Path=AssetList}" Height="Auto" SelectionMode="Multiple">
                         <ListBox.Resources>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
