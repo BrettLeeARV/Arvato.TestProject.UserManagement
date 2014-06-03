@@ -545,7 +545,7 @@ Your booking reference number is: {0}", _booking.RefNum), "Booking created", Mes
             {
                 StartDate = StartDateTime,
                 EndDate = EndDateTime,
-                RoomID = Room.ID
+                Room = Room
             };
             // TODO: change to List<Booking> once stored-proc is updated
             List<string> results = null;

@@ -46,15 +46,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             if (IsInDesignMode)
             {
+                User dummyUser1 = new User() { FirstName = "John", LastName = "Doe" };
+                User dummyUser2 = new User() { FirstName = "Alice", LastName = "Wondergirl" };
+                Room dummyRoom1 = new Room() { Name = "The Red Room" };
+                Room dummyRoom2 = new Room() { Name = "International Space Station" };
                 // set up sample model data
                 Bookings = new ObservableCollection<Booking>()
                 {
                     new Booking() { 
-                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), RoomID = 1, UserID = 1, RefNum = "abc123", IsCanceled = true },
+                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), Room = dummyRoom1, User = dummyUser1, RefNum = "abc123", IsCanceled = true },
                     new Booking() { 
-                        ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), RoomID = 2, UserID = 1, RefNum = "def456"},
+                        ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), Room = dummyRoom2, User = dummyUser2, RefNum = "def456"},
                     new Booking() { 
-                        ID = 3, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(2).AddHours(1), RoomID = 1, UserID = 2, RefNum="ghi789" }
+                        ID = 3, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(2).AddHours(1), Room = dummyRoom1, User = dummyUser2, RefNum="ghi789" }
                 };
 
                 SelectedBooking = Bookings[2];
@@ -362,7 +366,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
                 results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
-                //results = _bookingService.GetList();
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {

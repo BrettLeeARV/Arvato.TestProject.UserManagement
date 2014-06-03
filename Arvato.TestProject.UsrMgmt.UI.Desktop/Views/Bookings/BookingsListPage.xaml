@@ -122,7 +122,6 @@
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                            <!--<TextBlock Text="Canceled: " Visibility="{Binding IsCanceled, Converter={StaticResource BooleanToVisibility}}"/>-->
                                             <TextBlock Margin="0,0,5,0" FontSize="16">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} - {1}">
@@ -136,9 +135,10 @@
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontSize="14">
                                                 <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0} ({1})">
-                                                        <Binding Path="RoomID" />
-                                                        <Binding Path="UserID" />
+                                                    <MultiBinding StringFormat="{}{0} ({1}, {2})">
+                                                        <Binding Path="Room.Name" />
+                                                        <Binding Path="User.LastName" />
+                                                        <Binding Path="User.FirstName" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
