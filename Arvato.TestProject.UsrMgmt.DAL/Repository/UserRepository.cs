@@ -71,7 +71,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
 
