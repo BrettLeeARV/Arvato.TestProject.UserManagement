@@ -287,8 +287,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                         bookingList.Where(x => x.IsCanceled == false); // only non-canceled bookings
                     }
 
-
-                    return bookingList.List<Booking>().AsQueryable();
+                    // force a default ordering for now
+                    return bookingList.OrderBy(x => x.StartDate).Asc.List<Booking>().AsQueryable();
                 }
             }
             catch (Exception ex)
