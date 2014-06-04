@@ -142,7 +142,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var bookingList = session.Query<Booking>().Where(x => x.IsCanceled == false && x.RefNum == booking.RefNum).ToList();
+                    var bookingList = session.Query<Booking>().Where(x => x.RefNum == booking.RefNum).ToList();
 
                     return bookingList.AsQueryable<Booking>();
                 }
