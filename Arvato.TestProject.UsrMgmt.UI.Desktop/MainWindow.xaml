@@ -5,8 +5,8 @@
     xmlns:Views="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Views"
     xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
     Title="MainWindow"
-    Height="500"
-    Width="750"
+    Height="650"
+    Width="800"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
         <ContentControl Height="Auto" Name="contentControl1" Width="Auto" Content="{Binding CurrentViewModel, Mode=OneWay}"/>

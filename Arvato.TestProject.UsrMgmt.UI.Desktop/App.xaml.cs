@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 {
@@ -12,6 +13,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
     /// </summary>
     public partial class App : Application
     {
+        static App()
+        {
+            // Initialize MVVM Light's UIDispatcher
+            DispatcherHelper.Initialize();
+        }
+        
         protected override void OnStartup(StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += new

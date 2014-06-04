@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="700"
       d:DataContext="{Binding BookingsList, Source={StaticResource Locator}}"
@@ -44,10 +45,25 @@
                 </DockPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Show bookings..." Style="{StaticResource PanelHeaderStyle}" />
-                    <Label Content="dated between..." />
-                    <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
-                    <Label Content="and..." />
-                    <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
+                    <TabControl Name="tabControl1" >
+                        <TabItem Header="Calendar" Name="tabItem1">
+                            <Calendar Height="170" Name="filterCalendar" SelectionMode="SingleRange" DisplayMode="Month">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDatesChanged">
+                                        <cmd:EventToCommand Command="{Binding SelectedDatesCommand}" PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Calendar>
+                        </TabItem>
+                        <TabItem Header="Datepicker">
+                            <StackPanel>
+                                <Label Content="dated between..." />
+                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
+                                <Label Content="and..." />
+                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
                     <Label Content="for..." />
                     <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RoomOptions}" 
                                   DisplayMemberPath="ValueString" 

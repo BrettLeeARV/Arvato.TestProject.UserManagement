@@ -15,6 +15,7 @@ using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -295,6 +296,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
+        public ICommand SelectedDatesCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -313,6 +319,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void Initialize()
         {
             MessengerInstance.Send(new LoadingMessage("Please wait..."));
+
+            // set up commands
+            AddBookingCommand = new RelayCommand(this.AddBooking);
+            EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
+            CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
+            SelectedDatesCommand = new RelayCommand<SelectionChangedEventArgs>(this.SelectedDates);
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
@@ -347,10 +359,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 FilterUser = StateManager.CurrentUser;
                 FilterCanceled = false;
 
-                // set up commands
-                AddBookingCommand = new RelayCommand(this.AddBooking);
-                EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
-                CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
+                // Manually send a message to the view, so we can set the Calendar's selected range accordingly
+                MessengerInstance.Send(new UpdateCalendarMessage(FilterStartDate, FilterEndDate));
 
                 this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
             }; 
@@ -472,6 +482,24 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             SelectedBooking = null;
             RefreshBookings();
+        }
+
+        private void SelectedDates(SelectionChangedEventArgs ea)
+        {
+            var firstSelection = (DateTime) ea.AddedItems[0];
+            var lastSelection = (DateTime) ea.AddedItems[ea.AddedItems.Count - 1];
+            // If the user selected forwards, firstSelection will be the start date
+            // If the user selected backwards, firstSelection will be the end date
+            if (firstSelection < lastSelection)
+            {
+                FilterStartDate = firstSelection;
+                FilterEndDate = lastSelection;
+            }
+            else
+            {
+                FilterStartDate = lastSelection;
+                FilterEndDate = lastSelection;
+            }
         }
 
         private bool CanEditSelectedBooking()
