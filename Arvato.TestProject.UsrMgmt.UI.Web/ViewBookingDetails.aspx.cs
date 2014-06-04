@@ -59,7 +59,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
                 for (int i = 0; i < lstAssetList.Items.Count; i++)
                 {
-                    if (asset.AssetID == int.Parse(lstAssetList.Items[i].Value))
+                    if (asset.Asset.ID == int.Parse(lstAssetList.Items[i].Value))
                     {
                         lstSelectedAsset.Items.Add(lstAssetList.Items[i]);
                         lstAssetList.Items.RemoveAt(i);
@@ -87,7 +87,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
             if (ddlRoom.SelectedIndex != 0)
             {
-                List<Asset> selectedAsset = assetLst.Where(x => x.RoomID == int.Parse(ddlRoom.SelectedValue)).ToList();
+                List<Asset> selectedAsset = assetLst.Where(x => x.Room.ID == int.Parse(ddlRoom.SelectedValue)).ToList();
 
                 //List<Asset> selectedAsset = (List<Asset>)Filter;
                 lstSelectedAsset.DataSource = selectedAsset;
@@ -155,7 +155,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     {
                         AssetBooking bookAsset = new AssetBooking();
                         bookAsset.Status = true;
-                        bookAsset.AssetID = int.Parse(selectedItem.Value);
+                        bookAsset.Asset.ID = int.Parse(selectedItem.Value);
 
                         detail.AssetBookings.Add(bookAsset);
                     }

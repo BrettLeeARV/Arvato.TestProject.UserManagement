@@ -12,10 +12,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
         public AssetMapping()
         {
             Id(x => x.ID);
-            Map(x => x.RoomID);
             Map(x => x.Name);
             Map(x => x.IsEnabled);
-
+            HasMany(x => x.AssetBooking).KeyColumn("AssetID").Not.LazyLoad();
+            References(x => x.Room).Column("RoomID").Not.LazyLoad().NotFound.Ignore();
         }
     }
 }

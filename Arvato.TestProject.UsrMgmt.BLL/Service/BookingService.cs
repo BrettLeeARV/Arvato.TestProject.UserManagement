@@ -147,7 +147,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 string assetList = "";
                 foreach (AssetBooking List in booking.AssetBookings)
                 {
-                    assetList = assetList + "|" + List.AssetID;
+                    assetList = assetList + "|" + List.Asset.ID;
                 }
 
                 if (booking.StartDate.ToShortDateString() == "1/1/0001")

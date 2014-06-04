@@ -13,9 +13,9 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
         {
             Table("AssetBooking");
             Id(x => x.ID).GeneratedBy.Identity();
-            Map(x => x.AssetID);
             Map(x => x.Status);
             References(x => x.Booking).Column("BookingID");
+            References(x => x.Asset).Column("AssetID").Not.LazyLoad().NotFound.Ignore();
         }
     }
 }

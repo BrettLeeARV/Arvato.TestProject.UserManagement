@@ -129,7 +129,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // pre-select booked assets
                 foreach (var bookedAsset in _booking.AssetBookings)
                 {
-                    var asset = AssetList.First(a => a.Asset.ID == bookedAsset.AssetID);
+                    var asset = AssetList.First(a => a.Asset.ID == bookedAsset.Asset.ID);
                     if (asset != null)
                     {
                         asset.IsSelected = true;
@@ -435,7 +435,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 AssetList.Add(new AssetListItem()
                 {
                     Asset = asset,
-                    Room = RoomList.First(r => r.ID == asset.RoomID),
+                    Room = RoomList.First(r => r.ID == asset.Room.ID),
                     IsSelected = false
                 });
             }
@@ -460,7 +460,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _booking.AssetBookings.Add(new AssetBooking()
                     {
-                        AssetID = asset.Asset.ID,
+                        Asset = asset.Asset,
                         Status = true
                     });
                 }
