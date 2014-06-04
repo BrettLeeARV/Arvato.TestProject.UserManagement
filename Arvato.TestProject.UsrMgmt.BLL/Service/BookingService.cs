@@ -81,19 +81,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                         throw (new Exception("your refrence number is not valid."));
 
                     }
-                    else
-                    {
-                        List<AssetBooking> assetList = new List<AssetBooking>();
-                        foreach (AssetBooking asset in book.AssetBookings)
-                        {
-                            if (asset.Status == true)
-                            {
-                                assetList.Add(asset);
-                            }
-                        }
 
-                        book.AssetBookings = assetList;
-                    }
                     booking = book;
                 }
 
@@ -147,7 +135,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 string assetList = "";
                 foreach (AssetBooking List in booking.AssetBookings)
                 {
-                    assetList = assetList + "|" + List.AssetID;
+                    assetList = assetList + "|" + List.Asset.ID;
                 }
 
                 if (booking.StartDate.ToShortDateString() == "1/1/0001")

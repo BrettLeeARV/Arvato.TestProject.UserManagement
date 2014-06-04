@@ -26,7 +26,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                {
                    // var room = new Room
                    //  {
-                   var specificFields = session.CreateQuery("FROM Room").List<Room>();
+                   var specificFields = session.QueryOver<Room>().List<Room>();
                    //ID = entity.ID,
                    //Name = entity.Name,
                    //Location = entity.Location,

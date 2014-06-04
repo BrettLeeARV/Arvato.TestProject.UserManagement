@@ -25,7 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 {
                     Asset myasset = new Asset();
                     myasset.ID = int.Parse(txtassetID.Text);
-                    myasset.RoomID = int.Parse(txtroomid.Text);
+                    myasset.Room.ID = int.Parse(txtroomid.Text);
                     myasset.Name = txtname.Text;
                     myasset.IsEnabled = CheckBox1.Checked;
                     assetservice.UpdateAsset(myasset);
@@ -47,7 +47,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                    Asset myasset = new Asset();
                   myasset.ID = int.Parse(txtassetID.Text);
                   myasset = assetservice.SelectAsset(myasset);
-                  txtroomid.Text = myasset.RoomID.ToString();
+                  txtroomid.Text = myasset.Room.ID.ToString();
                   txtname.Text = myasset.Name;
                   CheckBox1.Checked = myasset.IsEnabled;
                 }

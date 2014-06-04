@@ -31,7 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var specificFields = session.CreateQuery("FROM Booking").List<Booking>();
+                    var specificFields = session.QueryOver<Booking>().List<Booking>();
 
                     return specificFields.AsQueryable<Booking>();
                 }
@@ -101,7 +101,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                         {
                             var assetBooking = session.CreateSQLQuery("EXEC USP_SAVE_ASSET_BOOKING :BookingID, :AssetID, :Status")
                            .SetParameter("BookingID", detail.ID)
-                           .SetParameter("AssetID", asset.AssetID)
+                           .SetParameter("AssetID", asset.Asset.ID)
                            .SetParameter("Status", asset.Status)
                            .UniqueResult();
                         }
@@ -142,7 +142,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var bookingList = session.Query<Booking>().Where(x => x.IsCanceled == false && x.RefNum == booking.RefNum).ToList();
+                    var bookingList = session.Query<Booking>().Where(x => x.RefNum == booking.RefNum).ToList();
 
                     return bookingList.AsQueryable<Booking>();
                 }
@@ -180,7 +180,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                     {
                         var assetBooking = session.CreateSQLQuery("EXEC USP_SAVE_ASSET_BOOKING :BookingID, :AssetID, :Status")
                        .SetParameter("BookingID", booking.ID)
-                       .SetParameter("AssetID", asset.AssetID)
+                       .SetParameter("AssetID", asset.Asset.ID)
                        .SetParameter("Status", asset.Status)
                        .UniqueResult();
                     }

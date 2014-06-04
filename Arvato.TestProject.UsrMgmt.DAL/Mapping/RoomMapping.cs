@@ -17,6 +17,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
            Map(x => x.Capacity);
            Map(x => x.IsEnabled);
            HasMany(x => x.Booking).KeyColumn("RoomID").Not.LazyLoad();
+           HasMany(x => x.Asset).KeyColumn("RoomID").Not.LazyLoad();
        }
     }
 }
