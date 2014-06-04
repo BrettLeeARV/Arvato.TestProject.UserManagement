@@ -159,29 +159,25 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 if ((booking.Room.ID == 0 || booking.Room.ID == null) && booking.AssetBookings.Count == 0)
                     throw new Exception("Please select a room or asset to book");
 
-                string conflict = "";
-                List<string> conflictBooking = bookingRepository.CheckBookingAvailability(booking, "", "Room").ToList();
-
-                if (conflictBooking.Count() > 0)
-                { 
-                    foreach (string message in conflictBooking)
-                    {
-                        conflict = conflict + message + ";";
-                    }
-                    throw new Exception("Room booking conflict : " + conflict);
-                }
-
-                conflict = "";
-                conflictBooking = bookingRepository.CheckBookingAvailability(booking, assetList, "Asset").ToList();
+                //string conflict = "";
+                List<Booking> conflictBooking = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
 
                 if (conflictBooking.Count() > 0)
                 {
-                    foreach (string message in conflictBooking)
-                    {
-                        conflict = conflict + message + ";";
-                    }
-                    throw new Exception("Asset booking conflict : " + conflict);
+                    throw new RoomClashException() { Clashes = conflictBooking };
                 }
+
+                //conflict = "";
+                //conflictBooking = bookingRepository.CheckBookingAvailability(booking, assetList, "Asset").ToList();
+
+                //if (conflictBooking.Count() > 0)
+                //{
+                //    foreach (string message in conflictBooking)
+                //    {
+                //        conflict = conflict + message + ";";
+                //    }
+                //    throw new Exception("Asset booking conflict : " + conflict);
+                //}
 
                 if (booking.ID > 0)
                 {
@@ -217,9 +213,9 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             }
         }
 
-        public List<string> CheckRoomAvailability(Booking booking, string assetList, string type)
+        public List<Booking> CheckRoomAvailability(Booking booking)
         {
-            List<string> conflictBooking = bookingRepository.CheckBookingAvailability(booking, "", "Room").ToList();
+            List<Booking> conflictBooking = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
             return conflictBooking;
         }
 

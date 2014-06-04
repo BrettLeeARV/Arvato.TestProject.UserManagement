@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
+        <Utils:BookingFormClashConverter x:Key="BookingFormClash" />
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
@@ -37,12 +38,14 @@
                                 <Border Padding="5">
                                     <StackPanel>
                                         <TextBlock Text="{Binding Name}" />
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="{Binding Location}" />
-                                            <TextBlock Text=", " />
-                                            <TextBlock Text="{Binding Capacity}" />
-                                            <TextBlock Text=" people" />
-                                        </StackPanel>
+                                        <TextBlock Margin="5">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}, {1} people">
+                                                    <Binding Path="Location" />
+                                                    <Binding Path="Capacity" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -84,7 +87,17 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}" />
+                                    <StackPanel Margin="0,0,0,10">
+                                        <TextBlock Text="{Binding Converter={StaticResource BookingFormClash}}" />
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="Booked by {0}, {1}">
+                                                    <Binding Path="User.LastName" />
+                                                    <Binding Path="User.FirstName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

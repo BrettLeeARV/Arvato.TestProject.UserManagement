@@ -229,21 +229,45 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         public IQueryable<string> CheckBookingAvailability(Booking booking, string AssetList, string Type)
         {
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (var session = NHibernateHelper.OpenSession(connString))
+            //    {
+
+            //        var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID, :AssetID, :Type")
+            //               .SetParameter("ID", booking.ID)
+            //               .SetParameter("StartDate", booking.StartDate)
+            //               .SetParameter("EndDate", booking.EndDate)
+            //               .SetParameter("RoomID", booking.Room.ID, NHibernateUtil.Int32)
+            //               .SetParameter("AssetID", AssetList)
+            //               .SetParameter("Type", Type)
+            //               .List<string>();
+
+            //        return bookingList.AsQueryable<string>();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+        }
+
+        public IQueryable<Booking> CheckRoomAvailability(int bookingID, DateTime startDate, DateTime endDate, int roomID)
+        {
             try
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
+                    var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID")
+                           .AddEntity(typeof(Booking))
+                           .SetParameter("ID", bookingID)
+                           .SetParameter("StartDate", startDate)
+                           .SetParameter("EndDate", endDate)
+                           .SetParameter("RoomID", roomID, NHibernateUtil.Int32);
+                    var list = bookingList.List<Booking>();
 
-                    var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :RoomID, :AssetID, :Type")
-                           .SetParameter("ID", booking.ID)
-                           .SetParameter("StartDate", booking.StartDate)
-                           .SetParameter("EndDate", booking.EndDate)
-                           .SetParameter("RoomID", booking.Room.ID, NHibernateUtil.Int32)
-                           .SetParameter("AssetID", AssetList)
-                           .SetParameter("Type", Type)
-                           .List<string>();
-
-                    return bookingList.AsQueryable<string>();
+                    return list.AsQueryable<Booking>();
                 }
             }
             catch (Exception ex)

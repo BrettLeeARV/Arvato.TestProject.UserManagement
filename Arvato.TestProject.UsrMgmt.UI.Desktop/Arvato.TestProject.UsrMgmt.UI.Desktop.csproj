@@ -81,6 +81,7 @@
     <Compile Include="Messages\LoadingMessage.cs" />
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\BookingListDateConverter.cs" />
+    <Compile Include="Utils\BookingFormClashConverter.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Utils\StateManager.cs" />
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />

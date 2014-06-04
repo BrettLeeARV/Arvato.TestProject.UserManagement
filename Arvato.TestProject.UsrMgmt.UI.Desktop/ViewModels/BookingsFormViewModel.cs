@@ -42,7 +42,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         // Status fields
         private bool _isConflicting;
-        private ObservableCollection<string> _roomConflicts;
+        private ObservableCollection<Booking> _roomConflicts;
 
         #endregion
 
@@ -148,7 +148,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid && !IsConflicting);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking/*, () => IsValid && !IsConflicting*/);
             CancelCommand = new RelayCommand(this.Cancel);
 
             // Subscribe to own PropertyChanging event, to AJAX-ly call BLL validations
@@ -367,7 +367,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public ObservableCollection<string> RoomConflicts
+        public ObservableCollection<Booking> RoomConflicts
         {
             get
             {
@@ -449,7 +449,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _booking.Room.ID = _room.ID;
             _booking.StartDate = StartDate.Add(StartTime);
             _booking.EndDate = EndDate.Add(EndTime);
-            //_booking.UserID = StateManager.CurrentUser.ID;
             _booking.User.ID = StateManager.CurrentUser.ID;
 
             // Assets
@@ -492,14 +491,28 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 if (exceptionResult != null)
                 {
-                    MessageBox.Show(exceptionResult.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (exceptionResult is RoomClashException)
+                    {
+                        var clashException = (RoomClashException) exceptionResult;
+                        IsConflicting = true;
+                        RoomConflicts = new ObservableCollection<Booking>(clashException.Clashes);
+                        MessageBox.Show(@"That room is no longer available for the chosen time. 
+Please choose a different room or time.", 
+                            "Room no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
+                    else
+                    {
+                        MessageBox.Show(exceptionResult.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    MessengerInstance.Send(new LoadingMessage(false));
                     return;
                 }
                 if (_isNewBooking)
                 {
                     MessageBox.Show(
                         String.Format(@"Your booking has been made!
-Your booking reference number is: {0}", _booking.RefNum), "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
+Your booking reference number is: {0}", _booking.RefNum), 
+                            "Booking created", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -547,16 +560,16 @@ Your booking reference number is: {0}", _booking.RefNum), "Booking created", Mes
                 EndDate = EndDateTime,
                 Room = Room
             };
-            // TODO: change to List<Booking> once stored-proc is updated
-            List<string> results = null;
+
+            List<Booking> results = null;
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                results = _bookingService.CheckRoomAvailability(booking, "", "Room");
+                results = _bookingService.CheckRoomAvailability(booking);
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
-                RoomConflicts = new ObservableCollection<string>(results);
+                RoomConflicts = new ObservableCollection<Booking>(results);
                 if (results.Count > 0)
                 {
                     IsConflicting = true;
