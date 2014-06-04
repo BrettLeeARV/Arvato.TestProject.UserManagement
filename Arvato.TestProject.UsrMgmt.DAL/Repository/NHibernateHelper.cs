@@ -32,7 +32,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             Configuration config = MsSqlConfiguration.MsSql2012
                 .ConnectionString(connectionString)
                 .UseReflectionOptimizer()
-                .ShowSql()
+                //.ShowSql()
                 .ConfigureProperties(new Configuration());
 
             // load mappings from this assembly
