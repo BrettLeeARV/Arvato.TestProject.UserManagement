@@ -7,7 +7,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="700"
+      d:DesignHeight="500" d:DesignWidth="801"
       d:DataContext="{Binding BookingsList, Source={StaticResource Locator}}"
       xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
     >
@@ -27,7 +27,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-
+    
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
             <Button DockPanel.Dock="Right" Content="Main Menu" Command="{Binding MainMenuCommand}" />
@@ -37,47 +37,14 @@
                 <Button Content="Cancel Booking" MinWidth="75" Command="{Binding CancelBookingCommand}" Margin="0,0,10,0" />
             </StackPanel>
         </DockPanel>
-        <DockPanel>
-            <DockPanel DockPanel.Dock="Right" Width="200" Margin="12">
-                <DockPanel DockPanel.Dock="Bottom" Visibility="{Binding IsLoadingBookings, Converter={StaticResource BooleanToVisibility}}">
-                    <TextBlock Text="Refreshing..." Margin="0,0,10,0" />
-                    <ProgressBar Height="20" IsIndeterminate="True" />
-                </DockPanel>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Show bookings..." Style="{StaticResource PanelHeaderStyle}" />
-                    <TabControl Name="tabControl1" >
-                        <TabItem Header="Calendar" Name="tabItem1">
-                            <Calendar Height="170" Name="filterCalendar" SelectionMode="SingleRange" DisplayMode="Month">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedDatesChanged">
-                                        <cmd:EventToCommand Command="{Binding SelectedDatesCommand}" PassEventArgsToCommand="True" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Calendar>
-                        </TabItem>
-                        <TabItem Header="Datepicker">
-                            <StackPanel>
-                                <Label Content="dated between..." />
-                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
-                                <Label Content="and..." />
-                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
-                            </StackPanel>
-                        </TabItem>
-                    </TabControl>
-                    <Label Content="for..." />
-                    <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RoomOptions}" 
-                                  DisplayMemberPath="ValueString" 
-                                  SelectedValuePath="Room"
-                                  SelectedValue="{Binding FilterRoom}"/>
-                    <Label Content="booked by..." />
-                    <ComboBox Margin="0,0,0,10" ItemsSource="{Binding UserOptions}" 
-                                  DisplayMemberPath="ValueString" 
-                                  SelectedValuePath="User"
-                                  SelectedValue="{Binding FilterUser}" />
-                    <CheckBox Content="Show canceled bookings as well" IsChecked="{Binding FilterCanceled}"/>
-                </StackPanel>
-            </DockPanel>
-            <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" MinWidth="220"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="1*" MinWidth="220" MaxWidth="350"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0">
                 <ListBox ItemsSource="{Binding Path=Bookings}" 
                          SelectedItem="{Binding SelectedBooking}" HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
@@ -166,7 +133,68 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
-        </DockPanel>
-
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
+            <DockPanel Grid.Column="2" Margin="12">
+                <DockPanel DockPanel.Dock="Bottom" Visibility="{Binding IsLoadingBookings, Converter={StaticResource BooleanToVisibility}}">
+                    <TextBlock Text="Refreshing..." Margin="0,0,10,0" />
+                    <ProgressBar Height="20" IsIndeterminate="True" />
+                </DockPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Show bookings..." Style="{StaticResource PanelHeaderStyle}" />
+                    <TabControl Name="tabControl1" >
+                        <TabItem Header="Calendar" Name="tabItem1">
+                            <StackPanel>
+                                <WrapPanel Margin="0,0,0,5">
+                                    <TextBlock TextWrapping="Wrap">
+                                        Select a date or 
+                                        <Hyperlink>
+                                            range of dates.
+                                            <Hyperlink.ToolTip>
+                                                <TextBlock Width="200" TextWrapping="Wrap">
+                                                    Drag to select a range of dates.<LineBreak/>
+                                                    <LineBreak/>
+                                                    To select across months, click on the start date, go to the month of the end date, then Shift + click the end date.
+                                                </TextBlock>
+                                            </Hyperlink.ToolTip>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </WrapPanel>
+                                <Viewbox>
+                                    <Calendar Name="filterCalendar" SelectionMode="SingleRange" DisplayMode="Month">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectedDatesChanged">
+                                                <cmd:EventToCommand Command="{Binding SelectedDatesCommand}" PassEventArgsToCommand="True" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="Loaded">
+                                                <i:InvokeCommandAction Command="{Binding UpdateCalendarCommand}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Calendar>
+                                </Viewbox>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Datepicker">
+                            <StackPanel>
+                                <Label Content="Between..." />
+                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterStartDate}"/>
+                                <Label Content="and..." />
+                                <DatePicker Margin="0,0,0,10" SelectedDate="{Binding FilterEndDate}"/>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                    <Label Content="for..." />
+                    <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RoomOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="Room"
+                                  SelectedValue="{Binding FilterRoom}"/>
+                    <Label Content="booked by..." />
+                    <ComboBox Margin="0,0,0,10" ItemsSource="{Binding UserOptions}" 
+                                  DisplayMemberPath="ValueString" 
+                                  SelectedValuePath="User"
+                                  SelectedValue="{Binding FilterUser}" />
+                    <CheckBox Content="Show canceled bookings as well" IsChecked="{Binding FilterCanceled}"/>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
     </DockPanel>
 </UserControl>

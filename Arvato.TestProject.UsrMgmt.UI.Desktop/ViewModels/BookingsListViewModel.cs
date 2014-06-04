@@ -35,6 +35,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private User _filterUser;
         private bool _filterCanceled;
 
+        // To avoid unnecessarily sending UpdateCalendarMessages, remember the dates sent out in the last message
+        private DateTime _calendarStartDate;
+        private DateTime _calendarEndDate;
+
         private bool _isLoadingBookings;
 
         // ComboBox options
@@ -48,6 +52,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             if (IsInDesignMode)
             {
+                #region Design-time data
                 User dummyUser1 = new User() { FirstName = "John", LastName = "Doe" };
                 User dummyUser2 = new User() { FirstName = "Alice", LastName = "Wondergirl" };
                 Room dummyRoom1 = new Room() { Name = "The Red Room" };
@@ -64,12 +69,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 };
 
                 SelectedBooking = Bookings[2];
+                #endregion
             }
             else
             {
                 _isInitialized = false;
             }
         }
+
+        #region Internal classes
 
         public class RoomComboBoxItem
         {
@@ -108,6 +116,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
             }
         }
+
+        #endregion
+
+        #region Binding properties
 
         public ObservableCollection<Booking> Bookings
         {
@@ -279,6 +291,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        #endregion
+
         #region Command properties
 
         public ICommand AddBookingCommand
@@ -301,8 +315,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get;
             private set;
         }
+        public ICommand UpdateCalendarCommand
+        {
+            get;
+            private set;
+        }
 
         #endregion
+
+        #region Methods
 
         protected override void OnNavigatingTo(object s, EventArgs e)
         {
@@ -325,6 +346,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             EditBookingCommand = new RelayCommand(this.EditBooking, CanEditSelectedBooking);
             CancelBookingCommand = new RelayCommand(this.CancelBooking, CanEditSelectedBooking);
             SelectedDatesCommand = new RelayCommand<SelectionChangedEventArgs>(this.SelectedDates);
+            UpdateCalendarCommand = new RelayCommand( () => UpdateCalendarControl(true) );
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
@@ -359,9 +381,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 FilterUser = StateManager.CurrentUser;
                 FilterCanceled = false;
 
-                // Manually send a message to the view, so we can set the Calendar's selected range accordingly
-                MessengerInstance.Send(new UpdateCalendarMessage(FilterStartDate, FilterEndDate));
-
                 this.PropertyChanged += new PropertyChangedEventHandler(BookingsListViewModel_PropertyChanged);
             }; 
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
@@ -375,6 +394,23 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             };
             worker.RunWorkerAsync();
             
+        }
+
+        /// <summary>
+        /// Sends a message to the view to update the Calendar control, only if necessary.
+        /// </summary>
+        /// <param name="forced">Set to true if an update should be performed regardless if it's necessary.</param>
+        private void UpdateCalendarControl(bool forced = false)
+        {
+            var shouldUpdate = forced ||
+                FilterStartDate != _calendarStartDate ||
+                FilterEndDate != _calendarEndDate;
+            if (shouldUpdate)
+            {
+                _calendarStartDate = FilterStartDate;
+                _calendarEndDate = FilterEndDate;
+                MessengerInstance.Send(new UpdateCalendarMessage(FilterStartDate, FilterEndDate));
+            }
         }
 
         private void RefreshBookings(bool showModal = false)
@@ -420,6 +456,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 case "FilterStartDate":
                 case "FilterEndDate":
+                    UpdateCalendarControl();
+                    goto case "FilterRoom";
                 case "FilterRoom":
                 case "FilterUser":
                 case "FilterCanceled":
@@ -428,6 +466,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                     break;
             }
         }
+
+        #endregion
 
         #region Command methods
 
@@ -486,19 +526,29 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void SelectedDates(SelectionChangedEventArgs ea)
         {
-            var firstSelection = (DateTime) ea.AddedItems[0];
-            var lastSelection = (DateTime) ea.AddedItems[ea.AddedItems.Count - 1];
-            // If the user selected forwards, firstSelection will be the start date
-            // If the user selected backwards, firstSelection will be the end date
-            if (firstSelection < lastSelection)
+            if (ea.AddedItems.Count > 0)
             {
-                FilterStartDate = firstSelection;
-                FilterEndDate = lastSelection;
-            }
-            else
-            {
-                FilterStartDate = lastSelection;
-                FilterEndDate = lastSelection;
+                var firstSelection = (DateTime)ea.AddedItems[0];
+                var lastSelection = (DateTime)ea.AddedItems[ea.AddedItems.Count - 1];
+                DateTime startDate = firstSelection;
+                DateTime endDate = lastSelection;
+                // If the user selected forwards, firstSelection will be the start date
+                // If the user selected backwards, firstSelection will be the end date
+                if (firstSelection > lastSelection)
+                {
+                    startDate = lastSelection;
+                    endDate = lastSelection;
+                }
+                if (startDate != _calendarStartDate)
+                {
+                    _calendarStartDate = startDate;
+                    FilterStartDate = startDate;
+                }
+                if (endDate != _calendarEndDate)
+                {
+                    _calendarEndDate = endDate;
+                    FilterEndDate = endDate;
+                }
             }
         }
 

@@ -2,6 +2,8 @@
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
+using System.Diagnostics;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
@@ -14,10 +16,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
         {
             InitializeComponent();
 
-            Messenger.Default.Register<UpdateCalendarMessage>(this, UpdateCalendar);
+            Messenger.Default.Register<UpdateCalendarMessage>(this, RespondToUpdateCalendar);
         }
 
-        private void UpdateCalendar(UpdateCalendarMessage message)
+        private void RespondToUpdateCalendar(UpdateCalendarMessage message)
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
