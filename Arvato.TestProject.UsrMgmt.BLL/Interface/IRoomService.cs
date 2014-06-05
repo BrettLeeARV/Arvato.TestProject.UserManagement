@@ -10,5 +10,8 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     {
         List<Room> GetList();
         List<Room> GetEnabledList();
+        void Save(Room room);
+        void Delete(Room room);
+        Room GetRoomByID(int RoomID);
     }
 }

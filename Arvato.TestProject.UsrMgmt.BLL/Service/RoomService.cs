@@ -49,6 +49,50 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
            }
 
        }
+
+       public void Save(Room room)
+       {
+           try
+           {
+               if (room.ID == 0)
+               {
+                   roomRepository.Add(room);
+               }
+               else
+               {
+                   roomRepository.Update(room);
+               }
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+       }
+
+       public void Delete(Room room)
+       {
+           try
+           {
+               roomRepository.Delete(room);
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+       }
+
+       public Room GetRoomByID(int RoomID)
+       {
+           try
+           {
+               return roomRepository.GetRoomByID(RoomID).SingleOrDefault();
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+       }
+
        #region IDisposable Implementation
        private bool disposed = false;
 

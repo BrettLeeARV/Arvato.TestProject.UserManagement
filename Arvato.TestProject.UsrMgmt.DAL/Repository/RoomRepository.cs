@@ -48,18 +48,55 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
        public bool Add(Room entity)
        {
-           throw new NotImplementedException();
+           try
+           {
+               using (var session = NHibernateHelper.OpenSession(connString))
+               {
+                   session.Save(entity);
+                   return true;
+               }
+           }
+           catch (Exception)
+           {
+               return false;
+               throw;
+           }
        }
 
 
        public void Update(Room entity)
        {
-           throw new NotImplementedException();
+           try
+           {
+               using (var session = NHibernateHelper.OpenSession(connString))
+               {
+                   session.Update(entity);
+                   session.Flush();
+               }
+           }
+           catch (Exception ex)
+           {
+
+               throw ex;
+           }
        }
 
        public bool Delete(Room entity)
        {
-           throw  new NotImplementedException();
+           try
+           {
+               using (var session = NHibernateHelper.OpenSession(connString))
+               {
+                   session.Delete(entity);
+
+                   return true;
+               }
+           }
+           catch (Exception ex)
+           {
+
+               throw ex;
+           }
        }
 
        public IQueryable<Room> GetAllEnabled()
@@ -67,6 +104,16 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
            using (var session = NHibernateHelper.OpenSession(connString))
            {
                var roomList = session.QueryOver<Room>().Where(x => x.IsEnabled == true).OrderBy(x => x.Name).Asc.List();
+
+               return roomList.AsQueryable<Room>();
+           }
+       }
+
+       public IQueryable<Room> GetRoomByID(int RoomID)
+       {
+           using (var session = NHibernateHelper.OpenSession(connString))
+           {
+               var roomList = session.QueryOver<Room>().Where(x => x.ID == RoomID).List();
 
                return roomList.AsQueryable<Room>();
            }
