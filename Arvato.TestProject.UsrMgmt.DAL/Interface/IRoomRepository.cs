@@ -10,5 +10,6 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
     {
          //IQueryable<Room> SelectRoom();
         IQueryable<Room> GetAllEnabled();
+        IQueryable<Room> GetRoomByID(int RoomID);
     }
 }

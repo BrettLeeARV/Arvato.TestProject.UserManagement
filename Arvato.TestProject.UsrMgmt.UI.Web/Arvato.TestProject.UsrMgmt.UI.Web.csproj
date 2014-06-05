@@ -64,10 +64,12 @@
   <ItemGroup>
     <Content Include="InsertAsset.aspx" />
     <Content Include="InsertBooking.aspx" />
+    <Content Include="InsertRoom.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="NewBooking.aspx" />
     <Content Include="NewUser.aspx" />
     <Content Include="UpdateAsset.aspx" />
+    <Content Include="UpdateRoom.aspx" />
     <Content Include="UserList.aspx" />
     <Content Include="UserListing.aspx" />
     <Content Include="UserPage.aspx" />
@@ -100,6 +102,13 @@
     <Compile Include="InsertBooking.aspx.designer.cs">
       <DependentUpon>InsertBooking.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InsertRoom.aspx.cs">
+      <DependentUpon>InsertRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InsertRoom.aspx.designer.cs">
+      <DependentUpon>InsertRoom.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -128,6 +137,13 @@
     </Compile>
     <Compile Include="UpdateAsset.aspx.designer.cs">
       <DependentUpon>UpdateAsset.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateRoom.aspx.cs">
+      <DependentUpon>UpdateRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateRoom.aspx.designer.cs">
+      <DependentUpon>UpdateRoom.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
