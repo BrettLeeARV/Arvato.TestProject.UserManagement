@@ -132,12 +132,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 #endif
             try
             {
-                string assetList = "";
-                foreach (AssetBooking List in booking.AssetBookings)
-                {
-                    assetList = assetList + "|" + List.Asset.ID;
-                }
-
                 if (booking.StartDate.ToShortDateString() == "1/1/0001")
                     throw new Exception("StartDate is a require field");
                 if (booking.EndDate.ToShortDateString() == "1/1/0001")
@@ -148,17 +142,14 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                     throw new Exception("Please select a room or asset to book");
 
                 // Check if room is available
-                List<Booking> conflictingBookings = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
-
+                var conflictingBookings = CheckRoomAvailability(booking);
                 if (conflictingBookings.Count() > 0)
                 {
                     throw new RoomClashException() { Clashes = conflictingBookings };
                 }
 
                 // Check if assets are available
-                int[] assetIDs = booking.AssetBookings.Select(x => x.Asset.ID).ToArray();
-                List<AssetBooking> conflictingAssetBookings = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
-
+                var conflictingAssetBookings = CheckAssetAvailability(booking);
                 if (conflictingAssetBookings.Count() > 0)
                 {
                     throw new AssetClashException() { Clashes = conflictingAssetBookings };
@@ -200,8 +191,15 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
 
         public List<Booking> CheckRoomAvailability(Booking booking)
         {
-            List<Booking> conflictBooking = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
-            return conflictBooking;
+            List<Booking> conflicts = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
+            return conflicts;
+        }
+
+        public List<AssetBooking> CheckAssetAvailability(Booking booking)
+        {
+            int[] assetIDs = booking.AssetBookings.Select(x => x.Asset.ID).ToArray();
+            List<AssetBooking> conflicts = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
+            return conflicts;
         }
 
         #endregion
@@ -223,7 +221,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
 
         #endregion
 

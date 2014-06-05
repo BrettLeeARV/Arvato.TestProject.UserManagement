@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
@@ -13,6 +14,8 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
+using System.Windows.Controls;
+using GalaSoft.MvvmLight;
 
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
@@ -148,8 +151,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking/*, () => IsValid && !IsConflicting*/);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid && !IsConflicting);
             CancelCommand = new RelayCommand(this.Cancel);
+            SelectedAssetsChangedCommand = new RelayCommand<SelectionChangedEventArgs>(this.SelectedAssetsChanged);
 
             // Subscribe to own PropertyChanging event, to AJAX-ly call BLL validations
             this.PropertyChanged += new PropertyChangedEventHandler(BookingsFormViewModel_PropertyChanged);
@@ -157,9 +161,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public class AssetListItem
         {
+            public AssetListItem()
+            {
+                this.Conflicts = new ObservableCollection<AssetBooking>();
+            }
+            
             public Asset Asset { get; set; }
             public Room Room { get; set; }
             public bool IsSelected { get; set; }
+            public bool HasConflicts
+            {
+                get
+                {
+                    if (Conflicts == null)
+                    {
+                        return false;
+                    }
+                    return Conflicts.Count > 0;
+                }
+            }
+            public ObservableCollection<AssetBooking> Conflicts
+            {
+                get;
+                set;
+            }
         }
 
         public class TimeComboBoxItem
@@ -328,12 +353,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             private set;
         }
 
-        public ObservableCollection<Asset> SelectedAssets
-        {
-            get;
-            set;
-        }
-
         public ObservableCollection<TimeComboBoxItem> StartTimeOptions
         {
             get
@@ -410,6 +429,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             private set;
         }
         public ICommand CancelCommand
+        {
+            get;
+            private set;
+        }
+        public ICommand SelectedAssetsChangedCommand
         {
             get;
             private set;
@@ -538,6 +562,12 @@ Your booking reference number is: {0}", _booking.RefNum),
             MessengerInstance.Send(new ChangePageMessage(typeof(BookingsListViewModel)));
         }
 
+        private void SelectedAssetsChanged(SelectionChangedEventArgs args)
+        {
+            RaisePropertyChanged("AssetList");
+            // This will in turn cause BookingsFormViewModel_PropertyChanged to be called
+        }
+
         private void BookingsFormViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -547,6 +577,7 @@ Your booking reference number is: {0}", _booking.RefNum),
                 case "StartTime":
                 case "EndDate":
                 case "EndTime":
+                case "AssetList":
                     Debug.WriteLine("\n------ Checking availability\n");
                     CheckAvailability();
                     break;
@@ -564,26 +595,58 @@ Your booking reference number is: {0}", _booking.RefNum),
             {
                 StartDate = StartDateTime,
                 EndDate = EndDateTime,
-                Room = Room
+                Room = Room,
+                AssetBookings = (from asset in AssetList
+                                select new AssetBooking() { Asset = asset.Asset }).ToList()
             };
+            
 
-            List<Booking> results = null;
+            List<Booking> roomResults = null;
+            List<AssetBooking> assetResults = null;
+
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                results = _bookingService.CheckRoomAvailability(booking);
+                roomResults = _bookingService.CheckRoomAvailability(booking);
+                assetResults = _bookingService.CheckAssetAvailability(booking);
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
-                RoomConflicts = new ObservableCollection<Booking>(results);
-                if (results.Count > 0)
+                bool hasRoomConflicts = false;
+                bool hasAssetConflicts = false;
+                
+                // Handle room conflicts
+                RoomConflicts = new ObservableCollection<Booking>(roomResults);
+                if (roomResults.Count > 0)
                 {
-                    IsConflicting = true;
+                    hasRoomConflicts = true;
                 }
-                else
+
+                // Handle asset conflicts
+                // Remove all existing conflics from every asset
+                foreach (var asset in AssetList)
                 {
-                    IsConflicting = false;
+                    asset.Conflicts.Clear();
                 }
+                if (assetResults.Count > 0)
+                {
+                    foreach (var result in assetResults)
+                    {
+                        var assetQuery = from assetListItem in AssetList
+                                    where assetListItem.Asset.ID == result.Asset.ID
+                                    select assetListItem;
+                        var asset = assetQuery.FirstOrDefault();
+                        if (asset != null)
+                        {
+                            asset.Conflicts.Add(result);
+                            if (asset.IsSelected)
+                            {
+                                hasAssetConflicts = true;
+                            }
+                        }
+                    }
+                }
+                IsConflicting = hasRoomConflicts || hasAssetConflicts;
             };
             worker.RunWorkerAsync();
         }
@@ -597,7 +660,7 @@ Your booking reference number is: {0}", _booking.RefNum),
             get { return SelfValidate().IsValid; }
         }
 
-        public ValidationResult SelfValidate()
+        public FluentValidation.Results.ValidationResult SelfValidate()
         {
             var r = ValidationHelper.Validate<BookingsFormValidator, BookingsFormViewModel>(this);
             foreach (var er in r.Errors)

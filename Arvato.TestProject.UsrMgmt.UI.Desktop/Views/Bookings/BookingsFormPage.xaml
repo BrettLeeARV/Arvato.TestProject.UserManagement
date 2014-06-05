@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
              mc:Ignorable="d"
              xmlns:ViewModel="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
              xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
@@ -12,6 +14,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
         <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
         <Utils:BookingFormClashConverter x:Key="BookingFormClash" />
+        <Utils:IntGreaterThanConverter x:Key="IntGreaterThan" />
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
@@ -108,13 +111,27 @@
                 <DockPanel Height="Auto" Margin="10">
                     <TextBlock DockPanel.Dock="Top" Text="What else?" Style="{StaticResource PanelHeaderStyle}" />
                     <ListBox ItemsSource="{Binding Path=AssetList}" Height="Auto" SelectionMode="Multiple">
-                        <ListBox.Resources>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <cmd:EventToCommand Command="{Binding SelectedAssetsChangedCommand}" PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                             </Style>
-                        </ListBox.Resources>
+                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Conflicts.Count, Mode=OneWay,Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" Value="True">
+                                                <Setter Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataTemplate.Resources>
                                 <Border Padding="5">
                                     <StackPanel>
                                         <TextBlock Text="{Binding Asset.Name}" />
