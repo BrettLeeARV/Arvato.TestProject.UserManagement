@@ -500,6 +500,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 Please choose a different room or time.", 
                             "Room no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
+                    else if (exceptionResult is AssetClashException)
+                    {
+                        var clashException = (AssetClashException)exceptionResult;
+                        MessageBox.Show(@"Some of the assets are no longer available for the chosen time. Please choose a different asset or time.",
+                            "Assets no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                     else
                     {
                         MessageBox.Show(exceptionResult.Message, "Error creating booking", MessageBoxButton.OK, MessageBoxImage.Error);

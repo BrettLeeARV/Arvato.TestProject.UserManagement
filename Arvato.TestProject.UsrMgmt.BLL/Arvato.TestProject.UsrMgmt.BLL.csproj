@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exception\AssetClashException.cs" />
     <Compile Include="Exception\RoomClashException.cs" />
     <Compile Include="Interface\IAssetService.cs" />
     <Compile Include="Interface\IBookingService.cs" />

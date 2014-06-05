@@ -147,25 +147,22 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
                 if ((booking.Room.ID == 0 || booking.Room.ID == null) && booking.AssetBookings.Count == 0)
                     throw new Exception("Please select a room or asset to book");
 
-                //string conflict = "";
-                List<Booking> conflictBooking = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
+                // Check if room is available
+                List<Booking> conflictingBookings = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
 
-                if (conflictBooking.Count() > 0)
+                if (conflictingBookings.Count() > 0)
                 {
-                    throw new RoomClashException() { Clashes = conflictBooking };
+                    throw new RoomClashException() { Clashes = conflictingBookings };
                 }
 
-                //conflict = "";
-                //conflictBooking = bookingRepository.CheckBookingAvailability(booking, assetList, "Asset").ToList();
+                // Check if assets are available
+                int[] assetIDs = booking.AssetBookings.Select(x => x.Asset.ID).ToArray();
+                List<AssetBooking> conflictingAssetBookings = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
 
-                //if (conflictBooking.Count() > 0)
-                //{
-                //    foreach (string message in conflictBooking)
-                //    {
-                //        conflict = conflict + message + ";";
-                //    }
-                //    throw new Exception("Asset booking conflict : " + conflict);
-                //}
+                if (conflictingAssetBookings.Count() > 0)
+                {
+                    throw new AssetClashException() { Clashes = conflictingAssetBookings };
+                }
 
                 if (booking.ID > 0)
                 {

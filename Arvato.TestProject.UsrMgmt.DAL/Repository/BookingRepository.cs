@@ -276,6 +276,29 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
         }
 
+        public IQueryable<AssetBooking> CheckAssetAvailability(int bookingID, DateTime startDate, DateTime endDate, int[] assetIDs)
+        {
+            try
+            {
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    var bookingList = session.CreateSQLQuery("EXEC USP_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :AssetIDs")
+                           .AddEntity(typeof(AssetBooking))
+                           .SetParameter("ID", bookingID)
+                           .SetParameter("StartDate", startDate)
+                           .SetParameter("EndDate", endDate)
+                           .SetParameter("AssetIDs", String.Join("|", assetIDs));
+                    var list = bookingList.List<AssetBooking>();
+
+                    return list.AsQueryable<AssetBooking>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IQueryable<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled)
         {
             try
