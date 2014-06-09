@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
+    [Serializable]
     public class AssetBooking
     {
         public AssetBooking()

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{806F9FD4-17E3-4349-B27F-6259B2BA5895}</ProjectGuid>
+    <ProjectGuid>{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arvato.TestProject.UsrMgmt.Services</RootNamespace>
-    <AssemblyName>Arvato.TestProject.UsrMgmt.Services</AssemblyName>
+    <RootNamespace>Arvato.TestProject.UsrMgmt.Services.Contracts</RootNamespace>
+    <AssemblyName>Arvato.TestProject.UsrMgmt.Services.Contracts</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -43,24 +43,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingService.cs" />
+    <Compile Include="DataContracts\BookingsData.cs" />
+    <Compile Include="IBookingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj">
-      <Project>{04D43A45-467E-4D6C-8354-A6811C4C075A}</Project>
-      <Name>Arvato.TestProject.UsrMgmt.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj">
       <Project>{636ABB33-8D91-4558-A014-BBB2357D09D4}</Project>
       <Name>Arvato.TestProject.UsrMgmt.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Services.Contracts\Arvato.TestProject.UsrMgmt.Services.Contracts.csproj">
-      <Project>{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}</Project>
-      <Name>Arvato.TestProject.UsrMgmt.Services.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -68,7 +58,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
         <WcfProjectProperties>
-          <AutoStart>True</AutoStart>
+          <AutoStart>False</AutoStart>
         </WcfProjectProperties>
       </FlavorProperties>
     </VisualStudio>

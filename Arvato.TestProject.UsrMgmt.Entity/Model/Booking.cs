@@ -5,18 +5,17 @@ using System.Text;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
-   public partial class Booking
+    [Serializable]
+    public partial class Booking
     {
-       public Booking()
-       {
-           AssetBookings = new List<AssetBooking>();
-           User = new User();
-           Room = new Room();
-       }
-       
-       public virtual int ID { get; set; }
-       //public virtual int UserID { get; set; }
-        //public virtual int? RoomID { get; set; }
+        public Booking()
+        {
+            //AssetBookings = new List<AssetBooking>();
+            User = new User();
+            Room = new Room();
+        }
+
+        public virtual int ID { get; set; }
         public virtual DateTime StartDate { get; set; }
         public virtual DateTime EndDate { get; set; }
         public virtual String RefNum { get; set; }

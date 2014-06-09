@@ -29,6 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.Services", "Arvato.TestProject.UsrMgmt.Services\Arvato.TestProject.UsrMgmt.Services.csproj", "{806F9FD4-17E3-4349-B27F-6259B2BA5895}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.Services.Contracts", "Arvato.TestProject.UsrMgmt.Services.Contracts\Arvato.TestProject.UsrMgmt.Services.Contracts.csproj", "{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.Services.ConsoleApp", "Arvato.TestProject.UsrMgmt.Services.ConsoleApp\Arvato.TestProject.UsrMgmt.Services.ConsoleApp.csproj", "{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}"
+	ProjectSection(ProjectDependencies) = postProject
+		{806F9FD4-17E3-4349-B27F-6259B2BA5895} = {806F9FD4-17E3-4349-B27F-6259B2BA5895}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Arvato.TestProject.vsmdi
@@ -113,6 +120,26 @@ Global
 		{806F9FD4-17E3-4349-B27F-6259B2BA5895}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{806F9FD4-17E3-4349-B27F-6259B2BA5895}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{806F9FD4-17E3-4349-B27F-6259B2BA5895}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9D7AFC9C-DD42-4C0C-8502-3B1263C5ACB7}.Release|x86.ActiveCfg = Release|Any CPU
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Debug|x86.ActiveCfg = Debug|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Debug|x86.Build.0 = Debug|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Release|Any CPU.ActiveCfg = Release|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Release|x86.ActiveCfg = Release|x86
+		{F269EB2C-1BA7-4C45-B020-EAB0C83AB994}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
