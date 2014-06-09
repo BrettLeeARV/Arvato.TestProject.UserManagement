@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
-    public class Room
+    public partial class Room
     {
         public virtual int ID { get; set; }
         public virtual string Name { get; set; }
@@ -14,5 +14,22 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual bool IsEnabled { get; set; }
         public virtual IList<Booking> Booking { get; set; }
         public virtual IList<Asset> Asset { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+            {
+                return this.ID == ((User)obj).ID;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
