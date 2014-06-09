@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -16,7 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             if (!IsPostBack)
             {
-                RoomService roomServ = new RoomService();
+                RoomComponent roomServ = new RoomComponent();
 
                 ddlRoom.DataSource = roomServ.GetEnabledList();
                 ddlRoom.DataTextField = "Name";
@@ -25,7 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
                 ddlRoom.Items.Insert(0, new ListItem("- Please Select -", "", true));
 
-                AssetService assetServ = new AssetService();
+                AssetComponent assetServ = new AssetComponent();
 
                 List<Asset> assetLst = assetServ.GetEnabledList();
                 Session["AllAsset"] = assetLst;
@@ -45,7 +45,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
             book.RefNum = txtRefNum.Text.Trim();
 
-            BookingService serv = new BookingService();
+            BookingComponent serv = new BookingComponent();
 
             serv.ViewBooking(ref book);
             lblID.Text = book.ID.ToString();
@@ -130,7 +130,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             try
             {
-                BookingService bookServ = new BookingService();
+                BookingComponent bookServ = new BookingComponent();
 
                 Booking detail = new Booking();
 

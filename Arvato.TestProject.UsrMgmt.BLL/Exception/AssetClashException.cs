@@ -5,7 +5,7 @@ using System.Text;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using System.Runtime.Serialization;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
     public class AssetClashException : Exception
     {

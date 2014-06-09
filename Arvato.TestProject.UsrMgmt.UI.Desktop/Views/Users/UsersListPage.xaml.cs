@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {

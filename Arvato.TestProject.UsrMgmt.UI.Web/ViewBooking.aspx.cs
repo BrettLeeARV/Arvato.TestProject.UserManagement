@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -40,7 +40,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             //        lblstatus.Text = ex.Message;
             //    }
             //}
-            IBookingService bookingservice = new BookingService();
+            IBookingComponent bookingservice = new BookingComponent();
             //   User user = new User();
             Booking booking = new Booking();
             try
@@ -75,7 +75,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         protected void Button1_Click(object sender, EventArgs e)
         {
           //  IUserService userservice = new UserService();
-            IBookingService bookingservice = new BookingService();
+            IBookingComponent bookingservice = new BookingComponent();
          //   User user = new User();
             Booking booking = new Booking();
             try
@@ -108,7 +108,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
         protected void btncancel_Click(object sender, EventArgs e)
         {
-            IBookingService bookingservice = new BookingService();
+            IBookingComponent bookingservice = new BookingComponent();
             Booking booking = new Booking();
             try
             {

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 
 namespace Arvato.TestProject.UsrMgmt.Web.UI
 {
@@ -13,7 +13,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            IAssetService assetservice = new AssetService();
+            IAssetComponent assetservice = new AssetComponent();
             GridView1.DataSource = assetservice.GetList();
             GridView1.DataBind();
         }

@@ -6,7 +6,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Interface
 {
-   public interface IAssetService : IDisposable
+   public interface IAssetComponent : IDisposable
     {
        List<Asset> GetList();
        bool InsertAsset(Asset asset);

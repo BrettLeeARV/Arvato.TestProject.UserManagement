@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
@@ -27,9 +27,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private bool _isNewBooking;
 
-        private IBookingService _bookingService;
-        private IRoomService _roomService;
-        private IAssetService _assetService;
+        private IBookingComponent _bookingService;
+        private IRoomComponent _roomService;
+        private IAssetComponent _assetService;
 
         private Booking _booking;
         private Room _room;
@@ -73,9 +73,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _bookingService = new BookingService();
-                _roomService = new RoomService();
-                _assetService = new AssetService();
+                _bookingService = new BookingComponent();
+                _roomService = new RoomComponent();
+                _assetService = new AssetComponent();
                 _isConflicting = false;
                 RefreshRooms();
                 RefreshAssets();

@@ -5,9 +5,9 @@ using System.Text;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
-    class LDAPService
+    class LDAPComponent
     {
         //Check user login with AD
         public  bool IsAuthenticated(string LoginId, string Password)

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -23,9 +23,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
         private bool _isInitialized;
 
-        private IBookingService _bookingService;
-        private IRoomService _roomService;
-        private IUserService _userService;
+        private IBookingComponent _bookingService;
+        private IRoomComponent _roomService;
+        private IUserComponent _userService;
         private ObservableCollection<Booking> _bookings;
         private Booking _selectedBooking;
 
@@ -352,8 +352,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {   
                 // set up options for filtering
-                _roomService = new RoomService();
-                _userService = new UserService();
+                _roomService = new RoomComponent();
+                _userService = new UserComponent();
                 var rooms = _roomService.GetList();
                 _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
                 {
@@ -389,7 +389,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 MessengerInstance.Send(new LoadingMessage(false));
 
                 // Finally, get the bookings needed (will start it's own BackgroundWorker)
-                _bookingService = new BookingService();
+                _bookingService = new BookingComponent();
                 RefreshBookings(true);
             };
             worker.RunWorkerAsync();

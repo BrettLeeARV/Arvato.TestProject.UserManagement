@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -28,7 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            IUserService us = new UserService();
+            IUserComponent us = new UserComponent();
             User user = new User();
           
             try

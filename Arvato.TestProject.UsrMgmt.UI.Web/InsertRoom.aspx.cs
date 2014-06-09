@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 
 namespace Arvato.TestProject.UsrMgmt.Web.UI
 {
@@ -21,7 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             try
             {
-                using (IRoomService roomService = new RoomService())
+                using (IRoomComponent roomService = new RoomComponent())
                 {
                     Room myRoom = new Room();
                     myRoom.Name = txtName.Text;

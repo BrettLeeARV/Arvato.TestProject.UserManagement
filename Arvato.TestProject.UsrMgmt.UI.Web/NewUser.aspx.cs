@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -38,7 +38,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Web
             //catch (Exception ex)
             //{}
 
-            using (IUserService userService = new UserService())
+            using (IUserComponent userService = new UserComponent())
 
             {
                 User myuser = new User();

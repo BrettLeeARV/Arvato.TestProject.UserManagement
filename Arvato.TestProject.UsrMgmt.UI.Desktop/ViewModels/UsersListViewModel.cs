@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -18,14 +18,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     public class UsersListViewModel : PageViewModel
     {
 
-        private IUserService userService;
+        private IUserComponent userService;
         private ICollection<User> users;
 
         public UsersListViewModel()
             : base()
         {
             // set up model data
-            userService = new UserService();
+            userService = new UserComponent();
             FormViewModel = new UsersFormViewModel();
 
             // set up commands

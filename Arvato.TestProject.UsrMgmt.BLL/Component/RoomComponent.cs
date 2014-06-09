@@ -9,14 +9,14 @@ using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
-   public class RoomService : IRoomService,IDisposable
+   public class RoomComponent : IRoomComponent,IDisposable
     {
        IRoomRepository roomRepository;  
 
        #region Constructor
-       public RoomService()
+       public RoomComponent()
        {
            roomRepository = new RoomRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
        }
