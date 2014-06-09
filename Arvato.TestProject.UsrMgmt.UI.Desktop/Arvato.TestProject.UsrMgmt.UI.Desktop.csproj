@@ -97,12 +97,6 @@
     <Compile Include="ViewModels\RoomsFormViewModel.cs" />
     <Compile Include="ViewModels\RoomsListViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />
-    <Compile Include="Views\Assets\AssetsFormPage.xaml.cs">
-      <DependentUpon>AssetsFormPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Assets\AssetsListPage.xaml.cs">
-      <DependentUpon>AssetsListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Bookings\BookingsFormPage.xaml.cs">
       <DependentUpon>BookingsFormPage.xaml</DependentUpon>
     </Compile>
@@ -131,14 +125,6 @@
     <Compile Include="Views\Users\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Assets\AssetsFormPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Assets\AssetsListPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Bookings\BookingsFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -220,7 +206,9 @@
       <Name>Arvato.TestProject.UsrMgmt.Entity</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Assets\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
