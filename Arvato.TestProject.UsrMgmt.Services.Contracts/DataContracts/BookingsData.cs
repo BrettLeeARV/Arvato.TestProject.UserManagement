@@ -7,7 +7,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.Services.Contracts.DataContracts
 {
-    [DataContract(IsReference=true)]
+    [DataContract]
     public class BookingsData
     {
         [DataMember]

@@ -16,7 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BookingsData", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Services.Contr" +
-        "acts.DataContracts", IsReference=true)]
+        "acts.DataContracts")]
     [System.SerializableAttribute()]
     public partial class BookingsData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -148,183 +148,32 @@ namespace Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1 {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookingsk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookingsField;
         
-        private System.DateTime DateCreatedk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateCreatedField;
         
-        private System.DateTime EndDatek__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime EndDateField;
         
-        private int IDk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
         
-        private bool IsCanceledk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsCanceledField;
         
-        private string RefNumk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RefNumField;
         
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Room Roomk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RoomIDField;
         
-        private System.DateTime StartDatek__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime StartDateField;
         
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.User Userk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<AssetBookings>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookingsk__BackingField {
-            get {
-                return this.AssetBookingsk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AssetBookingsk__BackingFieldField, value) != true)) {
-                    this.AssetBookingsk__BackingFieldField = value;
-                    this.RaisePropertyChanged("AssetBookingsk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<DateCreated>k__BackingField", IsRequired=true)]
-        public System.DateTime DateCreatedk__BackingField {
-            get {
-                return this.DateCreatedk__BackingFieldField;
-            }
-            set {
-                if ((this.DateCreatedk__BackingFieldField.Equals(value) != true)) {
-                    this.DateCreatedk__BackingFieldField = value;
-                    this.RaisePropertyChanged("DateCreatedk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<EndDate>k__BackingField", IsRequired=true)]
-        public System.DateTime EndDatek__BackingField {
-            get {
-                return this.EndDatek__BackingFieldField;
-            }
-            set {
-                if ((this.EndDatek__BackingFieldField.Equals(value) != true)) {
-                    this.EndDatek__BackingFieldField = value;
-                    this.RaisePropertyChanged("EndDatek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<ID>k__BackingField", IsRequired=true)]
-        public int IDk__BackingField {
-            get {
-                return this.IDk__BackingFieldField;
-            }
-            set {
-                if ((this.IDk__BackingFieldField.Equals(value) != true)) {
-                    this.IDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IDk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsCanceled>k__BackingField", IsRequired=true)]
-        public bool IsCanceledk__BackingField {
-            get {
-                return this.IsCanceledk__BackingFieldField;
-            }
-            set {
-                if ((this.IsCanceledk__BackingFieldField.Equals(value) != true)) {
-                    this.IsCanceledk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IsCanceledk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<RefNum>k__BackingField", IsRequired=true)]
-        public string RefNumk__BackingField {
-            get {
-                return this.RefNumk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RefNumk__BackingFieldField, value) != true)) {
-                    this.RefNumk__BackingFieldField = value;
-                    this.RaisePropertyChanged("RefNumk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Room>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Room Roomk__BackingField {
-            get {
-                return this.Roomk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Roomk__BackingFieldField, value) != true)) {
-                    this.Roomk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Roomk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<StartDate>k__BackingField", IsRequired=true)]
-        public System.DateTime StartDatek__BackingField {
-            get {
-                return this.StartDatek__BackingFieldField;
-            }
-            set {
-                if ((this.StartDatek__BackingFieldField.Equals(value) != true)) {
-                    this.StartDatek__BackingFieldField = value;
-                    this.RaisePropertyChanged("StartDatek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<User>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.User Userk__BackingField {
-            get {
-                return this.Userk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Userk__BackingFieldField, value) != true)) {
-                    this.Userk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Userk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Room", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Entity.Model")]
-    [System.SerializableAttribute()]
-    public partial class Room : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Asset[] Assetk__BackingFieldField;
-        
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking[] Bookingk__BackingFieldField;
-        
-        private int Capacityk__BackingFieldField;
-        
-        private int IDk__BackingFieldField;
-        
-        private bool IsEnabledk__BackingFieldField;
-        
-        private string Locationk__BackingFieldField;
-        
-        private string Namek__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -336,242 +185,119 @@ namespace Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1 {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Asset>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Asset[] Assetk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookings {
             get {
-                return this.Assetk__BackingFieldField;
+                return this.AssetBookingsField;
             }
             set {
-                if ((object.ReferenceEquals(this.Assetk__BackingFieldField, value) != true)) {
-                    this.Assetk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Assetk__BackingField");
+                if ((object.ReferenceEquals(this.AssetBookingsField, value) != true)) {
+                    this.AssetBookingsField = value;
+                    this.RaisePropertyChanged("AssetBookings");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Booking>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking[] Bookingk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateCreated {
             get {
-                return this.Bookingk__BackingFieldField;
+                return this.DateCreatedField;
             }
             set {
-                if ((object.ReferenceEquals(this.Bookingk__BackingFieldField, value) != true)) {
-                    this.Bookingk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Bookingk__BackingField");
+                if ((this.DateCreatedField.Equals(value) != true)) {
+                    this.DateCreatedField = value;
+                    this.RaisePropertyChanged("DateCreated");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Capacity>k__BackingField", IsRequired=true)]
-        public int Capacityk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime EndDate {
             get {
-                return this.Capacityk__BackingFieldField;
+                return this.EndDateField;
             }
             set {
-                if ((this.Capacityk__BackingFieldField.Equals(value) != true)) {
-                    this.Capacityk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Capacityk__BackingField");
+                if ((this.EndDateField.Equals(value) != true)) {
+                    this.EndDateField = value;
+                    this.RaisePropertyChanged("EndDate");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<ID>k__BackingField", IsRequired=true)]
-        public int IDk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
             get {
-                return this.IDk__BackingFieldField;
+                return this.IDField;
             }
             set {
-                if ((this.IDk__BackingFieldField.Equals(value) != true)) {
-                    this.IDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IDk__BackingField");
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsEnabled>k__BackingField", IsRequired=true)]
-        public bool IsEnabledk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCanceled {
             get {
-                return this.IsEnabledk__BackingFieldField;
+                return this.IsCanceledField;
             }
             set {
-                if ((this.IsEnabledk__BackingFieldField.Equals(value) != true)) {
-                    this.IsEnabledk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IsEnabledk__BackingField");
+                if ((this.IsCanceledField.Equals(value) != true)) {
+                    this.IsCanceledField = value;
+                    this.RaisePropertyChanged("IsCanceled");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Location>k__BackingField", IsRequired=true)]
-        public string Locationk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RefNum {
             get {
-                return this.Locationk__BackingFieldField;
+                return this.RefNumField;
             }
             set {
-                if ((object.ReferenceEquals(this.Locationk__BackingFieldField, value) != true)) {
-                    this.Locationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Locationk__BackingField");
+                if ((object.ReferenceEquals(this.RefNumField, value) != true)) {
+                    this.RefNumField = value;
+                    this.RaisePropertyChanged("RefNum");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Name>k__BackingField", IsRequired=true)]
-        public string Namek__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RoomID {
             get {
-                return this.Namek__BackingFieldField;
+                return this.RoomIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.Namek__BackingFieldField, value) != true)) {
-                    this.Namek__BackingFieldField = value;
-                    this.RaisePropertyChanged("Namek__BackingField");
+                if ((this.RoomIDField.Equals(value) != true)) {
+                    this.RoomIDField = value;
+                    this.RaisePropertyChanged("RoomID");
                 }
             }
         }
         
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Entity.Model")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking[] Bookingk__BackingFieldField;
-        
-        private string Emailk__BackingFieldField;
-        
-        private string FirstNamek__BackingFieldField;
-        
-        private int IDk__BackingFieldField;
-        
-        private bool IsWindowAuthenticatek__BackingFieldField;
-        
-        private string LastNamek__BackingFieldField;
-        
-        private string LoginIDk__BackingFieldField;
-        
-        private string Passwordk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime StartDate {
             get {
-                return this.extensionDataField;
+                return this.StartDateField;
             }
             set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Booking>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking[] Bookingk__BackingField {
-            get {
-                return this.Bookingk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Bookingk__BackingFieldField, value) != true)) {
-                    this.Bookingk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Bookingk__BackingField");
+                if ((this.StartDateField.Equals(value) != true)) {
+                    this.StartDateField = value;
+                    this.RaisePropertyChanged("StartDate");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Email>k__BackingField", IsRequired=true)]
-        public string Emailk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserID {
             get {
-                return this.Emailk__BackingFieldField;
+                return this.UserIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.Emailk__BackingFieldField, value) != true)) {
-                    this.Emailk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Emailk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<FirstName>k__BackingField", IsRequired=true)]
-        public string FirstNamek__BackingField {
-            get {
-                return this.FirstNamek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FirstNamek__BackingFieldField, value) != true)) {
-                    this.FirstNamek__BackingFieldField = value;
-                    this.RaisePropertyChanged("FirstNamek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<ID>k__BackingField", IsRequired=true)]
-        public int IDk__BackingField {
-            get {
-                return this.IDk__BackingFieldField;
-            }
-            set {
-                if ((this.IDk__BackingFieldField.Equals(value) != true)) {
-                    this.IDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IDk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsWindowAuthenticate>k__BackingField", IsRequired=true)]
-        public bool IsWindowAuthenticatek__BackingField {
-            get {
-                return this.IsWindowAuthenticatek__BackingFieldField;
-            }
-            set {
-                if ((this.IsWindowAuthenticatek__BackingFieldField.Equals(value) != true)) {
-                    this.IsWindowAuthenticatek__BackingFieldField = value;
-                    this.RaisePropertyChanged("IsWindowAuthenticatek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<LastName>k__BackingField", IsRequired=true)]
-        public string LastNamek__BackingField {
-            get {
-                return this.LastNamek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LastNamek__BackingFieldField, value) != true)) {
-                    this.LastNamek__BackingFieldField = value;
-                    this.RaisePropertyChanged("LastNamek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<LoginID>k__BackingField", IsRequired=true)]
-        public string LoginIDk__BackingField {
-            get {
-                return this.LoginIDk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LoginIDk__BackingFieldField, value) != true)) {
-                    this.LoginIDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("LoginIDk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Password>k__BackingField", IsRequired=true)]
-        public string Passwordk__BackingField {
-            get {
-                return this.Passwordk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Passwordk__BackingFieldField, value) != true)) {
-                    this.Passwordk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Passwordk__BackingField");
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
                 }
             }
         }
@@ -595,104 +321,17 @@ namespace Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1 {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Asset Assetk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AssetIDField;
         
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking Bookingk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BookingIDField;
         
-        private int IDk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
         
-        private bool Statusk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Asset>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Asset Assetk__BackingField {
-            get {
-                return this.Assetk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Assetk__BackingFieldField, value) != true)) {
-                    this.Assetk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Assetk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Booking>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Booking Bookingk__BackingField {
-            get {
-                return this.Bookingk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Bookingk__BackingFieldField, value) != true)) {
-                    this.Bookingk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Bookingk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<ID>k__BackingField", IsRequired=true)]
-        public int IDk__BackingField {
-            get {
-                return this.IDk__BackingFieldField;
-            }
-            set {
-                if ((this.IDk__BackingFieldField.Equals(value) != true)) {
-                    this.IDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IDk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Status>k__BackingField", IsRequired=true)]
-        public bool Statusk__BackingField {
-            get {
-                return this.Statusk__BackingFieldField;
-            }
-            set {
-                if ((this.Statusk__BackingFieldField.Equals(value) != true)) {
-                    this.Statusk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Statusk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Asset", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Entity.Model")]
-    [System.SerializableAttribute()]
-    public partial class Asset : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookingk__BackingFieldField;
-        
-        private int IDk__BackingFieldField;
-        
-        private bool IsEnabledk__BackingFieldField;
-        
-        private string Namek__BackingFieldField;
-        
-        private Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Room Roomk__BackingFieldField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool StatusField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -704,67 +343,54 @@ namespace Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1 {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<AssetBooking>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.AssetBooking[] AssetBookingk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AssetID {
             get {
-                return this.AssetBookingk__BackingFieldField;
+                return this.AssetIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.AssetBookingk__BackingFieldField, value) != true)) {
-                    this.AssetBookingk__BackingFieldField = value;
-                    this.RaisePropertyChanged("AssetBookingk__BackingField");
+                if ((this.AssetIDField.Equals(value) != true)) {
+                    this.AssetIDField = value;
+                    this.RaisePropertyChanged("AssetID");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<ID>k__BackingField", IsRequired=true)]
-        public int IDk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BookingID {
             get {
-                return this.IDk__BackingFieldField;
+                return this.BookingIDField;
             }
             set {
-                if ((this.IDk__BackingFieldField.Equals(value) != true)) {
-                    this.IDk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IDk__BackingField");
+                if ((this.BookingIDField.Equals(value) != true)) {
+                    this.BookingIDField = value;
+                    this.RaisePropertyChanged("BookingID");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<IsEnabled>k__BackingField", IsRequired=true)]
-        public bool IsEnabledk__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
             get {
-                return this.IsEnabledk__BackingFieldField;
+                return this.IDField;
             }
             set {
-                if ((this.IsEnabledk__BackingFieldField.Equals(value) != true)) {
-                    this.IsEnabledk__BackingFieldField = value;
-                    this.RaisePropertyChanged("IsEnabledk__BackingField");
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Name>k__BackingField", IsRequired=true)]
-        public string Namek__BackingField {
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Status {
             get {
-                return this.Namek__BackingFieldField;
+                return this.StatusField;
             }
             set {
-                if ((object.ReferenceEquals(this.Namek__BackingFieldField, value) != true)) {
-                    this.Namek__BackingFieldField = value;
-                    this.RaisePropertyChanged("Namek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<Room>k__BackingField", IsRequired=true)]
-        public Arvato.TestProject.UsrMgmt.Services.ConsoleApp.ServiceReference1.Room Roomk__BackingField {
-            get {
-                return this.Roomk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Roomk__BackingFieldField, value) != true)) {
-                    this.Roomk__BackingFieldField = value;
-                    this.RaisePropertyChanged("Roomk__BackingField");
+                if ((this.StatusField.Equals(value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }

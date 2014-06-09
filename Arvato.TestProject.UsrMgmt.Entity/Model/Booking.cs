@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
-    [Serializable]
     public partial class Booking
     {
         public Booking()

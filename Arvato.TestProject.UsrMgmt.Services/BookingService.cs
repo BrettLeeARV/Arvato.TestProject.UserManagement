@@ -19,14 +19,6 @@ namespace Arvato.TestProject.UsrMgmt.Services
 
             data.Bookings = component.GetListByFilters(data.Start, data.End, data.UserId, data.RoomId, data.IsCanceled);
 
-            // try to avoid serialization of relational properties
-            //foreach (var booking in data.Bookings)
-            //{
-            //    booking.Room = null;
-            //    booking.User = null;
-            //    booking.AssetBookings = null;
-            //}
-
             return data;
         }
     }
