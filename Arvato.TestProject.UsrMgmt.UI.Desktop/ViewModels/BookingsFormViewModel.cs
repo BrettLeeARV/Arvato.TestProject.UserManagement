@@ -122,7 +122,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // implemented Compare methods on Room, have to do it the ugly way
                 foreach (var r in RoomList)
                 {
-                    if (r.ID == _booking.Room.ID)
+                    if (r.ID == _booking.RoomID)
                     {
                         _room = r;
                         break;
@@ -132,7 +132,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // pre-select booked assets
                 foreach (var bookedAsset in _booking.AssetBookings)
                 {
-                    var asset = AssetList.First(a => a.Asset.ID == bookedAsset.Asset.ID);
+                    var asset = AssetList.First(a => a.Asset.ID == bookedAsset.AssetID);
                     if (asset != null)
                     {
                         asset.IsSelected = true;
@@ -459,7 +459,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 AssetList.Add(new AssetListItem()
                 {
                     Asset = asset,
-                    Room = RoomList.First(r => r.ID == asset.Room.ID),
+                    Room = RoomList.First(r => r.ID == asset.RoomID),
                     IsSelected = false
                 });
             }
@@ -470,10 +470,10 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void MakeBooking()
         {
             // Fill in the blanks
-            _booking.Room.ID = _room.ID;
+            _booking.RoomID = _room.ID;
             _booking.StartDate = StartDate.Add(StartTime);
             _booking.EndDate = EndDate.Add(EndTime);
-            _booking.User.ID = StateManager.CurrentUser.ID;
+            _booking.UserID = StateManager.CurrentUser.ID;
 
             // Assets
             _booking.AssetBookings = new List<AssetBooking>();
@@ -483,7 +483,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _booking.AssetBookings.Add(new AssetBooking()
                     {
-                        Asset = asset.Asset,
+                        AssetID = asset.Asset.ID,
                         Status = true
                     });
                 }
@@ -595,9 +595,9 @@ Your booking reference number is: {0}", _booking.RefNum),
             {
                 StartDate = StartDateTime,
                 EndDate = EndDateTime,
-                Room = Room,
+                RoomID = Room.ID,
                 AssetBookings = (from asset in AssetList
-                                select new AssetBooking() { Asset = asset.Asset }).ToList()
+                                select new AssetBooking() { AssetID = asset.Asset.ID }).ToList()
             };
             
 
@@ -633,7 +633,7 @@ Your booking reference number is: {0}", _booking.RefNum),
                     foreach (var result in assetResults)
                     {
                         var assetQuery = from assetListItem in AssetList
-                                    where assetListItem.Asset.ID == result.Asset.ID
+                                    where assetListItem.Asset.ID == result.AssetID
                                     select assetListItem;
                         var asset = assetQuery.FirstOrDefault();
                         if (asset != null)

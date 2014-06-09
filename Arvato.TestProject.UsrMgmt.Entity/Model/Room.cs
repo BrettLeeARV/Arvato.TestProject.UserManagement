@@ -7,15 +7,12 @@ using System.Runtime.Serialization;
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
     [Serializable]
-    [DataContract(IsReference = true)]
-    public class Room
+    public partial class Room
     {
         public virtual int ID { get; set; }
         public virtual string Name { get; set; }
         public virtual string Location { get; set; }
         public virtual int Capacity { get; set; }
         public virtual bool IsEnabled { get; set; }
-        public virtual IList<Booking> Booking { get; set; }
-        public virtual IList<Asset> Asset { get; set; }
     }
 }

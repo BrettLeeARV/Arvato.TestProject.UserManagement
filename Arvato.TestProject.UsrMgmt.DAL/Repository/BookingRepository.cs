@@ -50,7 +50,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     // var specificFields = session.CreateQuery("FROM Booking WHERE UserID = '" + userid + "'").List<Booking>();
                     //var specificFields = session.QueryOver<Booking>().Where(x => x.UserID == userid).List();
-                    var specificFields = session.QueryOver<Booking>().Where(x => x.User.ID == userid).List();
+                    var specificFields = session.QueryOver<Booking>().Where(x => x.UserID == userid).List();
 
                     return specificFields.AsQueryable<Booking>();
                 }
@@ -87,8 +87,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     var book = session.CreateSQLQuery("EXEC USP_MAKE_BOOKING :UserID, :RoomID, :StartDate, :EndDate")
                            .AddEntity(typeof(Booking))
-                           .SetParameter("UserID", booking.User.ID)
-                           .SetParameter("RoomID", booking.Room.ID)
+                           .SetParameter("UserID", booking.UserID)
+                           .SetParameter("RoomID", booking.RoomID)
                            .SetParameter("StartDate", booking.StartDate)
                            .SetParameter("EndDate", booking.EndDate)
                            .List<Booking>();
@@ -101,7 +101,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                         {
                             var assetBooking = session.CreateSQLQuery("EXEC USP_SAVE_ASSET_BOOKING :BookingID, :AssetID, :Status")
                            .SetParameter("BookingID", detail.ID)
-                           .SetParameter("AssetID", asset.Asset.ID)
+                           .SetParameter("AssetID", asset.AssetID)
                            .SetParameter("Status", asset.Status)
                            .UniqueResult();
                         }
@@ -171,7 +171,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     var book = session.CreateSQLQuery("EXEC USP_EDIT_BOOKING :ID, :RoomID, :StartDate, :EndDate")
                            .SetParameter("ID", booking.ID)
-                           .SetParameter("RoomID", booking.Room.ID, NHibernateUtil.Int32)
+                           .SetParameter("RoomID", booking.RoomID, NHibernateUtil.Int32)
                            .SetParameter("StartDate", booking.StartDate)
                            .SetParameter("EndDate", booking.EndDate)
                            .UniqueResult();
@@ -180,7 +180,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                     {
                         var assetBooking = session.CreateSQLQuery("EXEC USP_SAVE_ASSET_BOOKING :BookingID, :AssetID, :Status")
                        .SetParameter("BookingID", booking.ID)
-                       .SetParameter("AssetID", asset.Asset.ID)
+                       .SetParameter("AssetID", asset.AssetID)
                        .SetParameter("Status", asset.Status)
                        .UniqueResult();
                     }
@@ -316,13 +316,13 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                     if (userId > 0)
                     {
                         //bookingList.Where(x => x.UserID == userId);
-                        bookingList.Where(x => x.User.ID == userId);
+                        bookingList.Where(x => x.UserID == userId);
                     }
                     // if set, filter by room
                     if (roomId > 0)
                     {
                         //bookingList.Where(x => x.RoomID == roomId);
-                        bookingList.Where(x => x.Room.ID == roomId);
+                        bookingList.Where(x => x.RoomID == roomId);
                     }
                     // filter by isCanceled
                     if (isCanceled)

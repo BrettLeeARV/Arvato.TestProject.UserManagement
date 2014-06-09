@@ -49,7 +49,6 @@
     <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\AssetBooking.cs" />
     <Compile Include="Model\Booking.cs" />
-    <Compile Include="Model\DataContract.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -60,12 +60,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // set up sample model data
                 Bookings = new ObservableCollection<Booking>()
                 {
-                    new Booking() { 
-                        ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), Room = dummyRoom1, User = dummyUser1, RefNum = "abc123", IsCanceled = true },
-                    new Booking() { 
-                        ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), Room = dummyRoom2, User = dummyUser2, RefNum = "def456"},
-                    new Booking() { 
-                        ID = 3, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(2).AddHours(1), Room = dummyRoom1, User = dummyUser2, RefNum="ghi789" }
+                    //new Booking() { 
+                    //    ID = 1, StartDate = DateTime.Now.AddDays(-2), EndDate = DateTime.Now.AddDays(-2).AddHours(1), Room = dummyRoom1, User = dummyUser1, RefNum = "abc123", IsCanceled = true },
+                    //new Booking() { 
+                    //    ID = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(2), Room = dummyRoom2, User = dummyUser2, RefNum = "def456"},
+                    //new Booking() { 
+                    //    ID = 3, StartDate = DateTime.Now.AddDays(2), EndDate = DateTime.Now.AddDays(2).AddHours(1), Room = dummyRoom1, User = dummyUser2, RefNum="ghi789" }
                 };
 
                 SelectedBooking = Bookings[2];

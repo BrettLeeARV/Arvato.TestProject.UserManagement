@@ -24,7 +24,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 using (IAssetComponent bookingservice = new AssetComponent())
                 {
                     Asset myasset = new Asset();
-                    myasset.Room.ID = int.Parse(txtroomid.Text);
+                    myasset.RoomID = int.Parse(txtroomid.Text);
                     myasset.Name = txtname.Text;
                     myasset.IsEnabled = CheckBox1.Checked;
                     bookingservice.InsertAsset(myasset);

@@ -52,7 +52,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 //booking.EndDate = DateTime.Parse(txtenddate.Text);
                 booking.RefNum = txtrefnum.Text;
                 bookingservice.ViewBooking(ref booking);
-                txtroomid.Text = booking.Room.ID.ToString();
+                txtroomid.Text = booking.RoomID.ToString();
                 txtstartdate.Text = booking.StartDate.ToString();
                 txtenddate.Text = booking.EndDate.ToString();
 
@@ -87,7 +87,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 //booking.EndDate = DateTime.Parse(txtenddate.Text);
                 booking.RefNum = txtrefnum.Text;
                 bookingservice.ViewBooking(ref booking);
-                txtroomid.Text = booking.Room.ID.ToString();
+                txtroomid.Text = booking.RoomID.ToString();
                 txtstartdate.Text = booking.StartDate.ToString();
                 txtenddate.Text = booking.EndDate.ToString();
                 

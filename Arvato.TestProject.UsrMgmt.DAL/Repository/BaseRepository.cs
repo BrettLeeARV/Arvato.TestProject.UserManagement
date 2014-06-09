@@ -137,10 +137,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 myCommand.Parameters.Add(returnvalue); // added by ben.
                 myCommand.ExecuteNonQuery();
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-            //    Console.Write("Error - Connection.executeUpdateQuery - Query: 
-            //" + _query + " \nException: " + e.StackTrace.ToString());
                 return false;
             }
             finally
@@ -169,10 +167,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 myAdapter.DeleteCommand = myCommand;
                 myCommand.ExecuteNonQuery();
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-                //    Console.Write("Error - Connection.executeUpdateQuery - Query: 
-                //" + _query + " \nException: " + e.StackTrace.ToString());
                 return false;
             }
             finally

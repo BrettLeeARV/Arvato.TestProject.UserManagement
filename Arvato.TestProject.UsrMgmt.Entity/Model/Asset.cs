@@ -7,18 +7,12 @@ using System.Runtime.Serialization;
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
     [Serializable]
-    [DataContract(IsReference = true)]
     public partial class Asset
     {
-        public Asset()
-        {
-            Room = new Room();
-        }
         public virtual int ID { get; set; }
         public virtual string Name { get; set; }
         public virtual bool IsEnabled { get; set; }
-        public virtual IList<AssetBooking> AssetBooking { get; set; }
-        public virtual Room Room { get; set; }
+        public virtual int RoomID { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -30,6 +24,11 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
             {
                 return base.Equals(obj);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

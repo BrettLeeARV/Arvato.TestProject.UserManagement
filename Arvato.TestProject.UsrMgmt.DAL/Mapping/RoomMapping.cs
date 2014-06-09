@@ -7,17 +7,15 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
 {
-   public class RoomMapping : ClassMap<Room>
+    public class RoomMapping : ClassMap<Room>
     {
-       public RoomMapping()
-       {
-           Id(x => x.ID);
-           Map(x => x.Name);
-           Map(x => x.Location);
-           Map(x => x.Capacity);
-           Map(x => x.IsEnabled);
-           HasMany(x => x.Booking).KeyColumn("RoomID").Not.LazyLoad();
-           HasMany(x => x.Asset).KeyColumn("RoomID").Not.LazyLoad();
-       }
+        public RoomMapping()
+        {
+            Id(x => x.ID);
+            Map(x => x.Name);
+            Map(x => x.Location);
+            Map(x => x.Capacity);
+            Map(x => x.IsEnabled);
+        }
     }
 }
