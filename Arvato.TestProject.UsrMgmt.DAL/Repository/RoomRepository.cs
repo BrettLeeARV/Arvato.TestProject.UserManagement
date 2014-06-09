@@ -88,7 +88,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                using (var session = NHibernateHelper.OpenSession(connString))
                {
                    session.Delete(entity);
-
+                   session.Flush();
                    return true;
                }
            }

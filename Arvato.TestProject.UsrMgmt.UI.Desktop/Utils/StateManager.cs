@@ -7,6 +7,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
     {
         private static StateManager _instance = null;
         private User _currentUser;
+        //private Room _currentRoom;
 
         private StateManager()
         {
@@ -36,5 +37,18 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
                 RaisePropertyChanged("CurrentUser");
             }
         }
+
+        //public Room CurrentRoom
+        //{
+        //    get
+        //    {
+        //        return _currentRoom;
+        //    }
+        //    set
+        //    {
+        //        _currentRoom = value;
+        //        RaisePropertyChanged("CurrentRoom");
+        //    }
+        //}
     }
 }

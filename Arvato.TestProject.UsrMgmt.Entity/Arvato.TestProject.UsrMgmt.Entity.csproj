@@ -46,12 +46,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IDataErrorInfo\User.cs" />
+    <None Include="IDataErrorInfo\Room.cs" />
     <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\AssetBooking.cs" />
     <Compile Include="Model\Booking.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validator\RoomValidator.cs" />
     <Compile Include="Validator\UserValidator.cs" />
     <Compile Include="Validator\ValidationHelper.cs" />
   </ItemGroup>
