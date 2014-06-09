@@ -88,12 +88,21 @@
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
     <Compile Include="Validator\BookingsFormValidator.cs" />
     <Compile Include="Validator\LoginFormValidator.cs" />
+    <Compile Include="Validator\RoomsFormValidator.cs" />
     <Compile Include="Validator\UsersFormValidator.cs" />
     <Compile Include="ViewModels\BookingsFormViewModel.cs" />
     <Compile Include="ViewModels\BookingsListViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
+    <Compile Include="ViewModels\RoomsFormViewModel.cs" />
+    <Compile Include="ViewModels\RoomsListViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />
+    <Compile Include="Views\Assets\AssetsFormPage.xaml.cs">
+      <DependentUpon>AssetsFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Assets\AssetsListPage.xaml.cs">
+      <DependentUpon>AssetsListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Bookings\BookingsFormPage.xaml.cs">
       <DependentUpon>BookingsFormPage.xaml</DependentUpon>
     </Compile>
@@ -110,12 +119,26 @@
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\Rooms\RoomsFormPage.xaml.cs">
+      <DependentUpon>RoomsFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Rooms\RoomsListPage.xaml.cs">
+      <DependentUpon>RoomsListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users\UsersFormPage.xaml.cs">
       <DependentUpon>UsersFormPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Assets\AssetsFormPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Assets\AssetsListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Bookings\BookingsFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,6 +167,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Rooms\RoomsFormPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Rooms\RoomsListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Users\UsersFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -26,6 +26,14 @@
             <Views:UsersFormPage />
         </DataTemplate>
 
+        <!-- Rooms -->
+        <DataTemplate DataType="{x:Type ViewModels:RoomsListViewModel}">
+            <Views:RoomsListPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:RoomsFormViewModel}">
+            <Views:RoomsFormPage />
+        </DataTemplate>
+
         <!-- Bookings -->
         <DataTemplate DataType="{x:Type ViewModels:BookingsListViewModel}">
             <Views:BookingsListPage />

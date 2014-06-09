@@ -32,7 +32,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             MenuItems = new List<MainMenuItem>()
             {
                 new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
-                new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }
+                new MainMenuItem() { Title = "Manage Rooms" , ViewModel = typeof(RoomsListViewModel) },
+                new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }        
             };
 
             NavigateToCommand = new RelayCommand<Type>(this.NavigateTo);

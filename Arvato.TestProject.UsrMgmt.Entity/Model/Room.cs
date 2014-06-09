@@ -12,5 +12,22 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual string Location { get; set; }
         public virtual int Capacity { get; set; }
         public virtual bool IsEnabled { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+            {
+                return this.ID == ((User)obj).ID;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
