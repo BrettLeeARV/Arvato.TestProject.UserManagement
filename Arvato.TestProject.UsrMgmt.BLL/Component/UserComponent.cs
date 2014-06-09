@@ -19,7 +19,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
         #region Fields
         
         IUserRepository userRepository;
-        IBookingRepository bookingRepository;
 
         #endregion
 

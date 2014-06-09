@@ -25,7 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
                 Object obj = entry.NativeObject;
                 status = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 status = false;
             }

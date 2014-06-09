@@ -138,7 +138,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
                     throw new Exception("EndDate is a require field");
                 if(booking.StartDate >= booking.EndDate)
                     throw new Exception("EndDate must be greater than StartDate");
-                if ((booking.Room.ID == 0 || booking.Room.ID == null) && booking.AssetBookings.Count == 0)
+                if (booking.RoomID == 0 && booking.AssetBookings.Count == 0)
                     throw new Exception("Please select a room or asset to book");
 
                 // Check if room is available
@@ -191,13 +191,13 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
 
         public List<Booking> CheckRoomAvailability(Booking booking)
         {
-            List<Booking> conflicts = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.Room.ID).ToList();
+            List<Booking> conflicts = bookingRepository.CheckRoomAvailability(booking.ID, booking.StartDate, booking.EndDate, booking.RoomID).ToList();
             return conflicts;
         }
 
         public List<AssetBooking> CheckAssetAvailability(Booking booking)
         {
-            int[] assetIDs = booking.AssetBookings.Select(x => x.Asset.ID).ToArray();
+            int[] assetIDs = booking.AssetBookings.Select(x => x.AssetID).ToArray();
             List<AssetBooking> conflicts = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
             return conflicts;
         }

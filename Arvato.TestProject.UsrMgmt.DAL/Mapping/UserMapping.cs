@@ -7,19 +7,17 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
 {
-   public class UserMapping : ClassMap<User>
+    public class UserMapping : ClassMap<User>
     {
-       public UserMapping()
-       {
-          // Table("User");
-           Id(x => x.ID);
-           Map(x => x.FirstName);
-           Map(x => x.LastName);
-           Map(x => x.Email);
-           Map(x => x.LoginID);
-           Map(x => x.Password);
-           Map(x => x.IsWindowAuthenticate);
-           HasMany(x => x.Booking).KeyColumn("UserID").Not.LazyLoad();
+        public UserMapping()
+        {
+            Id(x => x.ID);
+            Map(x => x.FirstName);
+            Map(x => x.LastName);
+            Map(x => x.Email);
+            Map(x => x.LoginID);
+            Map(x => x.Password);
+            Map(x => x.IsWindowAuthenticate);
         }
     }
 }

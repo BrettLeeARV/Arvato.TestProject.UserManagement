@@ -12,12 +12,9 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string LoginID { get; set; }
-       // public string Gender { get; set; }
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
         public virtual bool IsWindowAuthenticate { get; set; }
-        public virtual IList<Booking> Booking { get; set; }
-        //Etc
 
         public override bool Equals(object obj)
         {

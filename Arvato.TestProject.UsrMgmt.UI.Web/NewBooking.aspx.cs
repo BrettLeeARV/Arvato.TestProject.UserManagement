@@ -53,7 +53,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
 
             if (ddlRoom.SelectedIndex != 0)
             {
-                List<Asset> selectedAsset = assetLst.Where(x => x.Room.ID == int.Parse(ddlRoom.SelectedValue)).ToList();
+                List<Asset> selectedAsset = assetLst.Where(x => x.RoomID == int.Parse(ddlRoom.SelectedValue)).ToList();
 
                 //List<Asset> selectedAsset = (List<Asset>)Filter;
                 lstSelectedAsset.DataSource = selectedAsset;
@@ -103,12 +103,12 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                 detail.ID = 0;
                 detail.IsCanceled = false;
                 //detail.UserID = 3;
-                detail.User.ID = 3;
+                detail.UserID = 3;
                 detail.StartDate = calStartDate.SelectedDate;
                 detail.EndDate = calEndDate.SelectedDate;
 
                 if (ddlRoom.SelectedIndex > 0)
-                    detail.Room.ID = int.Parse(ddlRoom.SelectedValue);
+                    detail.RoomID = int.Parse(ddlRoom.SelectedValue);
 
                 if (lstSelectedAsset.Items.Count > 0)
                 {
@@ -118,7 +118,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     {
                         AssetBooking bookAsset = new AssetBooking();
                         bookAsset.Status = true;
-                        bookAsset.Asset.ID = int.Parse(selectedItem.Value);
+                        bookAsset.AssetID = int.Parse(selectedItem.Value);
 
                         detail.AssetBookings.Add(bookAsset);
                     }

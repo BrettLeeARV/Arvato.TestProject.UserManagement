@@ -32,8 +32,8 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             Booking booking = new Booking();
 
             //booking.UserID = ((User)Session["UserSession"]).ID;
-            booking.User.ID = ((User)Session["UserSession"]).ID;
-            booking.Room.ID = int.Parse(DropDownList1.SelectedValue);
+            booking.UserID = ((User)Session["UserSession"]).ID;
+            booking.RoomID = int.Parse(DropDownList1.SelectedValue);
             booking.StartDate = clnstart.SelectedDate;
             booking.EndDate = clnEnd.SelectedDate;
            // booking.refNum = lblBookingID.Text;
