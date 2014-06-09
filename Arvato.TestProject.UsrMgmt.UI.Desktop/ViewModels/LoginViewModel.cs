@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
@@ -18,7 +18,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class LoginViewModel : PageViewModel, IDataErrorInfo
     {
-        private IUserService _userService;
+        private IUserComponent _userService;
         private User _user;
         private string _loginID;
         private string _password;
@@ -27,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             : base()
         {
             // set up model data
-            _userService = new UserService();
+            _userService = new UserComponent();
             _user = new User();
             // for convenience
 #if DEBUG

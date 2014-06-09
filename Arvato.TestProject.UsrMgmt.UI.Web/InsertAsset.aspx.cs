@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -21,7 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             try
             {
-                using (IAssetService bookingservice = new AssetService())
+                using (IAssetComponent bookingservice = new AssetComponent())
                 {
                     Asset myasset = new Asset();
                     myasset.Room.ID = int.Parse(txtroomid.Text);

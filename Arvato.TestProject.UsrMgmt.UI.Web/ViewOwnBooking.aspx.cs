@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
@@ -28,7 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
 
             User user = (User)Session["UserSession"];
-            IBookingService bookingservice = new BookingService();
+            IBookingComponent bookingservice = new BookingComponent();
             GridView1.DataSource = bookingservice.GetUserOwnBooking(user.ID);
             GridView1.DataBind();
         }
@@ -37,7 +37,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             try
             {
-                using (IBookingService bookingservice = new BookingService())
+                using (IBookingComponent bookingservice = new BookingComponent())
                 {
                     Booking booking = new Booking();
                     booking.ID = int.Parse(GridView1.DataKeys[Int32.Parse(e.CommandArgument.ToString())].Value.ToString());

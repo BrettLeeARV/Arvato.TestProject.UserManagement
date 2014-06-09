@@ -6,7 +6,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Interface
 {
-    public interface IRoomService : IDisposable
+    public interface IRoomComponent : IDisposable
     {
         List<Room> GetList();
         List<Room> GetEnabledList();

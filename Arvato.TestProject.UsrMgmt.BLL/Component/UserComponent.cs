@@ -11,10 +11,10 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Text.RegularExpressions;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 
 {
-    public class UserService : IUserService, IDisposable
+    public class UserComponent : IUserComponent, IDisposable
     {
         #region Fields
         
@@ -24,7 +24,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         #endregion
 
         #region Constructor
-        public UserService()
+        public UserComponent()
         {
             userRepository = new UserRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }
@@ -45,12 +45,12 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             
         }
 
-        User IUserService.GetRecord(int id)
+        User IUserComponent.GetRecord(int id)
         {
             throw new NotImplementedException();
         }
 
-        User IUserService.GetRecord(string loginID)
+        User IUserComponent.GetRecord(string loginID)
         {
             throw new NotImplementedException();
         }
@@ -59,7 +59,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         {
             try
             {
-                LDAPService ADService = new LDAPService();
+                LDAPComponent ADService = new LDAPComponent();
 
                 #region Field Validation Logic
                 //Perform business logic validation here
@@ -138,7 +138,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
             try
             {
                 bool LoginStatus = false;
-                LDAPService ldap = new LDAPService();
+                LDAPComponent ldap = new LDAPComponent();
 
                 if (userRepository.Login(user))
                     LoginStatus =  true;
@@ -183,7 +183,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Service
         }
        
 
-        void IUserService.Delete(User user)
+        void IUserComponent.Delete(User user)
         {
             try
             {

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;

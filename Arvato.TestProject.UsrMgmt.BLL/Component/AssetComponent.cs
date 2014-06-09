@@ -9,16 +9,16 @@ using Arvato.TestProject.UsrMgmt.DAL.Repository;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
-   public class AssetService : IAssetService
+   public class AssetComponent : IAssetComponent
     {
         #region Fields
        IAssetRepository assetRepository;
        #endregion
 
        #region Constructor
-       public AssetService()
+       public AssetComponent()
         {
             assetRepository = new AssetRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }

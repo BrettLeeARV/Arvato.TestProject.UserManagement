@@ -7,7 +7,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Interface
 {
-    public interface IUserService : IDisposable
+    public interface IUserComponent : IDisposable
     {
         List<User> GetList();
         User GetRecord(int id);

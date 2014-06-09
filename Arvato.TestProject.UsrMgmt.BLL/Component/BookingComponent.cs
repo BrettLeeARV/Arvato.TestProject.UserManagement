@@ -10,16 +10,16 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Threading;
 
-namespace Arvato.TestProject.UsrMgmt.BLL.Service
+namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
-    public class BookingService : IBookingService
+    public class BookingComponent : IBookingComponent
     {
         #region Fields
         IBookingRepository bookingRepository;
         #endregion
 
         #region Constructor
-        public BookingService()
+        public BookingComponent()
         {
             bookingRepository = new BookingRepository(new SqlConnection(ConfigurationManager.ConnectionStrings["usrMgmtConnString"].ConnectionString));
         }

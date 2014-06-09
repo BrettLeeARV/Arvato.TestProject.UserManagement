@@ -7,7 +7,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 using System.ComponentModel;
@@ -17,13 +17,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class UsersFormViewModel : PageViewModel, IDataErrorInfo
     {
-        private IUserService _userService;
+        private IUserComponent _userService;
         private User _currentUser;
 
         public UsersFormViewModel()
             : base()
         {
-            _userService = new UserService();
+            _userService = new UserComponent();
 
             _currentUser = new User();
 

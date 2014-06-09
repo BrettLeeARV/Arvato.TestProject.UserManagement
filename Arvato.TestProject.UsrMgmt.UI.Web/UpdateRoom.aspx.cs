@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Service;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
 
 namespace Arvato.TestProject.UsrMgmt.Web.UI
 {
@@ -18,7 +18,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
             {
                 lblID.Text = "4";
 
-                using (IRoomService roomService = new RoomService())
+                using (IRoomComponent roomService = new RoomComponent())
                 {
                     Room room = new Room();
                     room = roomService.GetRoomByID(int.Parse(lblID.Text));
@@ -35,7 +35,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
         {
             try
             {
-                using (IRoomService roomService = new RoomService())
+                using (IRoomComponent roomService = new RoomComponent())
                 {
                     Room myRoom = new Room();
                     myRoom.ID = int.Parse(lblID.Text);

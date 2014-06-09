@@ -49,17 +49,17 @@
   <ItemGroup>
     <Compile Include="Exception\AssetClashException.cs" />
     <Compile Include="Exception\RoomClashException.cs" />
-    <Compile Include="Interface\IAssetService.cs" />
-    <Compile Include="Interface\IBookingService.cs" />
-    <Compile Include="Interface\ILDAPServices.cs" />
-    <Compile Include="Interface\IRoomService.cs" />
-    <Compile Include="Interface\IUserService.cs" />
+    <Compile Include="Interface\IAssetComponent.cs" />
+    <Compile Include="Interface\IBookingComponent.cs" />
+    <Compile Include="Interface\ILDAPComponent.cs" />
+    <Compile Include="Interface\IRoomComponent.cs" />
+    <Compile Include="Interface\IUserComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\AssetService.cs" />
-    <Compile Include="Service\BookingService.cs" />
-    <Compile Include="Service\LDAPService.cs" />
-    <Compile Include="Service\RoomService.cs" />
-    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Component\AssetComponent.cs" />
+    <Compile Include="Component\BookingComponent.cs" />
+    <Compile Include="Component\LDAPComponent.cs" />
+    <Compile Include="Component\RoomComponent.cs" />
+    <Compile Include="Component\UserComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
