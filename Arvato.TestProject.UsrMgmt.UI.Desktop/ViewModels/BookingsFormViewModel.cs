@@ -111,9 +111,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 // Edit booking
                 _isNewBooking = false;
 
-                // also need to re-get the booking from BookingService
-                _bookingService.ViewBooking(ref booking);
-
                 _startDate = _booking.StartDate.Date;
                 _startTime = _booking.StartDate.TimeOfDay;
                 _endDate = _booking.EndDate.Date;
