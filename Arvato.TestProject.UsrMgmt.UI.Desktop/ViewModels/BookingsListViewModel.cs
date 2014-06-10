@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Arvato.TestProject.UsrMgmt.BLL.Interface;
-using Arvato.TestProject.UsrMgmt.BLL.Component;
-using Arvato.TestProject.UsrMgmt.Entity.Model;
-using System.Windows.Input;
-using System.Windows.Navigation;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using System.Windows;
-using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
+using Arvato.TestProject.UsrMgmt.Entity.Model;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
+using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -23,7 +19,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
         private bool _isInitialized;
 
-        private IBookingComponent _bookingService;
+        private IBookingService _bookingService;
         private IRoomComponent _roomService;
         private IUserComponent _userService;
         private ObservableCollection<Booking> _bookings;
@@ -389,7 +385,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 MessengerInstance.Send(new LoadingMessage(false));
 
                 // Finally, get the bookings needed (will start it's own BackgroundWorker)
-                _bookingService = new BookingComponent();
+                _bookingService = new BookingServiceClient();
                 RefreshBookings(true);
             };
             worker.RunWorkerAsync();
@@ -436,7 +432,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                results = _bookingService.GetListByFilters(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled);
+                results = new List<Booking>(_bookingService.GetBookings(FilterStartDate, FilterEndDate, userId, roomId, FilterCanceled));
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {

@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.UI.Web", "Arvato.TestProject.UsrMgmt.UI.Web\Arvato.TestProject.UsrMgmt.UI.Web.csproj", "{5938E00C-2CE5-4669-AF70-488128CE0398}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arvato.TestProject.UsrMgmt.UI.Desktop", "Arvato.TestProject.UsrMgmt.UI.Desktop\Arvato.TestProject.UsrMgmt.UI.Desktop.csproj", "{9E475E0B-7F40-4C13-88F3-646791AEABE4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{806F9FD4-17E3-4349-B27F-6259B2BA5895} = {806F9FD4-17E3-4349-B27F-6259B2BA5895}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AF0B7ECA-D622-445F-A89C-78DE327D3BA9}"
 	ProjectSection(SolutionItems) = preProject

@@ -55,6 +55,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.4.4.32.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -79,6 +81,11 @@
     <Compile Include="Messages\ChangePageMessage.cs" />
     <Compile Include="Messages\UpdateCalendarMessage.cs" />
     <Compile Include="Messages\LoadingMessage.cs" />
+    <Compile Include="Service References\Services.Booking\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\BookingListDateConverter.cs" />
     <Compile Include="Utils\BookingFormClashConverter.cs" />
@@ -190,11 +197,23 @@
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking.datasource" />
+    <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Booking.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\Services.Booking\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Booking\service.wsdl" />
+    <None Include="Service References\Services.Booking\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Booking\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj">
@@ -208,6 +227,23 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Services.Booking\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Booking\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Booking\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Booking\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Views\Assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

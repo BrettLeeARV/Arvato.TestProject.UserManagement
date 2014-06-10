@@ -1,22 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Component;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
 using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using GalaSoft.MvvmLight;
-
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -27,7 +25,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private bool _isNewBooking;
 
-        private IBookingComponent _bookingService;
+        private IBookingService _bookingService;
         private IRoomComponent _roomService;
         private IAssetComponent _assetService;
 
@@ -73,7 +71,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _bookingService = new BookingComponent();
+                _bookingService = new BookingServiceClient();
                 _roomService = new RoomComponent();
                 _assetService = new AssetComponent();
                 _isConflicting = false;
@@ -494,14 +492,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 try
                 {
-                    if (_isNewBooking)
-                    {
-                        _bookingService.Save(_booking);
-                    }
-                    else
-                    {
-                        _bookingService.Save(_booking);
-                    }
+                    _booking = _bookingService.SaveBooking(_booking);
                 }
                 catch (Exception ex)
                 {
@@ -604,8 +595,8 @@ Your booking reference number is: {0}", _booking.RefNum),
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
-                roomResults = _bookingService.CheckRoomAvailability(booking);
-                assetResults = _bookingService.CheckAssetAvailability(booking);
+                roomResults = new List<Booking>(_bookingService.CheckRoomAvailability(booking));
+                assetResults = new List<AssetBooking>(_bookingService.CheckAssetAvailability(booking));
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {

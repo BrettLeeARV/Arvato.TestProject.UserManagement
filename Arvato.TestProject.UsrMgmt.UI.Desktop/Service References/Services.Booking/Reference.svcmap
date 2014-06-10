@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5d470fdc-7554-43ec-9a80-dc11cb881c84" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="ce3f3738-07d6-4a8f-a576-aa3d913042b9" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="5c7da927-9ffa-48e7-ae3d-0e3f7f61020c" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="10442a3b-ae61-439e-89e2-36e5969051c2" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
+    <MetadataFile FileName="Arvato.TestProject.UsrMgmt.Entity.Model.xsd" MetadataType="Schema" ID="e6bbedb5-ef2f-47d5-ae5e-543e324b759f" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
