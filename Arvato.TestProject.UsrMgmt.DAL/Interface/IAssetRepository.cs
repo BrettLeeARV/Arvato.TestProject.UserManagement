@@ -6,13 +6,10 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Interface
 {
-    public interface IAssetRepository : IDisposable
+    public interface IAssetRepository : IBaseRepository<Asset>, IDisposable
     {
-        IQueryable<Asset> GetList();
-        bool InsertAsset(Asset entity);
-        bool UpdateAsset(Asset entity);
         Asset SelectAsset(Asset entity);
-        IQueryable<Asset> GetAllEnabled();
-        IQueryable<Asset> GetByRoomID(int RoomID);
+        IEnumerable<Asset> GetAllEnabled();
+        IEnumerable<Asset> GetByRoomID(int RoomID);
     }
 }

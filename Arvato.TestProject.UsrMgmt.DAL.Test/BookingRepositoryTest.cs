@@ -83,7 +83,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Test
             DateTime endDate = new DateTime(2014, 6, 3, 18, 0, 0);
             int roomID = 2;
 
-            IQueryable<Booking> actual;
+            IEnumerable<Booking> actual;
             actual = target.CheckRoomAvailability(bookingID, startDate, endDate, roomID);
             List<Booking> list = actual.ToList<Booking>();
 

@@ -27,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
        {
            try
            {
-               return assetRepository.GetList().ToList<Asset>();
+               return assetRepository.GetAll().ToList<Asset>();
 
            }
            catch (Exception ex)
@@ -41,7 +41,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
        {
            try
            {
-               assetRepository.InsertAsset(asset);
+               assetRepository.Add(asset);
                return true;
            }
            catch (Exception)
@@ -54,7 +54,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
        {
            try
            {
-               assetRepository.UpdateAsset(entity);
+               assetRepository.Update(entity);
                return true;
            }
            catch (Exception)

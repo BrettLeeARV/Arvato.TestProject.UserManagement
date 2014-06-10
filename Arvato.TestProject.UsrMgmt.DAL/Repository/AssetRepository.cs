@@ -10,7 +10,15 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
     public class AssetRepository : BaseRepository, IAssetRepository
     {
-        static string connString = "";
+        static string connString = String.Empty;
+
+        #region Constructors
+
+        public AssetRepository()
+            : base()
+        {
+
+        }
 
         public AssetRepository(SqlConnection dbConnection)
             : base(dbConnection)
@@ -18,7 +26,11 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             connString = dbConnection.ConnectionString;
         }
 
-        public IQueryable<Asset> GetList()
+        #endregion
+
+        #region IBaseRepository members
+
+        public IEnumerable<Asset> GetAll()
         {
             try
             {
@@ -30,16 +42,16 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-        public bool InsertAsset(Asset entitiy)
+
+        public bool Add(Asset entitiy)
         {
             try
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
-                {    
+                {
                     session.Save(entitiy);
                     return true;
                 }
@@ -47,10 +59,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             catch (Exception)
             {
                 return false;
-                throw;
             }
         }
-        public bool UpdateAsset(Asset entity)
+
+        public void Update(Asset entity)
         {
             try
             {
@@ -58,15 +70,22 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     session.Update(entity);
                     session.Flush();
-                    return true;
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
+
+        public bool Delete(Asset entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IAssetRepository members
 
         public Asset SelectAsset(Asset entity)
         {
@@ -74,19 +93,17 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var asset = session.QueryOver<Asset>().Where(x => x.ID == entity.ID).SingleOrDefault(); 
-
+                    var asset = session.QueryOver<Asset>().Where(x => x.ID == entity.ID).SingleOrDefault();
                     return asset;
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-        public IQueryable<Asset> GetAllEnabled()
+        public IEnumerable<Asset> GetAllEnabled()
         {
             try
             {
@@ -99,17 +116,18 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             catch (Exception ex)
             {
                 throw ex;
-            }          
+            }
         }
 
-        public IQueryable<Asset> GetByRoomID(int RoomID)
+        public IEnumerable<Asset> GetByRoomID(int RoomID)
         {
             using (var session = NHibernateHelper.OpenSession(connString))
             {
                 var assetList = session.QueryOver<Asset>().Where(x => x.IsEnabled == true && x.RoomID == RoomID).OrderBy(x => x.Name).Asc.List();
-
                 return assetList.AsQueryable<Asset>();
             }
         }
+
+        #endregion
     }
 }

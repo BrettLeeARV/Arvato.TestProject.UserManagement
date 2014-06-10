@@ -6,10 +6,9 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Interface
 {
-    public interface IRoomRepository : IBaseRepository<Room>,IDisposable
+    public interface IRoomRepository : IBaseRepository<Room>, IDisposable
     {
-         //IQueryable<Room> SelectRoom();
-        IQueryable<Room> GetAllEnabled();
-        IQueryable<Room> GetRoomByID(int RoomID);
+        IEnumerable<Room> GetAllEnabled();
+        IEnumerable<Room> GetRoomByID(int RoomID);
     }
 }

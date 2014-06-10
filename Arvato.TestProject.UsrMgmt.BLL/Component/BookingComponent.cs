@@ -34,7 +34,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
 #if DEBUG
                 Thread.Sleep(3000);
 #endif
-                return bookingRepository.GetList().ToList<Booking>();
+                return bookingRepository.GetAll().ToList<Booking>();
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
         {
             try
             {
-                bookingRepository.AddBooking(booking);
+                bookingRepository.Add(booking);
             }
             catch (Exception)
             {
@@ -95,7 +95,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
         {
             try
             {
-                bookingRepository.EditBooking(booking);
+                bookingRepository.Update(booking);
             }
             catch (Exception)
             {
@@ -157,11 +157,11 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
 
                 if (booking.ID > 0)
                 {
-                    bookingRepository.EditBooking(booking);
+                    bookingRepository.Update(booking);
                 }
                 else
                 {
-                    bookingRepository.AddBooking(booking);
+                    bookingRepository.Add(booking);
                 }
             }
             catch (Exception)
