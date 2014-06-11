@@ -43,6 +43,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetService.cs" />
     <Compile Include="BookingService.cs" />
     <Compile Include="RoomService.cs" />
     <Compile Include="UserService.cs" />
