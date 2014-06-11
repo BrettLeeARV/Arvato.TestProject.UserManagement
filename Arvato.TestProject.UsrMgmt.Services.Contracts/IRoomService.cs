@@ -9,21 +9,15 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 namespace Arvato.TestProject.UsrMgmt.Services.Contracts
 {
     [ServiceContract]
-    public interface IUserService
+    public interface IRoomService
     {
         [OperationContract]
-        IEnumerable<User> GetList();
+        IEnumerable<Room> GetList(bool enabledOnly);
 
         [OperationContract]
-        void Save(User user);
+        void Save(Room room);
 
         [OperationContract]
-        void Delete(User user);
-
-        [OperationContract]
-        bool Login(User user);
-
-        [OperationContract]
-        bool IsExistingLoginID(string loginID, int userID);
+        void Delete(Room room);
     }
 }

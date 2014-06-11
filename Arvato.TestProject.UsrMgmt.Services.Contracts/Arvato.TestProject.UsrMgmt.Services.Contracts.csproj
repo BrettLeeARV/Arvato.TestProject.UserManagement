@@ -43,8 +43,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRoomService.cs" />
     <Compile Include="IUserService.cs" />
-    <Compile Include="DataContracts\BookingsData.cs" />
     <Compile Include="IBookingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

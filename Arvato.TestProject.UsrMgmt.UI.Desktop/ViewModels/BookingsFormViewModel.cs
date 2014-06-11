@@ -13,6 +13,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
 
@@ -26,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private bool _isNewBooking;
 
         private IBookingService _bookingService;
-        private IRoomComponent _roomService;
+        private IRoomService _roomService;
         private IAssetComponent _assetService;
 
         private Booking _booking;

@@ -6,7 +6,6 @@ using System.ServiceModel;
 using System.Text;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Services.Contracts;
-using Arvato.TestProject.UsrMgmt.Services.Contracts.DataContracts;
 using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 
