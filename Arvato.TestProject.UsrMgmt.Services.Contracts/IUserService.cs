@@ -21,7 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts
         void Delete(User user);
 
         [OperationContract]
-        bool Login(User user);
+        User Login(User user);
 
         [OperationContract]
         bool IsExistingLoginID(string loginID, int userID);

@@ -48,7 +48,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             }
         }
 
-        public bool Login(User user)
+        public User Login(User user)
         {
             IUserComponent component = new UserComponent();
             bool result = false;
@@ -60,7 +60,14 @@ namespace Arvato.TestProject.UsrMgmt.Services
             {
                 throw new FaultException(e.Message);
             }
-            return result;
+            if (result)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public bool IsExistingLoginID(string loginID, int userID)

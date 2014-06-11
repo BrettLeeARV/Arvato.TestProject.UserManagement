@@ -97,13 +97,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             Exception loginEx = null;
             bool loggedIn = false;
+            User returnedUser = null;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
                 try
                 {
-                    loggedIn = _userService.Login(_user);
+                    returnedUser = _userService.Login(_user);
                 }
                 catch (Exception ex)
                 {
@@ -112,9 +113,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
-                if (loggedIn)
+                if (returnedUser != null)
                 {
-                    StateManager.CurrentUser = _user;
+                    StateManager.CurrentUser = returnedUser;
                     PostLogIn();
                 }
                 else
