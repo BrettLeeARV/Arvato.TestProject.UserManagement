@@ -51,6 +51,11 @@ namespace Arvato.TestProject.UsrMgmt.Services
                 var fault = new RoomClashFault() { Clashes = e.Clashes };
                 throw new FaultException<RoomClashFault>(fault);
             }
+            catch (AssetClashException e)
+            {
+                var fault = new AssetClashFault() { Clashes = e.Clashes };
+                throw new FaultException<AssetClashFault>(fault);
+            }
             catch (Exception e)
             {
                 throw new FaultException(e.Message);

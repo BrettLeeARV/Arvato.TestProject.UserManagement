@@ -20,6 +20,7 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts
 
         [OperationContract]
         [FaultContract(typeof(RoomClashFault))]
+        [FaultContract(typeof(AssetClashFault))]
         Booking SaveBooking(Booking booking);
 
         [OperationContract]

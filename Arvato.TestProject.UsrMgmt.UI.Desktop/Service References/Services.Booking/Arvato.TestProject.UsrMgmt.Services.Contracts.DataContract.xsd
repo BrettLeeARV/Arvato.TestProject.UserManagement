@@ -7,4 +7,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RoomClashFault" nillable="true" type="tns:RoomClashFault" />
+  <xs:complexType name="AssetClashFault">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Entity.Model" minOccurs="0" name="Clashes" nillable="true" type="q2:ArrayOfAssetBooking" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AssetClashFault" nillable="true" type="tns:AssetClashFault" />
 </xs:schema>

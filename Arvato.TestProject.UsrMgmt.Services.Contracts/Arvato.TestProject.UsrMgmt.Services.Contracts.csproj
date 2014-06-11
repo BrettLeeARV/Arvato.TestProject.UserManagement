@@ -43,6 +43,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\AssetClashFault.cs" />
     <Compile Include="DataContract\RoomClashFault.cs" />
     <Compile Include="IRoomService.cs" />
     <Compile Include="IUserService.cs" />

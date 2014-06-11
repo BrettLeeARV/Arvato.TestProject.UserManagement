@@ -514,9 +514,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 Please choose a different room or time.", 
                             "Room no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
-                    else if (exceptionResult is AssetClashException)
+                    else if (exceptionResult is FaultException<AssetClashFault>)
                     {
-                        var clashException = (AssetClashException)exceptionResult;
+                        var clashFault = ((FaultException<AssetClashFault>)exceptionResult).Detail;
                         MessageBox.Show(@"Some of the assets are no longer available for the chosen time. Please choose a different asset or time.",
                             "Assets no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
@@ -583,6 +583,7 @@ Your booking reference number is: {0}", _booking.RefNum),
             }
             var booking = new Booking()
             {
+                ID = Booking.ID,
                 StartDate = StartDateTime,
                 EndDate = EndDateTime,
                 RoomID = Room.ID,
