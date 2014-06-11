@@ -28,7 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     myasset.RoomID = int.Parse(txtroomid.Text);
                     myasset.Name = txtname.Text;
                     myasset.IsEnabled = CheckBox1.Checked;
-                    assetservice.UpdateAsset(myasset);
+                    assetservice.Save(myasset);
                 }
             }
             catch (Exception)

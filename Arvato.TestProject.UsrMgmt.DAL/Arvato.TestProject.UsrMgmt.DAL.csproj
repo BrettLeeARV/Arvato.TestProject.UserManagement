@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Interface\UserManagement.cd" />
+    <None Include="Mapping\UserManagement.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

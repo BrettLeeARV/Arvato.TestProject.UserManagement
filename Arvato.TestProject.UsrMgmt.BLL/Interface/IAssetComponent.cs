@@ -9,8 +9,8 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
    public interface IAssetComponent : IDisposable
     {
        List<Asset> GetList();
-       bool InsertAsset(Asset asset);
-       bool UpdateAsset(Asset entity);
+       void Save(Asset asset);
+       void Delete(Asset asset);
        Asset SelectAsset(Asset entity);
        List<Asset> GetEnabledList();
        List<Asset> GetEnabledListByRoomID(int RoomID);

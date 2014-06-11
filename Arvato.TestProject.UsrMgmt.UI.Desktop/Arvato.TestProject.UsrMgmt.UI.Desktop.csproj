@@ -103,10 +103,13 @@
     <Compile Include="Utils\PasswordHelper.cs" />
     <Compile Include="Utils\StateManager.cs" />
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
+    <Compile Include="Validator\AssetsFormValidator.cs" />
     <Compile Include="Validator\BookingsFormValidator.cs" />
     <Compile Include="Validator\LoginFormValidator.cs" />
     <Compile Include="Validator\RoomsFormValidator.cs" />
     <Compile Include="Validator\UsersFormValidator.cs" />
+    <Compile Include="ViewModels\AssetsFormViewModel.cs" />
+    <Compile Include="ViewModels\AssetsListViewModel.cs" />
     <Compile Include="ViewModels\BookingsFormViewModel.cs" />
     <Compile Include="ViewModels\BookingsListViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
@@ -114,6 +117,12 @@
     <Compile Include="ViewModels\RoomsFormViewModel.cs" />
     <Compile Include="ViewModels\RoomsListViewModel.cs" />
     <Compile Include="ViewModels\UsersFormViewModel.cs" />
+    <Compile Include="Views\Assets\AssetsFormPage.xaml.cs">
+      <DependentUpon>AssetsFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Assets\AssetsListPage.xaml.cs">
+      <DependentUpon>AssetsListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Bookings\BookingsFormPage.xaml.cs">
       <DependentUpon>BookingsFormPage.xaml</DependentUpon>
     </Compile>
@@ -142,6 +151,14 @@
     <Compile Include="Views\Users\UsersListPage.xaml.cs">
       <DependentUpon>UsersListPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Assets\AssetsFormPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Assets\AssetsListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Bookings\BookingsFormPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -280,9 +297,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Assets\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Service References\Services.User\configuration91.svcinfo" />
   </ItemGroup>

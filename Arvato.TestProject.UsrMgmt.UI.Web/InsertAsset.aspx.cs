@@ -27,7 +27,7 @@ namespace Arvato.TestProject.UsrMgmt.Web.UI
                     myasset.RoomID = int.Parse(txtroomid.Text);
                     myasset.Name = txtname.Text;
                     myasset.IsEnabled = CheckBox1.Checked;
-                    bookingservice.InsertAsset(myasset);
+                    bookingservice.Save(myasset);
                     Label1.Text = "Success";
 
                 }

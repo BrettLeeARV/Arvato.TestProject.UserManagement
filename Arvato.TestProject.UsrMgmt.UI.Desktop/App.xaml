@@ -34,6 +34,14 @@
             <Views:RoomsFormPage />
         </DataTemplate>
 
+        <!-- Assets -->
+        <DataTemplate DataType="{x:Type ViewModels:AssetsListViewModel}">
+            <Views:AssetsListPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:AssetsFormViewModel}">
+            <Views:AssetsFormPage />
+        </DataTemplate>
+
         <!-- Bookings -->
         <DataTemplate DataType="{x:Type ViewModels:BookingsListViewModel}">
             <Views:BookingsListPage />

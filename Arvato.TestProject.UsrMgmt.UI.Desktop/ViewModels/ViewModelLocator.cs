@@ -50,6 +50,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             SimpleIoc.Default.Register<BookingsListViewModel>();
             SimpleIoc.Default.Register<RoomsListViewModel>();
             SimpleIoc.Default.Register<RoomsFormViewModel>();
+            SimpleIoc.Default.Register<AssetsListViewModel>();
+            SimpleIoc.Default.Register<AssetsFormViewModel>();
         }
 
         public MainViewModel Main
@@ -121,6 +123,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get
             {
                 return ServiceLocator.Current.GetInstance<RoomsFormViewModel>();
+            }
+        }
+
+        public AssetsListViewModel AssetsList
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AssetsListViewModel>();
+            }
+        }
+
+        public AssetsFormViewModel AssetsForm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AssetsFormViewModel>();
             }
         }
         

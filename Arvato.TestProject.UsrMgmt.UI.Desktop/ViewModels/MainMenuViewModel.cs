@@ -33,6 +33,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
                 new MainMenuItem() { Title = "Manage Rooms" , ViewModel = typeof(RoomsListViewModel) },
+                new MainMenuItem() { Title = "Manage Assets" , ViewModel = typeof(AssetsListViewModel) },
                 new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }        
             };
 
