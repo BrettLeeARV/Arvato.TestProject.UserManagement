@@ -12,7 +12,11 @@ using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
+<<<<<<< Updated upstream
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
+=======
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+>>>>>>> Stashed changes
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -68,9 +72,34 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
+<<<<<<< Updated upstream
                 _currentRoom = _roomService.Save(_currentRoom);
                 RaisePropertyChanged("CurrentRoom");
             }
+=======
+                MessengerInstance.Send(new LoadingMessage("Saving room..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
+                    _roomService.Save(_currentRoom);    
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    RaisePropertyChanged("CurrentRoom");
+
+                    MessengerInstance.Send(new LoadingMessage(false));
+                    Cancel();
+                };
+                worker.RunWorkerAsync();
+            }   
+        }
+
+        private void Cancel()
+        {
+            MessengerInstance.Send(new ChangePageMessage(typeof(RoomsListViewModel)));
+>>>>>>> Stashed changes
         }
 
         #region FluentValidation Members

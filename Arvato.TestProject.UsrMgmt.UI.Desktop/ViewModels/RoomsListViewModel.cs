@@ -13,6 +13,8 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -103,7 +105,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             try
             {
-                roomService.Delete(FormViewModel.CurrentRoom);
+                MessengerInstance.Send(new LoadingMessage("Deleting room..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
+                    roomService.Delete(FormViewModel.CurrentRoom);
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    MessengerInstance.Send(new LoadingMessage(false));
+                };
+                worker.RunWorkerAsync();
             }
             catch (Exception)
             {

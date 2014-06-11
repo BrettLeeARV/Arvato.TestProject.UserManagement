@@ -46,13 +46,14 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
         }
 
-        public bool Add(Asset entitiy)
+        public bool Add(Asset entity)
         {
             try
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    session.Save(entitiy);
+                    session.Save(entity);
+
                     return true;
                 }
             }
@@ -74,13 +75,26 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
         }
 
         public bool Delete(Asset entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    session.Delete(entity);
+                    session.Flush();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion

@@ -37,30 +37,36 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
            }
 
        }
-       public bool InsertAsset(Asset asset)
+       public void Save(Asset asset)
        {
            try
            {
-               assetRepository.Add(asset);
-               return true;
+
+               if (asset.ID == 0)
+               {
+                   assetRepository.Add(asset);
+               }
+               else
+               {
+                   assetRepository.Update(asset);
+               }
+
            }
-           catch (Exception)
+           catch (Exception ex)
            {
-               
-               throw;
+               throw ex;
            }
        }
-       public bool UpdateAsset(Asset entity)
+
+       public void Delete(Asset asset)
        {
            try
            {
-               assetRepository.Update(entity);
-               return true;
+               assetRepository.Delete(asset);
            }
-           catch (Exception)
+           catch (Exception ex)
            {
-               
-               throw;
+               throw ex;
            }
        }
        public Asset SelectAsset(Asset entity)
