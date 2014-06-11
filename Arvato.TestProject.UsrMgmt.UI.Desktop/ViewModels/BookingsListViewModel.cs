@@ -12,6 +12,7 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
@@ -22,7 +23,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private IBookingService _bookingService;
         private IRoomService _roomService;
-        private IUserComponent _userService;
+        private IUserService _userService;
         private ObservableCollection<Booking> _bookings;
         private Booking _selectedBooking;
 
@@ -350,7 +351,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {   
                 // set up options for filtering
                 _roomService = new RoomServiceClient();
-                _userService = new UserComponent();
+                _userService = new UserServiceClient();
                 var rooms = _roomService.GetList(true);
                 _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
                 {
