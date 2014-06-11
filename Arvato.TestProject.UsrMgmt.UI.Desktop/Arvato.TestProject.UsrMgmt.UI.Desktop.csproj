@@ -86,6 +86,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Services.User\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\BookingListDateConverter.cs" />
     <Compile Include="Utils\BookingFormClashConverter.cs" />
@@ -199,6 +204,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Booking.datasource" />
+    <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -212,6 +218,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services.Booking\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.User\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.User\service.wsdl" />
+    <None Include="Service References\Services.User\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.User\service1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -230,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Services.Booking\" />
+    <WCFMetadataStorage Include="Service References\Services.User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Services.Booking\configuration91.svcinfo" />
@@ -245,6 +262,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.User\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.User\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.User\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

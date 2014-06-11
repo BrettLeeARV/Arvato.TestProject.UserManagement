@@ -12,20 +12,21 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class UsersListViewModel : PageViewModel
     {
 
-        private IUserComponent userService;
+        private IUserService userService;
         private ICollection<User> users;
 
         public UsersListViewModel()
             : base()
         {
             // set up model data
-            userService = new UserComponent();
+            userService = new UserServiceClient();
             FormViewModel = new UsersFormViewModel();
 
             // set up commands
@@ -46,7 +47,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (users != value)
                 {
                     users = value;
-                    RaisePropertyChanged("Bookings");
+                    RaisePropertyChanged("Users");
                 }
             }
         }

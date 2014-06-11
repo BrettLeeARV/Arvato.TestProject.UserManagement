@@ -12,18 +12,19 @@ using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class UsersFormViewModel : PageViewModel, IDataErrorInfo
     {
-        private IUserComponent _userService;
+        private IUserService _userService;
         private User _currentUser;
 
         public UsersFormViewModel()
             : base()
         {
-            _userService = new UserComponent();
+            _userService = new UserServiceClient();
 
             _currentUser = new User();
 

@@ -13,12 +13,13 @@ using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class LoginViewModel : PageViewModel, IDataErrorInfo
     {
-        private IUserComponent _userService;
+        private IUserService _userService;
         private User _user;
         private string _loginID;
         private string _password;
@@ -27,7 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             : base()
         {
             // set up model data
-            _userService = new UserComponent();
+            _userService = new UserServiceClient();
             _user = new User();
             // for convenience
 #if DEBUG
