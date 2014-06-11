@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+using Arvato.TestProject.UsrMgmt.Services.Contracts.DataContract;
 
 namespace Arvato.TestProject.UsrMgmt.Services.Contracts
 {
@@ -18,6 +19,7 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts
         bool CancelBooking(Booking booking);
 
         [OperationContract]
+        [FaultContract(typeof(RoomClashFault))]
         Booking SaveBooking(Booking booking);
 
         [OperationContract]

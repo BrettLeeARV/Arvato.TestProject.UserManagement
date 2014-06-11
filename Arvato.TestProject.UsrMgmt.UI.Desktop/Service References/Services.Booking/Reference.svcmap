@@ -25,6 +25,7 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="5c7da927-9ffa-48e7-ae3d-0e3f7f61020c" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="10442a3b-ae61-439e-89e2-36e5969051c2" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
     <MetadataFile FileName="Arvato.TestProject.UsrMgmt.Entity.Model.xsd" MetadataType="Schema" ID="e6bbedb5-ef2f-47d5-ae5e-543e324b759f" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
+    <MetadataFile FileName="Arvato.TestProject.UsrMgmt.Services.Contracts.DataContract.xsd" MetadataType="Schema" ID="a1731116-fd08-4d65-8cb9-14f7759df8b5" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/BookingService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

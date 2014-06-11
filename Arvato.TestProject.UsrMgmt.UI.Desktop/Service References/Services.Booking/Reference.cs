@@ -9,7 +9,55 @@
 //------------------------------------------------------------------------------
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RoomClashFault", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Services.Contr" +
+        "acts.DataContract")]
+    [System.SerializableAttribute()]
+    public partial class RoomClashFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] ClashesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] Clashes {
+            get {
+                return this.ClashesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ClashesField, value) != true)) {
+                    this.ClashesField = value;
+                    this.RaisePropertyChanged("Clashes");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Services.Booking.IBookingService")]
@@ -32,6 +80,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         bool EndCancelBooking(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookingService/SaveBooking", ReplyAction="http://tempuri.org/IBookingService/SaveBookingResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking.RoomClashFault), Action="http://tempuri.org/IBookingService/SaveBookingRoomClashFaultFault", Name="RoomClashFault", Namespace="http://schemas.datacontract.org/2004/07/Arvato.TestProject.UsrMgmt.Services.Contr" +
+            "acts.DataContract")]
         Arvato.TestProject.UsrMgmt.Entity.Model.Booking SaveBooking(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBookingService/SaveBooking", ReplyAction="http://tempuri.org/IBookingService/SaveBookingResponse")]

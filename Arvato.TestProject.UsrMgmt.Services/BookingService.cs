@@ -8,6 +8,7 @@ using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Services.Contracts;
 using Arvato.TestProject.UsrMgmt.BLL.Component;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+using Arvato.TestProject.UsrMgmt.Services.Contracts.DataContract;
 
 namespace Arvato.TestProject.UsrMgmt.Services
 {
@@ -44,6 +45,11 @@ namespace Arvato.TestProject.UsrMgmt.Services
             try
             {
                 component.Save(booking);
+            }
+            catch (RoomClashException e)
+            {
+                var fault = new RoomClashFault() { Clashes = e.Clashes };
+                throw new FaultException<RoomClashFault>(fault);
             }
             catch (Exception e)
             {

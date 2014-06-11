@@ -43,12 +43,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContract\RoomClashFault.cs" />
     <Compile Include="IRoomService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="IBookingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.BLL\Arvato.TestProject.UsrMgmt.BLL.csproj">
+      <Project>{04D43A45-467E-4D6C-8354-A6811C4C075A}</Project>
+      <Name>Arvato.TestProject.UsrMgmt.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arvato.TestProject.UsrMgmt.Entity\Arvato.TestProject.UsrMgmt.Entity.csproj">
       <Project>{636ABB33-8D91-4558-A014-BBB2357D09D4}</Project>
       <Name>Arvato.TestProject.UsrMgmt.Entity</Name>

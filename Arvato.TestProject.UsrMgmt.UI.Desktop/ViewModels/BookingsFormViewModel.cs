@@ -16,6 +16,7 @@ using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 using FluentValidation.Results;
 using GalaSoft.MvvmLight.Command;
+using System.ServiceModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -147,7 +148,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid && !IsConflicting);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking/*, () => IsValid && !IsConflicting*/);
             CancelCommand = new RelayCommand(this.Cancel);
             SelectedAssetsChangedCommand = new RelayCommand<SelectionChangedEventArgs>(this.SelectedAssetsChanged);
 
@@ -504,11 +505,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             {
                 if (exceptionResult != null)
                 {
-                    if (exceptionResult is RoomClashException)
+                    if (exceptionResult is FaultException<RoomClashFault>)
                     {
-                        var clashException = (RoomClashException) exceptionResult;
+                        var clashFault = ((FaultException<RoomClashFault>)exceptionResult).Detail;
                         IsConflicting = true;
-                        RoomConflicts = new ObservableCollection<Booking>(clashException.Clashes);
+                        RoomConflicts = new ObservableCollection<Booking>(clashFault.Clashes);
                         MessageBox.Show(@"That room is no longer available for the chosen time. 
 Please choose a different room or time.", 
                             "Room no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
