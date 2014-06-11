@@ -68,7 +68,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _userService.Save(_currentUser);
+                _currentUser = _userService.Save(_currentUser);
                 RaisePropertyChanged("CurrentUser");
             }
         }

@@ -11,6 +11,7 @@ using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 using GalaSoft.MvvmLight.Command;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
@@ -20,7 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private bool _isInitialized;
 
         private IBookingService _bookingService;
-        private IRoomComponent _roomService;
+        private IRoomService _roomService;
         private IUserComponent _userService;
         private ObservableCollection<Booking> _bookings;
         private Booking _selectedBooking;
@@ -348,9 +349,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {   
                 // set up options for filtering
-                _roomService = new RoomComponent();
+                _roomService = new RoomServiceClient();
                 _userService = new UserComponent();
-                var rooms = _roomService.GetList();
+                var rooms = _roomService.GetList(true);
                 _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
                 {
                     new RoomComboBoxItem()

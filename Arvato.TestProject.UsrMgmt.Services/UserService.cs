@@ -21,7 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             return results;
         }
 
-        public void Save(User user)
+        public User Save(User user)
         {
             IUserComponent component = new UserComponent();
             try
@@ -32,6 +32,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             {
                 throw new FaultException(e.Message);
             }
+            return user;
         }
 
         public void Delete(User user)

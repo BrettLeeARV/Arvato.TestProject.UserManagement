@@ -13,7 +13,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
 {
     public class RoomService : Contracts.IRoomService
     {
-        public IEnumerable<Room> GetList(bool enabledOnly = false)
+        public IEnumerable<Room> GetList(bool enabledOnly)
         {
             IRoomComponent component = new RoomComponent();
             IEnumerable<Room> results = null;
@@ -28,7 +28,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             return results;
         }
 
-        public void Save(Room room)
+        public Room Save(Room room)
         {
             IRoomComponent component = new RoomComponent();
             try
@@ -39,6 +39,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             {
                 throw new FaultException(e.Message);
             }
+            return room;
         }
 
         public void Delete(Room room)

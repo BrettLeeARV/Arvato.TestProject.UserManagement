@@ -73,7 +73,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             else
             {
                 _bookingService = new BookingServiceClient();
-                _roomService = new RoomComponent();
+                _roomService = new RoomServiceClient();
                 _assetService = new AssetComponent();
                 _isConflicting = false;
                 RefreshRooms();
@@ -439,7 +439,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshRooms()
         {
-            RoomList = new ObservableCollection<Room>(_roomService.GetList());
+            RoomList = new ObservableCollection<Room>(_roomService.GetList(true));
         }
 
         private void RefreshAssets()

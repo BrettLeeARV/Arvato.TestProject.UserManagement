@@ -86,6 +86,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Services.Room\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Services.User\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,6 +209,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Booking.datasource" />
+    <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Room.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -218,6 +224,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services.Booking\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Room\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Room\service.wsdl" />
+    <None Include="Service References\Services.Room\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Room\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services.User\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
@@ -246,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Services.Booking\" />
+    <WCFMetadataStorage Include="Service References\Services.Room\" />
     <WCFMetadataStorage Include="Service References\Services.User\" />
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +288,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Services.User\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Room\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Room\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Room\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

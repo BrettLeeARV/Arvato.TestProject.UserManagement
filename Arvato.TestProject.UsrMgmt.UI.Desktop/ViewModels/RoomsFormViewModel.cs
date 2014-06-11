@@ -12,18 +12,19 @@ using Arvato.TestProject.UsrMgmt.Entity.Validator;
 using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class RoomsFormViewModel : PageViewModel, IDataErrorInfo
     {
-        private IRoomComponent _roomService;
+        private IRoomService _roomService;
         private Room _currentRoom;
 
         public RoomsFormViewModel()
             : base()
         {
-            _roomService = new RoomComponent();
+            _roomService = new RoomServiceClient();
 
             _currentRoom = new Room();
 
@@ -67,7 +68,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _roomService.Save(_currentRoom);
+                _currentRoom = _roomService.Save(_currentRoom);
                 RaisePropertyChanged("CurrentRoom");
             }
         }

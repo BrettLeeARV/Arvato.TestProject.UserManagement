@@ -12,19 +12,20 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class RoomsListViewModel : PageViewModel
     {
-        private IRoomComponent roomService;
+        private IRoomService roomService;
         private ICollection<Room> rooms;
 
         public RoomsListViewModel()
             : base()
         {
             // set up model data
-            roomService = new RoomComponent();
+            roomService = new RoomServiceClient();
             FormViewModel = new RoomsFormViewModel();
 
             // set up commands
@@ -77,7 +78,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshRooms()
         {
-            Rooms = roomService.GetList();
+            Rooms = roomService.GetList(false);
         }
 
         #region Command methods

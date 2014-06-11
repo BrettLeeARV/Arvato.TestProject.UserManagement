@@ -15,7 +15,7 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts
         IEnumerable<User> GetList();
 
         [OperationContract]
-        void Save(User user);
+        User Save(User user);
 
         [OperationContract]
         void Delete(User user);
