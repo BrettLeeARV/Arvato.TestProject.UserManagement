@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="247c0ed3-669d-4696-8c21-949ece2c8383" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/AssetService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="cc2d9d13-1772-4d43-8b01-6f3900cea5a8" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/AssetService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="3b820a2a-e4c6-4910-bf61-40a6e1b33986" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/AssetService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="74daa447-8cdb-448c-9e72-23bd5a2c2d9c" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/AssetService/mex" />
+    <MetadataFile FileName="Arvato.TestProject.UsrMgmt.Entity.Model.xsd" MetadataType="Schema" ID="9c97b7d7-aa59-412a-a6bc-f5d9bb04dac1" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/Arvato.TestProject.UsrMgmt.Services/AssetService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

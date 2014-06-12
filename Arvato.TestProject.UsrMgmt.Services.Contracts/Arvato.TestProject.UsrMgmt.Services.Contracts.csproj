@@ -46,6 +46,7 @@
     <Compile Include="DataContract\AssetClashFault.cs" />
     <Compile Include="DataContract\RoomClashFault.cs" />
     <Compile Include="IAssetService.cs" />
+    <Compile Include="ILDAPService.cs" />
     <Compile Include="IRoomService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="IBookingService.cs" />

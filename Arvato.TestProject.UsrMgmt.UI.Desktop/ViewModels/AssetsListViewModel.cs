@@ -13,19 +13,20 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Asset;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class AssetsListViewModel : PageViewModel
     { 
-        private IAssetComponent assetService;
+        private IAssetService assetService;
         private ICollection<Asset> assets;
 
         public AssetsListViewModel()
             : base()
         {
             // set up model data
-            assetService = new AssetComponent();
+            assetService = new AssetServiceClient();
             FormViewModel = new AssetsFormViewModel();
 
             // set up commands
@@ -86,7 +87,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshAssets()
         {
-            Assets = assetService.GetList();
+            Assets = assetService.GetList(false);
         }
 
         #region Command methods

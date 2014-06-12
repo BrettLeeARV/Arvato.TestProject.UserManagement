@@ -32,7 +32,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
          //   throw new NotImplementedException();
         }
 
-        public bool InsertAsset(Entity.Model.Asset asset)
+        public bool Save(Entity.Model.Asset asset)
         {
             IAssetComponent component = new AssetComponent();
             try
@@ -48,12 +48,12 @@ namespace Arvato.TestProject.UsrMgmt.Services
            // throw new NotImplementedException();
         }
 
-        public bool UpdateAsset(Entity.Model.Asset entity)
+        public bool Delete(Entity.Model.Asset entity)
         {
             IAssetComponent component = new AssetComponent();
             try
             {
-                component.Save(entity);
+                component.Delete(entity);
             }
             catch (Exception ex)
             {

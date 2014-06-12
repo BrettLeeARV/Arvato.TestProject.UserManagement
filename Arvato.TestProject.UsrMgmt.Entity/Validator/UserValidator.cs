@@ -16,7 +16,7 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
             RuleFor(user => user.LastName).NotEmpty();
             RuleFor(user => user.Email).NotEmpty().EmailAddress();
             RuleFor(user => user.LoginID).NotEmpty().Length(6, 50);
-            RuleFor(user => user.Password).NotEmpty().Length(8, 50).When(user => user.IsWindowAuthenticate);
+            RuleFor(user => user.Password).NotEmpty().Length(8, 50).When(user => user.IsWindowAuthenticate == false);
         }
     }
 }

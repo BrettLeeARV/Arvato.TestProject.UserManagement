@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
 
 namespace Arvato.TestProject.UsrMgmt.BLL.Component
 {
-    class LDAPComponent
+    public class LDAPComponent : ILDAPComponent
     {
         //Check user login with AD
         public  bool IsAuthenticated(string LoginId, string Password)
@@ -50,5 +51,25 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
                 }
             }
         }
+
+        #region IDisposable Implementation
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+                if (disposing)
+
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        #endregion
     }
 }

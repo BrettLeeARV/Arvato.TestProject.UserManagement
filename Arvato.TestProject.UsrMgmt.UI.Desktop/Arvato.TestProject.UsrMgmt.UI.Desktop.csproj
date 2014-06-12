@@ -81,6 +81,11 @@
     <Compile Include="Messages\ChangePageMessage.cs" />
     <Compile Include="Messages\UpdateCalendarMessage.cs" />
     <Compile Include="Messages\LoadingMessage.cs" />
+    <Compile Include="Service References\Services.Asset\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Services.Booking\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,6 +231,7 @@
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Asset.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Booking.datasource" />
     <None Include="Properties\DataSources\Arvato.TestProject.UsrMgmt.Entity.Model.Room.datasource" />
@@ -235,6 +241,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\Services.Asset\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Asset\service.wsdl" />
+    <None Include="Service References\Services.Asset\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Asset\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\Services.Booking\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -283,6 +299,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Services.Asset\" />
     <WCFMetadataStorage Include="Service References\Services.Booking\" />
     <WCFMetadataStorage Include="Service References\Services.Room\" />
     <WCFMetadataStorage Include="Service References\Services.User\" />
@@ -319,6 +336,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Services.User\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Asset\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Asset\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.Asset\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

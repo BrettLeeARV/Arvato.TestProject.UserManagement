@@ -9,18 +9,13 @@ using Arvato.TestProject.UsrMgmt.Entity.Model;
 namespace Arvato.TestProject.UsrMgmt.Services.Contracts
 {
     [ServiceContract]
-    public interface IAssetService
+    public interface ILDAPService
     {
-        [OperationContract]
-        IEnumerable<Asset> GetList(bool Enabled);
 
         [OperationContract]
-        bool Save(Asset asset);
+        bool IsAuthenticated(User user);
 
         [OperationContract]
-        bool Delete(Asset entity);
-
-       
-
+        bool IsExistUser(User user);
     }
 }

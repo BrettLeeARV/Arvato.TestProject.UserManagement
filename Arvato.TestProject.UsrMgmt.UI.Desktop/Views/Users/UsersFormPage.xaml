@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="200"
     >
@@ -22,7 +23,9 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
                 <TextBox Grid.Row="3" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <Label Grid.Row="4" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
-                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" />
+                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" /> 
+                <Label Grid.Row="5" Grid.Column="0" Content="Is Window Authenticate" Name="isWindowAuthLabel" Target="{Binding ElementName=isWindowAuthCheckBox}" />
+                <CheckBox Grid.Row="5" Grid.Column="1" Content="" Height="16" Name="isWindowAuthCheckBox" IsChecked="{Binding IsWindowAuthenticate, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"  Margin="0,0,0,10" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>
