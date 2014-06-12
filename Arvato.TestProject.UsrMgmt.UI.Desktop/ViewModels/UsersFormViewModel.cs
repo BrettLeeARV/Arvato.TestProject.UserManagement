@@ -31,7 +31,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             if (IsInDesignMode)
             {
                 FirstName = "John";
-                LastName = "Doe";
+                LastName = "";
                 LoginID = "johndoe";
                 Email = "john@email.com";
                 IsWindowAuthenticate = true;
@@ -39,24 +39,11 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             else
             {
                 _userService = new UserServiceClient();
-                //SyncUserProperties();
+
+                SaveUserCommand = new RelayCommand(this.SaveUser,
+                    () => IsValid);
             }
-
-            SaveUserCommand = new RelayCommand(this.SaveUser,
-                () => IsValid);
         }
-
-        //private void SyncUserProperties()
-        //{
-        //    if (_currentUser != null)
-        //    {
-        //        FirstName = CurrentUser.FirstName;
-        //        LastName = CurrentUser.LastName;
-        //        LoginId = CurrentUser.LoginID;
-        //        Email = CurrentUser.Email;
-        //        IsWindowsAuthenticated = CurrentUser.IsWindowAuthenticate;
-        //    }
-        //}
 
         #endregion
 

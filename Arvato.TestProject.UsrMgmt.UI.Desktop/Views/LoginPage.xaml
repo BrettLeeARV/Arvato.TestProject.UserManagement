@@ -6,6 +6,7 @@
              xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
              mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="750">
+    
     <StackPanel Margin="10" MaxWidth="400" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock Name="textBlock1" Text="Sign In" FontSize="16" Padding="0,0,0,10" FontWeight="SemiBold" />
         <TextBlock Name="textBlock2" Text="Sign in with your Windows logon credentials." Padding="0,0,0,10" TextWrapping="Wrap" />
@@ -24,7 +25,9 @@
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}"/>
                 <PasswordBox Name="passwordTextBox" Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
                 <Label Content="Domain" Name="domainLabel" Target="{Binding ElementName=domainTextBox}"/>
-                <TextBox Name="domainTextBox" Text="ARVATO" IsEnabled="False" />
+                <TextBox Name="domainTextBox" Text="ARVATO" IsEnabled="False">
+                   
+                </TextBox>
                 <Button Content="Sign in" Name="signInButton" HorizontalAlignment="Left" Margin="0,20,0,0" Padding="20,3" Command="{Binding SignInCommand}" />
             </StackPanel>
         </Grid>
