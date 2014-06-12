@@ -8,6 +8,7 @@ using FluentValidation.Validators;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels;
 using Arvato.TestProject.UsrMgmt.BLL.Interface;
 using Arvato.TestProject.UsrMgmt.BLL.Component;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Validator
 {
@@ -15,11 +16,11 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
     {
         public UsersFormValidator()
         {
-            var uv = new UserValidator();
-            uv.RuleFor(x => x.LoginID).SetValidator(new LoginIDMustNotExist());
-            RuleFor(vm => vm.CurrentUser).SetValidator(uv);
+            //var uv = new UserValidator();
+            //uv.RuleFor(x => x.LoginID).SetValidator(new LoginIDMustNotExist());
+            //RuleFor(vm => vm.CurrentUser).SetValidator(uv);
             
-            //RuleFor(vm => vm.CurrentUser.LoginID).NotNull().SetValidator(new LoginIDMustNotExist());
+            RuleFor(vm => vm.LoginID).NotNull().SetValidator(new LoginIDMustNotExist());
         }
 
         private class LoginIDMustNotExist : PropertyValidator
@@ -33,12 +34,12 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
 
             protected override bool IsValid(PropertyValidatorContext context)
             {
-                var user = ((User)context.Instance);
+                var user = (context.Instance as UsersFormViewModel).CurrentUser;
                 if (String.IsNullOrEmpty(user.LoginID))
                 {
                     return false;
                 }
-                IUserComponent us = new UserComponent();
+                IUserService us = new UserServiceClient();
                 return !us.IsExistingLoginID(user.LoginID, user.ID);
             }
         }

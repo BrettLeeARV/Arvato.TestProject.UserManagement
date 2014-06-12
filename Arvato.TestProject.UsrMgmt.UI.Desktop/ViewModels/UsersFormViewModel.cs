@@ -21,16 +21,46 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private IUserService _userService;
         private User _currentUser;
 
+        #region Constructor
+
         public UsersFormViewModel()
             : base()
         {
-            _userService = new UserServiceClient();
-
             _currentUser = new User();
+
+            if (IsInDesignMode)
+            {
+                FirstName = "John";
+                LastName = "Doe";
+                LoginID = "johndoe";
+                Email = "john@email.com";
+                IsWindowAuthenticate = true;
+            }
+            else
+            {
+                _userService = new UserServiceClient();
+                //SyncUserProperties();
+            }
 
             SaveUserCommand = new RelayCommand(this.SaveUser,
                 () => IsValid);
         }
+
+        //private void SyncUserProperties()
+        //{
+        //    if (_currentUser != null)
+        //    {
+        //        FirstName = CurrentUser.FirstName;
+        //        LastName = CurrentUser.LastName;
+        //        LoginId = CurrentUser.LoginID;
+        //        Email = CurrentUser.Email;
+        //        IsWindowsAuthenticated = CurrentUser.IsWindowAuthenticate;
+        //    }
+        //}
+
+        #endregion
+
+        #region Properties
 
         public User CurrentUser
         {
@@ -43,16 +73,127 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (value != _currentUser)
                 {
                     _currentUser = value;
+
                     RaisePropertyChanged("CurrentUser");
+                    RaisePropertyChanged("FirstName");
+                    RaisePropertyChanged("LastName");
+                    RaisePropertyChanged("LoginID");
+                    RaisePropertyChanged("Email");
+                    RaisePropertyChanged("IsWindowAuthenticate");
+                    RaisePropertyChanged("Password");
                 }
             }
         }
+
+        public string FirstName
+        {
+            get
+            {
+                return _currentUser.FirstName;
+            }
+            set
+            {
+                if (value != _currentUser.FirstName)
+                {
+                    _currentUser.FirstName = value;
+                    RaisePropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return _currentUser.LastName;
+            }
+            set
+            {
+                if (value != _currentUser.LastName)
+                {
+                    _currentUser.LastName = value;
+                    RaisePropertyChanged("LastName");
+                }
+            }
+        }
+
+        public string LoginID
+        {
+            get
+            {
+                return _currentUser.LoginID;
+            }
+            set
+            {
+                if (value != _currentUser.LoginID)
+                {
+                    _currentUser.LoginID = value;
+                    RaisePropertyChanged("LoginID");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _currentUser.Email;
+            }
+            set
+            {
+                if (value != _currentUser.Email)
+                {
+                    _currentUser.Email = value;
+                    RaisePropertyChanged("Email");
+                }
+            }
+        }
+
+        public bool IsWindowAuthenticate
+        {
+            get
+            {
+                return _currentUser.IsWindowAuthenticate;
+            }
+            set
+            {
+                if (value != _currentUser.IsWindowAuthenticate)
+                {
+                    _currentUser.IsWindowAuthenticate = value;
+                    RaisePropertyChanged("IsWindowAuthenticate");
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _currentUser.Password;
+            }
+            set
+            {
+                if (value != _currentUser.Password)
+                {
+                    _currentUser.Password = value;
+                    RaisePropertyChanged("Password");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Command properties
 
         public ICommand SaveUserCommand
         {
             get;
             private set;
         }
+
+        #endregion
+
+        #region Command methods
 
         private void SaveUser()
         {
@@ -72,6 +213,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 RaisePropertyChanged("CurrentUser");
             }
         }
+
+        #endregion
 
         #region FluentValidation Members
 
@@ -93,11 +236,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         #endregion
 
         #region IDataErrorInfo Members
+
         public string Error
         {
-            get { 
-                var r = ValidationHelper.GetError(SelfValidate());
-                return r;
+            get
+            {
+                // return (_currentUser as IDataErrorInfo).Error;
+                throw new NotImplementedException();
             }
         }
 
@@ -105,12 +250,40 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
+                StringBuilder error = new StringBuilder();
+                if (_currentUser != null)
+                {
+                    error.Append((_currentUser as IDataErrorInfo)[columnName]);
+                    CommandManager.InvalidateRequerySuggested();
+                }
+
                 var __ValidationResults = SelfValidate();
                 if (__ValidationResults == null) return string.Empty;
                 var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
-                return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+                error.Append(__ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty);
+
+                return error.ToString();
             }
         }
+
+        //public string Error
+        //{
+        //    get { 
+        //        var r = ValidationHelper.GetError(SelfValidate());
+        //        return r;
+        //    }
+        //}
+
+        //public string this[string columnName]
+        //{
+        //    get
+        //    {
+        //        var __ValidationResults = SelfValidate();
+        //        if (__ValidationResults == null) return string.Empty;
+        //        var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
+        //        return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+        //    }
+        //}
         #endregion
     }
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="200"
+      d:DataContext="{Binding UsersForm, Source={StaticResource Locator}}"
     >
 
     <DockPanel Margin="12">
@@ -12,17 +13,18 @@
             <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveUserCommand}"/>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel DataContext="{Binding CurrentUser}" Margin="5" >
+            <StackPanel Margin="5" >
                 <Label Content="First Name" Name="firstNameLabel" Target="{Binding ElementName=firstNameTextBox}" />
-                <TextBox Grid.Row="0" Grid.Column="1" Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
-                <Label Grid.Row="1" Grid.Column="0" Content="Last Name" Name="lastNameLabel" Target="{Binding ElementName=lastNameTextBox}" />
-                <TextBox Grid.Row="1" Grid.Column="1" Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
-                <Label Grid.Row="2" Grid.Column="0" Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}" />
-                <TextBox Grid.Row="2" Grid.Column="1" Name="loginIDTextBox" Text="{Binding LoginID, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
-                <Label Grid.Row="3" Grid.Column="0" Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
-                <TextBox Grid.Row="3" Grid.Column="1" Name="emailTextBox" Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
-                <Label Grid.Row="4" Grid.Column="0" Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
-                <PasswordBox Grid.Row="4" Grid.Column="1" Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" />
+                <TextBox Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Content="Last Name" Name="lastNameLabel" Target="{Binding ElementName=lastNameTextBox}" />
+                <TextBox Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}" />
+                <TextBox Name="loginIDTextBox" Text="{Binding LoginID, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
+                <TextBox Name="emailTextBox" Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <CheckBox IsChecked="{Binding IsWindowAuthenticate}">Use domain password</CheckBox>
+                <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
+                <PasswordBox Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>
