@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModels="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Utils="clr-namespace:Arvato.TestProject.UsrMgmt.UI.Desktop.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Utils:RoomInfoConverter x:Key="RoomInfo" />
+    </UserControl.Resources>
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
             <Button DockPanel.Dock="Right" Content="Main Menu" Command="{Binding MainMenuCommand}" />
@@ -24,7 +28,7 @@
                           SelectedItem="{Binding FormViewModel.CurrentAsset}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Room ID" Binding="{Binding RoomID}" Width="*" />
+                        <DataGridTextColumn Header="Room" Binding="{Binding Path=RoomID,  Converter={StaticResource RoomInfo}, ConverterParameter='RoomName' }" Width="*" />
                         <DataGridTemplateColumn Header="Is Enabled" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -1,5 +1,6 @@
 ﻿using Arvato.TestProject.UsrMgmt.Entity.Model;
 using GalaSoft.MvvmLight;
+using System.Collections.Generic;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop
 {
@@ -8,6 +9,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
         private static StateManager _instance = null;
         private User _currentUser;
         //private Room _currentRoom;
+        private IEnumerable<Room> _allRoom;
+        private IEnumerable<User> _allUser;
 
         private StateManager()
         {
@@ -35,6 +38,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
             {
                 _currentUser = value;
                 RaisePropertyChanged("CurrentUser");
+            }
+        }
+
+        public IEnumerable<Room> AllRoom
+        {
+            get
+            {
+                return _allRoom;
+            }
+            set
+            {
+                _allRoom = value;
+            }
+        }
+
+        public IEnumerable<User> AllUser
+        {
+            get
+            {
+                return _allUser;
+            }
+            set
+            {
+                _allUser = value;
             }
         }
 

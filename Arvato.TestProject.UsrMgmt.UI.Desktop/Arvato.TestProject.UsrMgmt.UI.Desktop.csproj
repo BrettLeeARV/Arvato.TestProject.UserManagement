@@ -101,8 +101,10 @@
     <Compile Include="Utils\BookingFormClashConverter.cs" />
     <Compile Include="Utils\IntGreaterThanConverter.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
+    <Compile Include="Utils\RoomInfoConverter.cs" />
     <Compile Include="Utils\StateManager.cs" />
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
+    <Compile Include="Utils\UserInfoConverter.cs" />
     <Compile Include="Validator\AssetsFormValidator.cs" />
     <Compile Include="Validator\BookingsFormValidator.cs" />
     <Compile Include="Validator\LoginFormValidator.cs" />
