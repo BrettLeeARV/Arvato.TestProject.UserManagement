@@ -7,6 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="200"
       d:DataContext="{Binding UsersForm, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Utils:InvertBooleanConverter x:Key="InvertBoolean" />
+    </UserControl.Resources>
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
@@ -15,16 +18,22 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="5" >
                 <Label Content="First Name" Name="firstNameLabel" Target="{Binding ElementName=firstNameTextBox}" />
-                <TextBox Name="firstNameTextBox" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <TextBox Name="firstNameTextBox" 
+                    Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <Label Content="Last Name" Name="lastNameLabel" Target="{Binding ElementName=lastNameTextBox}" />
-                <TextBox Name="lastNameTextBox" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <TextBox Name="lastNameTextBox" 
+                    Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <Label Content="Login ID" Name="loginIDLabel" Target="{Binding ElementName=loginIDTextBox}" />
-                <TextBox Name="loginIDTextBox" Text="{Binding LoginID, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <TextBox Name="loginIDTextBox" 
+                    Text="{Binding LoginID, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <Label Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
-                <TextBox Name="emailTextBox" Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <TextBox Name="emailTextBox" 
+                    Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <CheckBox IsChecked="{Binding IsWindowAuthenticate}">Use domain password</CheckBox>
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
-                <PasswordBox Name="passwordTextBox" Password="" PasswordChanged="passwordTextBox_PasswordChanged" Margin="0,0,0,10" />
+                <PasswordBox Name="passwordTextBox" Margin="0,0,0,10"
+                    IsEnabled="{Binding IsWindowAuthenticate, Converter={StaticResource InvertBoolean}}" 
+                    Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

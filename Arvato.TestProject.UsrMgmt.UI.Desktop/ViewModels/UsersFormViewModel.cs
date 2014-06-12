@@ -78,7 +78,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.FirstName;
+                if (_currentUser == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentUser.FirstName;
+                }
             }
             set
             {
@@ -94,7 +101,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.LastName;
+                if (_currentUser == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentUser.LastName;
+                }
             }
             set
             {
@@ -110,7 +124,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.LoginID;
+                if (_currentUser == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentUser.LoginID;
+                }
             }
             set
             {
@@ -126,7 +147,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.Email;
+                if (_currentUser == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentUser.Email;
+                }
             }
             set
             {
@@ -142,7 +170,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.IsWindowAuthenticate;
+                if (_currentUser == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return _currentUser.IsWindowAuthenticate;
+                }
             }
             set
             {
@@ -150,6 +185,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _currentUser.IsWindowAuthenticate = value;
                     RaisePropertyChanged("IsWindowAuthenticate");
+                    RaisePropertyChanged("Password");
                 }
             }
         }
@@ -158,7 +194,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                return _currentUser.Password;
+                // Always return empty string
+                return string.Empty;
             }
             set
             {
@@ -186,26 +223,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void SaveUser()
         {
-            UserValidator validator = new UserValidator();
-            ValidationResult results = validator.Validate(_currentUser);
-
-            if (!results.IsValid)
+            if (IsValid)
             {
-                foreach (var failure in results.Errors)
+                // Massage the User object before sending it off
+                if (_currentUser.IsWindowAuthenticate)
                 {
-                    Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                    Password = null;
                 }
-            }
-            else
-            {
+
                 MessengerInstance.Send(new LoadingMessage("Saving user..."));
 
-                Exception exceptionResult = null;
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (object sender, DoWorkEventArgs e) =>
                 {
                     _currentUser = _userService.Save(_currentUser);
-
                 };
                 worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
                 {
@@ -235,12 +266,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public ValidationResult SelfValidate()
         {
-            var r = ValidationHelper.Validate<UsersFormValidator, UsersFormViewModel>(this);
-            foreach (var er in r.Errors)
+            ValidationResult validateUser = new ValidationResult();
+            if (CurrentUser != null)
             {
-                Debug.WriteLine(er.ErrorMessage);
+                validateUser = ValidationHelper.Validate<UserValidator, User>(CurrentUser);
             }
-            return r;
+            var validateVM = ValidationHelper.Validate<UsersFormValidator, UsersFormViewModel>(this);
+            return new ValidationResult(validateUser.Errors.Concat(validateVM.Errors));
         }
 
         #endregion
@@ -251,8 +283,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                // return (_currentUser as IDataErrorInfo).Error;
-                throw new NotImplementedException();
+                // Error property can be used to tell what is wrong with the View Model, in general (e.g. "You've got a clashhhh...")
+                var r = ValidationHelper.GetError(SelfValidate());
+                return r;
             }
         }
 
@@ -260,40 +293,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         {
             get
             {
-                StringBuilder error = new StringBuilder();
-                if (_currentUser != null)
-                {
-                    error.Append((_currentUser as IDataErrorInfo)[columnName]);
-                    CommandManager.InvalidateRequerySuggested();
-                }
-
                 var __ValidationResults = SelfValidate();
                 if (__ValidationResults == null) return string.Empty;
                 var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
-                error.Append(__ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty);
-
-                return error.ToString();
+                
+                string error = __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
+                return error;
             }
         }
 
-        //public string Error
-        //{
-        //    get { 
-        //        var r = ValidationHelper.GetError(SelfValidate());
-        //        return r;
-        //    }
-        //}
-
-        //public string this[string columnName]
-        //{
-        //    get
-        //    {
-        //        var __ValidationResults = SelfValidate();
-        //        if (__ValidationResults == null) return string.Empty;
-        //        var __ColumnResults = __ValidationResults.Errors.FirstOrDefault<ValidationFailure>(x => string.Compare(x.PropertyName, columnName, true) == 0);
-        //        return __ColumnResults != null ? __ColumnResults.ErrorMessage : string.Empty;
-        //    }
-        //}
         #endregion
     }
 }

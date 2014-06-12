@@ -20,29 +20,11 @@ using System.ComponentModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Views
 {
-    /// <summary>
-    /// Interaction logic for FormPage.xaml
-    /// </summary>
     public partial class UsersFormPage : UserControl
     {
-
         public UsersFormPage()
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Because it is not possible to data-bind to the Password property of a PasswordBox,
-        /// this approach uses a code-behind event handler to watch for value changes in the
-        /// PasswordBox, and assign the new value to the ViewModel
-        /// Note: slightly breaks MVVM pattern, but acceptable as a workaround
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void passwordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            ((UsersFormViewModel) DataContext).CurrentUser.Password = passwordTextBox.Password;
-        }
-
     }
 }
