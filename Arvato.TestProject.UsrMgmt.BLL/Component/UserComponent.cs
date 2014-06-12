@@ -97,11 +97,11 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
                 {
                     throw (new Exception("LoginID is not valid!"));
                 }
-                if (user.Password.Trim().Length == 0 && user.IsWindowAuthenticate == false)
+                if (user.Password != null && user.Password.Trim().Length == 0 && user.IsWindowAuthenticate == false)
                 {
                     throw (new Exception("Password is a required field"));
                 }
-                else if (user.Password.Trim().Length < 8 && user.IsWindowAuthenticate == false)
+                else if (user.Password != null && user.Password.Trim().Length < 8 && user.IsWindowAuthenticate == false)
                 {
                     throw (new Exception("Password must at least 8 characters"));
                 }
