@@ -91,6 +91,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Services.LDAP\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Services.Room\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -264,6 +269,16 @@
     <None Include="Service References\Services.Booking\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\Services.LDAP\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.LDAP\service.wsdl" />
+    <None Include="Service References\Services.LDAP\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.LDAP\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\Services.Room\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -301,6 +316,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Services.Asset\" />
     <WCFMetadataStorage Include="Service References\Services.Booking\" />
+    <WCFMetadataStorage Include="Service References\Services.LDAP\" />
     <WCFMetadataStorage Include="Service References\Services.Room\" />
     <WCFMetadataStorage Include="Service References\Services.User\" />
   </ItemGroup>
@@ -348,6 +364,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Services.Asset\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.LDAP\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.LDAP\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Services.LDAP\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
