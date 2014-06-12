@@ -74,16 +74,14 @@
                                 Path=ActualHeight}"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center">
-                            <TextBlock 
-                                ToolTip="{Binding ElementName=myControl, 
-                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                                Foreground="Red"
-                                FontWeight="Black"
-                                FontSize="100"
-                                LineHeight="100"
-                                Margin="0,0,40,0"
-                                >!
-                            </TextBlock>
+                                <TextBlock 
+                                    ToolTip="{Binding ElementName=myControl, 
+                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                    Foreground="Red"
+                                    FontWeight="Black"
+                                    Margin="0,0,6,0"
+                                    >!
+                                </TextBlock>
                             </Viewbox>
                             <Border BorderBrush="Red" BorderThickness="1">
                                 <AdornedElementPlaceholder Name="myControl"/>
