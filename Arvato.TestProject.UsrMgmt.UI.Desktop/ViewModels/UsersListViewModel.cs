@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -34,6 +35,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             DeleteUserCommand = new RelayCommand(this.DeleteUser,
                 // enable Delete User button if a user is selected
                 () => FormViewModel.CurrentUser != null);
+
+            MessengerInstance.Register<NotificationMessage>(this, (message) =>
+            {
+                if (message.Notification == "UserSaved")
+                {
+                    RefreshUsers();
+                }
+            });
         }
 
         public ICollection<User> Users
@@ -105,7 +114,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             try
             {
+                 MessengerInstance.Send(new LoadingMessage("Deleting user..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
                 userService.Delete(FormViewModel.CurrentUser);
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    MessengerInstance.Send(new LoadingMessage(false));
+                    RefreshUsers();
+                    FormViewModel.CurrentUser= new User();
+                };
+                worker.RunWorkerAsync();
             }
             catch (Exception)
             {
@@ -113,9 +136,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 MessageBox.Show("There was a problem deleting the user.");
                 return;
             }
-
-            FormViewModel.CurrentUser = null;
-            RefreshUsers();
         }
 
         #endregion

@@ -12,6 +12,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -30,7 +31,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up commands
             AddAssetCommand = new RelayCommand(this.AddAsset, () => true);
             DeleteAssetCommand = new RelayCommand(this.DeleteAsset,
-                () => FormViewModel.CurrentAsset != null);
+                () => FormViewModel.CurrentAsset != null && FormViewModel.CurrentAsset.ID != 0);
+
+            MessengerInstance.Register<NotificationMessage>(this, (message) =>
+            {
+                if (message.Notification == "AssetSaved")
+                {
+                    RefreshAssets();
+                }
+            });
         }
 
         public ICollection<Asset> Assets
@@ -102,7 +111,21 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             try
             {
-                assetService.Delete(FormViewModel.CurrentAsset);
+                MessengerInstance.Send(new LoadingMessage("Deleting room..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
+                    assetService.Delete(FormViewModel.CurrentAsset);
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    MessengerInstance.Send(new LoadingMessage(false));
+                    RefreshAssets();
+                    FormViewModel.CurrentAsset = new Asset();
+                };
+                worker.RunWorkerAsync();
             }
             catch (Exception)
             {
@@ -110,9 +133,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 MessageBox.Show("There was a problem deleting the asset.");
                 return;
             }
-
-            FormViewModel.CurrentAsset = null;
-            RefreshAssets();
         }
 
         #endregion

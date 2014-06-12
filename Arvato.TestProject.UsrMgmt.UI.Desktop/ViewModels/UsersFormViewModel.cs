@@ -13,6 +13,8 @@ using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -196,9 +198,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _currentUser = _userService.Save(_currentUser);
-                RaisePropertyChanged("CurrentUser");
+                MessengerInstance.Send(new LoadingMessage("Saving user..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
+                    _currentUser = _userService.Save(_currentUser);
+
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    RaisePropertyChanged("CurrentUser");
+                    MessengerInstance.Send(new NotificationMessage("UserSaved"));
+
+                    MessengerInstance.Send(new LoadingMessage(false));
+                    Cancel();
+                };
+                worker.RunWorkerAsync();
             }
+        }
+
+        private void Cancel()
+        {
+            MessengerInstance.Send(new ChangePageMessage(typeof(UsersListViewModel)));
         }
 
         #endregion

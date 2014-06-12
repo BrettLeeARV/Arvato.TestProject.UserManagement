@@ -3,21 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d:DataContext="{Binding AssetsForm, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="200">
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveRoomCommand}"/>
+            <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveAssetCommand}"/>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel DataContext="{Binding CurrentAsset}" Margin="5" >
                 <Label Content="Name" Name="nameLabel" Target="{Binding ElementName=nameTextBox}" />
                 <TextBox Grid.Row="0" Grid.Column="1" Name="nameTextBox" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
                 <Label Grid.Row="1" Grid.Column="0" Content="Room" Name="roomLabel"/>
-                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RoomOptions}" 
+                <ComboBox Margin="0,0,0,10" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=DataContext.RoomOptions}" 
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="Room"
-                                  />
+                                  SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=DataContext.FilterRoom, Mode=TwoWay}"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="IsEnabled" Name="isEnabledLabel" Target="{Binding ElementName=isEnabledCheckBox}" />
                 <CheckBox Grid.Row="2" Grid.Column="1" Content="" Height="16" Name="isEnabledCheckBox" IsChecked="{Binding IsEnabled, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"  Margin="0,0,0,10" />
             </StackPanel>

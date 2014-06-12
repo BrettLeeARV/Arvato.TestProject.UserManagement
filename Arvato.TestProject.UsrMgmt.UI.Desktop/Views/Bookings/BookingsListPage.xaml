@@ -26,6 +26,8 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Utils:RoomInfoConverter x:Key="RoomInfo" />
+        <Utils:UserInfoConverter x:Key="UserInfo" />
     </UserControl.Resources>
     
     <DockPanel Margin="12">
@@ -119,9 +121,9 @@
                                             <TextBlock FontSize="14">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} ({1}, {2})">
-                                                        <Binding Path="Room.Name" />
-                                                        <Binding Path="User.LastName" />
-                                                        <Binding Path="User.FirstName" />
+                                                        <Binding Path="RoomID" Converter="{StaticResource RoomInfo}" ConverterParameter="RoomName" />
+                                                        <Binding Path="UserID" Converter="{StaticResource UserInfo}" ConverterParameter="LastName" />
+                                                        <Binding Path="UserID" Converter="{StaticResource UserInfo}" ConverterParameter="FirstName" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>

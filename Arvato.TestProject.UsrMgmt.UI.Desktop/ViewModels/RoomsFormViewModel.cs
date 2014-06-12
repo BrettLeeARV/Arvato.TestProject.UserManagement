@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
@@ -32,6 +33,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
             SaveRoomCommand = new RelayCommand(this.SaveRoom,
                 () => IsValid);
+
         }
 
         public Room CurrentRoom
@@ -70,8 +72,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-
-
                 MessengerInstance.Send(new LoadingMessage("Saving room..."));
 
                 Exception exceptionResult = null;
@@ -84,6 +84,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
                 {
                     RaisePropertyChanged("CurrentRoom");
+
+                    MessengerInstance.Send(new NotificationMessage("RoomSaved"));
 
                     MessengerInstance.Send(new LoadingMessage(false));
                     Cancel();

@@ -13,6 +13,8 @@ using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -30,44 +32,24 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public AssetsFormViewModel()
             : base()
         {
-            if (IsInDesignMode)
-            {
-                #region Design-time data
-                Room dummyRoom1 = new Room() { Name = "Meeting Room 1", ID = 1 };
-                Room dummyRoom2 = new Room() { Name = "Meeting Room 2", ID = 2 };
+            _assetService = new AssetComponent();
+            _roomService = new RoomComponent();
 
-                // set up sample model data
-                _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
+            _currentAsset = new Asset();
+
+            var rooms = _roomService.GetList();
+            _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
                 {
-                    new RoomComboBoxItem()
+                    new RoomComboBoxItem() { Room = null }
                 };
-
-                _allRoomOptions.Add(new RoomComboBoxItem() { Room = dummyRoom1 });
-                _allRoomOptions.Add(new RoomComboBoxItem() { Room = dummyRoom2 });
-
-                #endregion
-            }
-            else
+            foreach (var room in rooms)
             {
-                _assetService = new AssetComponent();
-                _roomService = new RoomComponent();
-
-                _currentAsset = new Asset();
-
-                var rooms = _roomService.GetList();
-                _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
-                {
-                    new RoomComboBoxItem()
-                };
-                foreach (var room in rooms)
-                {
-                    _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
-                }
-                RaisePropertyChanged("RoomOptions");
-
-                SaveAssetCommand = new RelayCommand(this.SaveAsset,
-                    () => IsValid);
+                _allRoomOptions.Add(new RoomComboBoxItem() { Room = room });
             }
+            RaisePropertyChanged("RoomOptions");
+
+            SaveAssetCommand = new RelayCommand(this.SaveAsset,
+                () => IsValid);
         }
 
         public class RoomComboBoxItem 
@@ -79,7 +61,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     if (Room == null)
                     {
-                        return "Any";
+                        return "";
                     }
                     else
                     {
@@ -117,6 +99,19 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (value != _currentAsset)
                 {
                     _currentAsset = value;
+
+                    if (_currentAsset != null)
+                    {
+                        if (_currentAsset.RoomID == null || _currentAsset.RoomID == 0)
+                        {
+                            FilterRoom = null;
+                        }
+                        else
+                        {
+                            if (_currentAsset.RoomID != null)
+                                FilterRoom = RoomOptions.First(r => r.Room != null && r.Room.ID == _currentAsset.RoomID).Room;
+                        }
+                    }
                     RaisePropertyChanged("CurrentAsset");
                 }
             }
@@ -159,9 +154,35 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                _assetService.Save(_currentAsset);
-                RaisePropertyChanged("CurrentAsset");
+                 MessengerInstance.Send(new LoadingMessage("Saving asset..."));
+
+                Exception exceptionResult = null;
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (object sender, DoWorkEventArgs e) =>
+                {
+                    if (FilterRoom != null)
+                        _currentAsset.RoomID = FilterRoom.ID;
+                    else
+                        _currentAsset.RoomID = null;
+
+                    _assetService.Save(_currentAsset);
+                };
+                worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
+                {
+                    RaisePropertyChanged("CurrentAsset");
+
+                    MessengerInstance.Send(new NotificationMessage("AssetSaved"));
+
+                    MessengerInstance.Send(new LoadingMessage(false));
+                    Cancel();
+                };
+                worker.RunWorkerAsync();
             }
+        }
+
+        private void Cancel()
+        {
+            MessengerInstance.Send(new ChangePageMessage(typeof(AssetsListViewModel)));
         }
 
         #region FluentValidation Members

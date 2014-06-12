@@ -33,7 +33,15 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up commands
             AddRoomCommand = new RelayCommand(this.AddRoom, () => true);
             DeleteRoomCommand = new RelayCommand(this.DeleteRoom,
-                () => FormViewModel.CurrentRoom != null);
+                () => FormViewModel.CurrentRoom != null && FormViewModel.CurrentRoom.ID != 0);
+
+            MessengerInstance.Register<NotificationMessage>(this, (message) =>
+            {
+                if (message.Notification == "RoomSaved")
+                {
+                    RefreshRooms();
+                }
+            });
         }
 
         public ICollection<Room> Rooms
@@ -116,6 +124,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
                 {
                     MessengerInstance.Send(new LoadingMessage(false));
+                    RefreshRooms();
+                    FormViewModel.CurrentRoom = new Room();
                 };
                 worker.RunWorkerAsync();
             }
@@ -125,9 +135,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 MessageBox.Show("There was a problem deleting the room.");
                 return;
             }
-
-            FormViewModel.CurrentRoom = null;
-            RefreshRooms();
+            
         }
 
         #endregion
