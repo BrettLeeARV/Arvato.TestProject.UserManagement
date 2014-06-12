@@ -37,7 +37,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             IAssetComponent component = new AssetComponent();
             try
             {
-                component.InsertAsset(asset);
+                component.Save(asset);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             IAssetComponent component = new AssetComponent();
             try
             {
-                component.UpdateAsset(entity);
+                component.Save(entity);
             }
             catch (Exception ex)
             {
