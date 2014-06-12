@@ -13,6 +13,8 @@ using FluentValidation.Results;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Asset;
+using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Room;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -20,8 +22,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class AssetsFormViewModel : PageViewModel, IDataErrorInfo
     {
-        private IAssetComponent _assetService;
-        private IRoomComponent _roomService;
+        private IAssetService _assetService;
+        private IRoomService _roomService;
 
         private Room _filterRoom;
 
@@ -32,12 +34,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public AssetsFormViewModel()
             : base()
         {
-            _assetService = new AssetComponent();
-            _roomService = new RoomComponent();
+            _assetService = new AssetServiceClient();
+            _roomService = new RoomServiceClient();
 
             _currentAsset = new Asset();
 
-            var rooms = _roomService.GetList();
+            var rooms = _roomService.GetList(false);
             _allRoomOptions = new ObservableCollection<RoomComboBoxItem>()
                 {
                     new RoomComboBoxItem() { Room = null }

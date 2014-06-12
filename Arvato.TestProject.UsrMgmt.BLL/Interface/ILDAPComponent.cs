@@ -8,7 +8,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
 {
     public interface ILDAPComponent : IDisposable
     {
-        bool IsAuthenticated(string Domain, string LoginId, string Password);
+        bool IsAuthenticated(string LoginId, string Password);
         bool IsExistUser(string LoginId);
     }
 }
