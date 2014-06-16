@@ -115,6 +115,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                         }
                     }
                     RaisePropertyChanged("CurrentAsset");
+                    RaisePropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (_currentAsset == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentAsset.Name;
+                }
+            }
+            set
+            {
+                if (value != _currentAsset.Name)
+                {
+                    _currentAsset.Name = value;
+                    RaisePropertyChanged("Name");
                 }
             }
         }

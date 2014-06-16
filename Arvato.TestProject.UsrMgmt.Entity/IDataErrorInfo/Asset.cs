@@ -10,9 +10,9 @@ using FluentValidation.Results;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
 {
-    public partial class Room : IDataErrorInfo
+    public partial class Asset : IDataErrorInfo
     {
-        #region FluentValidation Rooms
+        #region FluentValidation Assets
 
         public virtual bool IsValid
         {
@@ -21,12 +21,12 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
 
         public virtual ValidationResult SelfValidate()
         {
-            return ValidationHelper.Validate<RoomValidator, Room>(this);
+            return ValidationHelper.Validate<AssetValidator, Asset>(this);
         }
 
         #endregion
 
-        #region IDataErrorInfo Rooms
+        #region IDataErrorInfo Assets
         public virtual string Error
         {
             get { return ValidationHelper.GetError(SelfValidate()); }

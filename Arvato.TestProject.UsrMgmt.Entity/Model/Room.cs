@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace Arvato.TestProject.UsrMgmt.Entity.Model
@@ -17,9 +18,9 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
 
         public override bool Equals(object obj)
         {
-            if (obj is User)
+            if (obj is Room)
             {
-                return this.ID == ((User)obj).ID;
+                return this.ID == ((Room)obj).ID;
             }
             else
             {

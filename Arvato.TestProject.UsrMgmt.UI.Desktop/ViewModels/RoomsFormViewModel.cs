@@ -48,6 +48,78 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 {
                     _currentRoom = value;
                     RaisePropertyChanged("CurrentRoom");
+                    RaisePropertyChanged("Name");
+                    RaisePropertyChanged("Location");
+                    RaisePropertyChanged("Capacity");
+                }
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (_currentRoom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentRoom.Name;
+                }
+            }
+            set
+            {
+                if (value != _currentRoom.Name)
+                {
+                    _currentRoom.Name = value;
+                    RaisePropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Location
+        {
+            get
+            {
+                if (_currentRoom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _currentRoom.Location;
+                }
+            }
+            set
+            {
+                if (value != _currentRoom.Location)
+                {
+                    _currentRoom.Location = value;
+                    RaisePropertyChanged("Location");
+                }
+            }
+        }
+
+        public int Capacity
+        {
+            get
+            {
+                if (_currentRoom == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return _currentRoom.Capacity;
+                }
+            }
+            set
+            {
+                if (value != _currentRoom.Capacity)
+                {
+                    _currentRoom.Capacity = value;
+                    RaisePropertyChanged("Capacity");
                 }
             }
         }
@@ -108,12 +180,13 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         public ValidationResult SelfValidate()
         {
-            var r = ValidationHelper.Validate<RoomsFormValidator, RoomsFormViewModel>(this);
-            foreach (var er in r.Errors)
+            ValidationResult validateRoom = new ValidationResult();
+            if (CurrentRoom != null)
             {
-                Debug.WriteLine(er.ErrorMessage);
+                validateRoom = ValidationHelper.Validate<RoomValidator, Room>(CurrentRoom);
             }
-            return r;
+            var validateVM = ValidationHelper.Validate<RoomsFormValidator, RoomsFormViewModel>(this);
+            return new ValidationResult(validateRoom.Errors.Concat(validateVM.Errors));
         }
 
         #endregion

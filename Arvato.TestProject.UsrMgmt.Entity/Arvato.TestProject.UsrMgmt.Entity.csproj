@@ -45,8 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDataErrorInfo\Asset.cs" />
     <Compile Include="IDataErrorInfo\User.cs" />
-    <None Include="IDataErrorInfo\Room.cs" />
+    <Compile Include="IDataErrorInfo\Room.cs" />
     <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\AssetBooking.cs" />
     <Compile Include="Model\Booking.cs" />

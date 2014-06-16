@@ -14,7 +14,14 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
         {
             RuleFor(room => room.Name).NotEmpty();
             RuleFor(room => room.Location).NotEmpty();
-            RuleFor(room => room.Capacity).NotEqual(0);
+            RuleFor(room => room.Capacity).GreaterThan(0).WithMessage("Capacity must be greater than 0.");
+            //RuleFor(room => room.Capacity).Must(BeNumeric).WithMessage("");
+        }
+
+        static bool BeNumeric(string propertyValue)
+        {
+            int result;
+            return int.TryParse(propertyValue, out result);
         }
     }
 }

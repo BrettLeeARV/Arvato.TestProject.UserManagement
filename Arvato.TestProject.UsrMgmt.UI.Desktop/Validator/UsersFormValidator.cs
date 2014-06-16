@@ -18,7 +18,8 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Validator
         public UsersFormValidator()
         {
             RuleFor(vm => vm.LoginID).SetValidator(new LoginIDMustNotExist());
-            RuleFor(vm => vm.LoginID).Must((u, user) => { return IsValidWindowLoginID(u.IsWindowAuthenticate, u.LoginID); });
+            RuleFor(vm => vm.LoginID).Must((u, user) => { return IsValidWindowLoginID(u.IsWindowAuthenticate, u.LoginID); }).WithMessage("'LoginID' doesn't exists in domain");
+            RuleFor(vm => vm.IsWindowAuthenticate).Must((u, user) => { return IsValidWindowLoginID(u.IsWindowAuthenticate, u.LoginID); }).WithMessage("'LoginID' doesn't exists in domain");
         }
 
         private bool IsValidWindowLoginID(bool IsWindowAuthenticate, string LoginID)

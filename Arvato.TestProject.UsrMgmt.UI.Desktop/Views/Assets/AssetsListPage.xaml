@@ -10,6 +10,7 @@
              d:DesignHeight="500" d:DesignWidth="700">
     <UserControl.Resources>
         <Utils:RoomInfoConverter x:Key="RoomInfo" />
+       
     </UserControl.Resources>
     <DockPanel Margin="12">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
@@ -32,7 +33,7 @@
                         <DataGridTemplateColumn Header="Is Enabled" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox x:Name="isEnabledCheckBox" HorizontalAlignment="Center" IsChecked="{Binding IsEnabled}" />
+                                    <CheckBox x:Name="isEnabledCheckBox" HorizontalAlignment="Center" IsChecked="{Binding IsEnabled}" IsEnabled="False" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

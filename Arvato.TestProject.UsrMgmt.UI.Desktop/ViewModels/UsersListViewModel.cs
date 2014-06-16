@@ -34,7 +34,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
             DeleteUserCommand = new RelayCommand(this.DeleteUser,
                 // enable Delete User button if a user is selected
-                () => FormViewModel.CurrentUser != null);
+                () => FormViewModel.CurrentUser != null && FormViewModel.CurrentUser.ID != 0);
 
             MessengerInstance.Register<NotificationMessage>(this, (message) =>
             {

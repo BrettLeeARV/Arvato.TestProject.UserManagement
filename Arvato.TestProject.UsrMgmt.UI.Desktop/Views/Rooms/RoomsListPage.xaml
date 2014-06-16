@@ -29,7 +29,7 @@
                         <DataGridTemplateColumn Header="Is Enabled" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox x:Name="isEnabledCheckBox" HorizontalAlignment="Center" IsChecked="{Binding IsEnabled}" />
+                                    <CheckBox x:Name="isEnabledCheckBox" HorizontalAlignment="Center" IsEnabled="False" IsChecked="{Binding IsEnabled}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
