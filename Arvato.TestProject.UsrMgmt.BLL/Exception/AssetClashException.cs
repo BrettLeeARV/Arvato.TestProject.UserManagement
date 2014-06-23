@@ -23,6 +23,6 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
         {
         }
 
-        public IList<AssetBooking> Clashes { get; set; }
+        public IList<Booking> Clashes { get; set; }
     }
 }

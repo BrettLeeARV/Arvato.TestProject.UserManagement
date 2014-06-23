@@ -45,7 +45,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         // Status fields
         private bool _isConflicting;
-        private ObservableCollection<Booking> _roomConflicts;
+        private ObservableCollection<Booking> _bookingConflicts;
 
         #endregion
 
@@ -105,6 +105,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 _startTime = new TimeSpan(startHour, startMinute, 0);
                 // Default booking end time is one hour later
                 _endTime = _startTime + TimeSpan.FromHours(1);
+                getBookedItem();
             }
             else
             {
@@ -148,7 +149,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
 
             // Wire up commands
-            MakeBookingCommand = new RelayCommand(this.MakeBooking/*, () => IsValid && !IsConflicting*/);
+            MakeBookingCommand = new RelayCommand(this.MakeBooking, () => IsValid && !IsConflicting);
             CancelCommand = new RelayCommand(this.Cancel);
             SelectedAssetsChangedCommand = new RelayCommand<SelectionChangedEventArgs>(this.SelectedAssetsChanged);
 
@@ -216,6 +217,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
                 _startDate = value;
                 RaisePropertyChanged("StartDate");
+                getBookedItem();
             }
         }
         public TimeSpan StartTime
@@ -232,6 +234,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
                 _startTime = value;
                 RaisePropertyChanged("StartTime");
+                getBookedItem();
             }
         }
         public TimeSpan CustomStartTime
@@ -259,6 +262,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
                 _endDate = value;
                 RaisePropertyChanged("EndDate");
+                getBookedItem();
             }
         }
         public TimeSpan EndTime
@@ -275,6 +279,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 }
                 _endTime = value;
                 RaisePropertyChanged("EndTime");
+                getBookedItem();
             }
         }
         public TimeSpan CustomEndTime
@@ -383,20 +388,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
-        public ObservableCollection<Booking> RoomConflicts
+        public ObservableCollection<Booking> BookingConflicts
         {
             get
             {
-                return _roomConflicts;
+                return _bookingConflicts;
             }
             private set
             {
-                if (value == _roomConflicts)
+                if (value == _bookingConflicts)
                 {
                     return;
                 }
-                _roomConflicts = value;
-                RaisePropertyChanged("RoomConflicts");
+                _bookingConflicts = value;
+                RaisePropertyChanged("BookingConflicts");
             }
         }
 
@@ -462,6 +467,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        private void getBookedItem()
+        {
+            if (StartDateTime < EndDateTime)
+            {
+                Booking detail = new Entity.Model.Booking();
+                detail.ID = _booking.ID;
+                detail.StartDate = StartDateTime;
+                detail.EndDate = EndDateTime;
+                PageViewModel.StateManager.AllBookedItem = _bookingService.getBookedItem(detail);
+                RefreshRooms();
+                RefreshAssets();
+                RaisePropertyChanged("RoomList");
+                RaisePropertyChanged("AssetList");
+            }
+        }
+
         #region Command methods
 
         private void MakeBooking()
@@ -509,7 +530,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                     {
                         var clashFault = ((FaultException<RoomClashFault>)exceptionResult).Detail;
                         IsConflicting = true;
-                        RoomConflicts = new ObservableCollection<Booking>(clashFault.Clashes);
+                        BookingConflicts = new ObservableCollection<Booking>(clashFault.Clashes);
                         MessageBox.Show(@"That room is no longer available for the chosen time. 
 Please choose a different room or time.", 
                             "Room no longer available", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -593,13 +614,13 @@ Your booking reference number is: {0}", _booking.RefNum),
             
 
             List<Booking> roomResults = null;
-            List<AssetBooking> assetResults = null;
+            List<Booking> assetResults = null;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (object sender, DoWorkEventArgs e) =>
             {
                 roomResults = new List<Booking>(_bookingService.CheckRoomAvailability(booking));
-                assetResults = new List<AssetBooking>(_bookingService.CheckAssetAvailability(booking));
+                assetResults = new List<Booking>(_bookingService.CheckAssetAvailability(booking));
             };
             worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
             {
@@ -607,7 +628,7 @@ Your booking reference number is: {0}", _booking.RefNum),
                 bool hasAssetConflicts = false;
                 
                 // Handle room conflicts
-                RoomConflicts = new ObservableCollection<Booking>(roomResults);
+                BookingConflicts = new ObservableCollection<Booking>(roomResults);
                 if (roomResults.Count > 0)
                 {
                     hasRoomConflicts = true;
@@ -621,23 +642,38 @@ Your booking reference number is: {0}", _booking.RefNum),
                 }
                 if (assetResults.Count > 0)
                 {
-                    foreach (var result in assetResults)
+                    if (BookingConflicts.Count > 0)
                     {
-                        var assetQuery = from assetListItem in AssetList
-                                    where assetListItem.Asset.ID == result.AssetID
-                                    select assetListItem;
-                        var asset = assetQuery.FirstOrDefault();
-                        if (asset != null)
+                        BookingConflicts.Union(new ObservableCollection<Booking>(assetResults));
+                    }
+                    else
+                    {
+                        BookingConflicts = new ObservableCollection<Booking>(assetResults);
+                    }
+
+                    foreach (Booking result in assetResults)
+                    {
+                        foreach (var item in result.AssetBookings)
                         {
-                            asset.Conflicts.Add(result);
-                            if (asset.IsSelected)
+                            var assetQuery = from assetListItem in AssetList
+                                             where assetListItem.Asset.ID == item.AssetID
+                                             select assetListItem;
+                            var asset = assetQuery.FirstOrDefault();
+                            if (asset != null)
                             {
-                                hasAssetConflicts = true;
+                                asset.Conflicts.Add(item);
+                                if (asset.IsSelected)
+                                {
+                                    hasAssetConflicts = true;
+                                }
                             }
                         }
                     }
                 }
                 IsConflicting = hasRoomConflicts || hasAssetConflicts;
+
+                RaisePropertyChanged("BookingConflicts");
+                RaisePropertyChanged("IsConflicting");
             };
             worker.RunWorkerAsync();
         }

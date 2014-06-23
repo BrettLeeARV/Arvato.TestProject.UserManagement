@@ -11,6 +11,6 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts.DataContract
     public class AssetClashFault
     {
         [DataMember]
-        public IList<AssetBooking> Clashes;
+        public IList<Booking> Clashes;
     }
 }

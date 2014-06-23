@@ -11,6 +11,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
         //private Room _currentRoom;
         private IEnumerable<Room> _allRoom;
         private IEnumerable<User> _allUser;
+        private IList<string> _userRoles;
+        private IEnumerable<string> _allBookedItem;
 
         private StateManager()
         {
@@ -62,6 +64,30 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop
             set
             {
                 _allUser = value;
+            }
+        }
+
+        public IList<string> UserRoles
+        {
+            get
+            {
+                return _userRoles;
+            }
+            set
+            {
+                _userRoles = value;
+            }
+        }
+
+        public IEnumerable<string> AllBookedItem
+        {
+            get
+            {
+                return _allBookedItem;
+            }
+            set
+            {
+                _allBookedItem = value;
             }
         }
 

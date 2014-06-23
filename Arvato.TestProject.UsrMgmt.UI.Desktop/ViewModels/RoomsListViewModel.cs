@@ -40,6 +40,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (message.Notification == "RoomSaved")
                 {
                     RefreshRooms();
+                    FormViewModel.CurrentRoom = new Room();
                 }
             });
         }

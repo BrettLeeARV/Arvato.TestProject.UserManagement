@@ -70,7 +70,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] ClashesField;
+        private Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] ClashesField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -83,7 +83,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] Clashes {
+        public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] Clashes {
             get {
                 return this.ClashesField;
             }
@@ -146,12 +146,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] EndCheckRoomAvailability(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookingService/CheckAssetAvailability", ReplyAction="http://tempuri.org/IBookingService/CheckAssetAvailabilityResponse")]
-        Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] CheckAssetAvailability(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking);
+        Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] CheckAssetAvailability(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBookingService/CheckAssetAvailability", ReplyAction="http://tempuri.org/IBookingService/CheckAssetAvailabilityResponse")]
         System.IAsyncResult BeginCheckAssetAvailability(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking, System.AsyncCallback callback, object asyncState);
         
-        Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] EndCheckAssetAvailability(System.IAsyncResult result);
+        Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] EndCheckAssetAvailability(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookingService/getBookedItem", ReplyAction="http://tempuri.org/IBookingService/getBookedItemResponse")]
+        string[] getBookedItem(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IBookingService/getBookedItem", ReplyAction="http://tempuri.org/IBookingService/getBookedItemResponse")]
+        System.IAsyncResult BegingetBookedItem(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking, System.AsyncCallback callback, object asyncState);
+        
+        string[] EndgetBookedItem(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -245,10 +253,29 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
             this.results = results;
         }
         
-        public Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] Result {
+        public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[])(this.results[0]));
+                return ((Arvato.TestProject.UsrMgmt.Entity.Model.Booking[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class getBookedItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public getBookedItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
             }
         }
     }
@@ -287,6 +314,12 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         
         private System.Threading.SendOrPostCallback onCheckAssetAvailabilityCompletedDelegate;
         
+        private BeginOperationDelegate onBegingetBookedItemDelegate;
+        
+        private EndOperationDelegate onEndgetBookedItemDelegate;
+        
+        private System.Threading.SendOrPostCallback ongetBookedItemCompletedDelegate;
+        
         public BookingServiceClient() {
         }
         
@@ -315,6 +348,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         public event System.EventHandler<CheckRoomAvailabilityCompletedEventArgs> CheckRoomAvailabilityCompleted;
         
         public event System.EventHandler<CheckAssetAvailabilityCompletedEventArgs> CheckAssetAvailabilityCompleted;
+        
+        public event System.EventHandler<getBookedItemCompletedEventArgs> getBookedItemCompleted;
         
         public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] GetBookings(System.DateTime start, System.DateTime end, int userId, int roomId, bool isCanceled) {
             return base.Channel.GetBookings(start, end, userId, roomId, isCanceled);
@@ -524,7 +559,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
                         booking}, this.onEndCheckRoomAvailabilityDelegate, this.onCheckRoomAvailabilityCompletedDelegate, userState);
         }
         
-        public Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] CheckAssetAvailability(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking) {
+        public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] CheckAssetAvailability(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking) {
             return base.Channel.CheckAssetAvailability(booking);
         }
         
@@ -534,7 +569,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] EndCheckAssetAvailability(System.IAsyncResult result) {
+        public Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] EndCheckAssetAvailability(System.IAsyncResult result) {
             return base.Channel.EndCheckAssetAvailability(result);
         }
         
@@ -544,7 +579,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
         }
         
         private object[] OnEndCheckAssetAvailability(System.IAsyncResult result) {
-            Arvato.TestProject.UsrMgmt.Entity.Model.AssetBooking[] retVal = this.EndCheckAssetAvailability(result);
+            Arvato.TestProject.UsrMgmt.Entity.Model.Booking[] retVal = this.EndCheckAssetAvailability(result);
             return new object[] {
                     retVal};
         }
@@ -572,6 +607,56 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.Services.Booking {
             }
             base.InvokeAsync(this.onBeginCheckAssetAvailabilityDelegate, new object[] {
                         booking}, this.onEndCheckAssetAvailabilityDelegate, this.onCheckAssetAvailabilityCompletedDelegate, userState);
+        }
+        
+        public string[] getBookedItem(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking) {
+            return base.Channel.getBookedItem(booking);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BegingetBookedItem(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BegingetBookedItem(booking, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndgetBookedItem(System.IAsyncResult result) {
+            return base.Channel.EndgetBookedItem(result);
+        }
+        
+        private System.IAsyncResult OnBegingetBookedItem(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking = ((Arvato.TestProject.UsrMgmt.Entity.Model.Booking)(inValues[0]));
+            return this.BegingetBookedItem(booking, callback, asyncState);
+        }
+        
+        private object[] OnEndgetBookedItem(System.IAsyncResult result) {
+            string[] retVal = this.EndgetBookedItem(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OngetBookedItemCompleted(object state) {
+            if ((this.getBookedItemCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.getBookedItemCompleted(this, new getBookedItemCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void getBookedItemAsync(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking) {
+            this.getBookedItemAsync(booking, null);
+        }
+        
+        public void getBookedItemAsync(Arvato.TestProject.UsrMgmt.Entity.Model.Booking booking, object userState) {
+            if ((this.onBegingetBookedItemDelegate == null)) {
+                this.onBegingetBookedItemDelegate = new BeginOperationDelegate(this.OnBegingetBookedItem);
+            }
+            if ((this.onEndgetBookedItemDelegate == null)) {
+                this.onEndgetBookedItemDelegate = new EndOperationDelegate(this.OnEndgetBookedItem);
+            }
+            if ((this.ongetBookedItemCompletedDelegate == null)) {
+                this.ongetBookedItemCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetBookedItemCompleted);
+            }
+            base.InvokeAsync(this.onBegingetBookedItemDelegate, new object[] {
+                        booking}, this.onEndgetBookedItemDelegate, this.ongetBookedItemCompletedDelegate, userState);
         }
     }
 }

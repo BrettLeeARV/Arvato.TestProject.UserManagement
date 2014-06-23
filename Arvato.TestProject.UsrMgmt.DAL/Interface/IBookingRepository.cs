@@ -30,8 +30,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
         /// <param name="endDate">End date of the booking.</param>
         /// <param name="assetIDs">Array of asset IDs to book.</param>
         /// <returns></returns>
-        IEnumerable<AssetBooking> CheckAssetAvailability(int bookingID, DateTime startDate, DateTime endDate, int[] assetIDs);
+        IEnumerable<Booking> CheckAssetAvailability(int bookingID, DateTime startDate, DateTime endDate, int[] assetIDs);
 
         IEnumerable<Booking> GetListByFilters(DateTime start, DateTime end, int userId, int roomId, bool isCanceled);
+
+        IEnumerable<string> getBookedItems(int bookingID, DateTime startDate, DateTime endDate);
     }
 }

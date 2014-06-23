@@ -13,7 +13,7 @@
 
     <DockPanel Margin="12">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,12">
-            <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveUserCommand}"/>
+            <Button Content="Save" Name="saveButton" MinWidth="75" Command="{Binding SaveUserCommand}" />
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="5" >
@@ -29,11 +29,11 @@
                 <Label Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
                 <TextBox Name="emailTextBox" 
                     Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
-                <CheckBox IsChecked="{Binding IsWindowAuthenticate}">Use domain password</CheckBox>
+                <CheckBox IsChecked="{Binding IsWindowAuthenticate, UpdateSourceTrigger=PropertyChanged}">Use domain password</CheckBox>
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
                 <PasswordBox Name="passwordTextBox" Margin="0,0,0,10"
                     IsEnabled="{Binding IsWindowAuthenticate, Converter={StaticResource InvertBoolean}}" 
-                    Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" />
+                    Utils:PasswordHelper.Password="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" GotFocus="passwordTextBox_GotFocus" />
             </StackPanel>
         </ScrollViewer>
     </DockPanel>

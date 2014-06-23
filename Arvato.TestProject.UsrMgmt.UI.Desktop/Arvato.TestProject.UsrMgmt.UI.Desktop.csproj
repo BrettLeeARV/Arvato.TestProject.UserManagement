@@ -106,12 +106,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AssetAvailabilityConverter.cs" />
     <Compile Include="Utils\BaseConverter.cs" />
     <Compile Include="Utils\BookingListDateConverter.cs" />
     <Compile Include="Utils\BookingFormClashConverter.cs" />
     <Compile Include="Utils\InvertBooleanConverter.cs" />
     <Compile Include="Utils\IntGreaterThanConverter.cs" />
     <Compile Include="Utils\PasswordHelper.cs" />
+    <Compile Include="Utils\RoomAvailabilityConverter.cs" />
     <Compile Include="Utils\RoomInfoConverter.cs" />
     <Compile Include="Utils\StateManager.cs" />
     <Compile Include="Utils\TimeSpanToShortTimeStringConverter.cs" />
@@ -255,6 +257,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services.Asset\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Services.Booking\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services.Booking\Arvato.TestProject.UsrMgmt.Entity.Model.xsd">

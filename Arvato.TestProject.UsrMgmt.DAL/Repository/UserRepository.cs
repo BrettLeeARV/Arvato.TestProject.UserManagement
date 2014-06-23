@@ -12,6 +12,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
     public class UserRepository : BaseRepository, IUserRepository
     {
         static string connString = String.Empty;
+        static PasswordHash hash = null;
 
         #region Constructors
 
@@ -25,6 +26,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             : base(dbConnection)
         {
             connString = dbConnection.ConnectionString;
+            hash = new PasswordHash();
         }
 
         #endregion
@@ -55,6 +57,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
+                    entity.Password = hash.CreateHash(entity.Password);
                     session.Save(entity);
                     return true;
                 }
@@ -75,7 +78,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                                                new SqlParameter("@LastName", SqlDbType.NVarChar,50) {Value = entity.LastName},
                                                new SqlParameter("@Email", SqlDbType.NVarChar,50) {Value = entity.Email},
                                                new SqlParameter("@LoginID", SqlDbType.NVarChar,50) {Value= entity.LoginID},
-                                               new SqlParameter("@Password", SqlDbType.NVarChar,50) {Value = entity.Password}};
+                                               new SqlParameter("@Password", SqlDbType.NVarChar,70) {Value = hash.CreateHash(entity.Password)}};
                 result = executeUpdateQuery("USP_USER_UPDATE", parameters);
             }
             catch (Exception)
@@ -115,7 +118,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     User user = session.Query<User>().Where(x => x.LoginID == entity.LoginID).Single();
 
-                    if (user.IsWindowAuthenticate == false && user.Password == entity.Password)
+                    if (user.IsWindowAuthenticate == false && hash.ValidatePassword(entity.Password,user.Password))
                     {
                         result = true;
                         entity.ID = user.ID;

@@ -184,8 +184,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (value != _currentUser.IsWindowAuthenticate)
                 {
                     _currentUser.IsWindowAuthenticate = value;
+
+                    RaisePropertyChanged("LoginID");
                     RaisePropertyChanged("IsWindowAuthenticate");
-                    RaisePropertyChanged("Password");
                 }
             }
         }
@@ -195,7 +196,8 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             get
             {
                 // Always return empty string
-                return string.Empty;
+                //return string.Empty;
+                return _currentUser.Password;
             }
             set
             {

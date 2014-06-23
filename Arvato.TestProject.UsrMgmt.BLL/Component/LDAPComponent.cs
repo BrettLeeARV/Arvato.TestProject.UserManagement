@@ -41,14 +41,21 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
         //Check whether login id exist in AD
         public bool IsExistUser(string LoginId)
         {
-            string domain = "my.arvato-systems.com";
-
-            using (var domainContext = new PrincipalContext(ContextType.Domain, domain))
+            try
             {
-                using (var foundUser = UserPrincipal.FindByIdentity(domainContext, IdentityType.SamAccountName, LoginId))
+                string domain = "my.arvato-systems.com";
+
+                using (var domainContext = new PrincipalContext(ContextType.Domain, domain))
                 {
-                    return foundUser != null;
+                    using (var foundUser = UserPrincipal.FindByIdentity(domainContext, IdentityType.SamAccountName, LoginId))
+                    {
+                        return foundUser != null;
+                    }
                 }
+            }
+            catch
+            {
+                return false;
             }
         }
 

@@ -41,6 +41,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (message.Notification == "UserSaved")
                 {
                     RefreshUsers();
+                    FormViewModel.CurrentUser = new User();
                 }
             });
         }

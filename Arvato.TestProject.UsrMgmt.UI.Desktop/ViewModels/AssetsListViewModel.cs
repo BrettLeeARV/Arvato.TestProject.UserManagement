@@ -39,6 +39,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (message.Notification == "AssetSaved")
                 {
                     RefreshAssets();
+                    FormViewModel.CurrentAsset = new Asset();
                 }
             });
         }

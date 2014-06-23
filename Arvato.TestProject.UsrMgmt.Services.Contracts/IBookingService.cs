@@ -27,6 +27,9 @@ namespace Arvato.TestProject.UsrMgmt.Services.Contracts
         IEnumerable<Booking> CheckRoomAvailability(Booking booking);
 
         [OperationContract]
-        IEnumerable<AssetBooking> CheckAssetAvailability(Booking booking);
+        IEnumerable<Booking> CheckAssetAvailability(Booking booking);
+
+        [OperationContract]
+        IEnumerable<string> getBookedItem(Booking booking);
     }
 }

@@ -195,11 +195,17 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
             return conflicts;
         }
 
-        public List<AssetBooking> CheckAssetAvailability(Booking booking)
+        public List<Booking> CheckAssetAvailability(Booking booking)
         {
             int[] assetIDs = booking.AssetBookings.Select(x => x.AssetID).ToArray();
-            List<AssetBooking> conflicts = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
+            List<Booking> conflicts = bookingRepository.CheckAssetAvailability(booking.ID, booking.StartDate, booking.EndDate, assetIDs).ToList();
             return conflicts;
+        }
+
+        public List<string> getBookedItem(Booking booking)
+        {
+            List<string> bookedItems = bookingRepository.getBookedItems(booking.ID, booking.StartDate, booking.EndDate).ToList();
+            return bookedItems;
         }
 
         #endregion

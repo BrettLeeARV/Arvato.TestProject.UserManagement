@@ -71,6 +71,7 @@
     <Compile Include="Repository\RoomRepository.cs" />
     <Compile Include="Repository\SessionFactory.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Util\PasswordHash.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

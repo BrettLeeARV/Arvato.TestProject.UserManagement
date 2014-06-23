@@ -15,6 +15,9 @@
         <Utils:TimeSpanToShortTimeStringConverter x:Key="TimeSpanToString" />
         <Utils:BookingFormClashConverter x:Key="BookingFormClash" />
         <Utils:IntGreaterThanConverter x:Key="IntGreaterThan" />
+        <Utils:RoomAvailabilityConverter x:Key="RoomAvailability" />
+        <Utils:AssetAvailabilityConverter x:Key="AssetAvailability" />
+        <Utils:UserInfoConverter x:Key="UserInfo" />
     </UserControl.Resources>
     <DockPanel Margin="20">
         <DockPanel Margin="0,20,0,0" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
@@ -32,23 +35,26 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Margin="0,0,5,0">
+            <Border Grid.Column="1" Margin="5,0">
                 <DockPanel Margin="10">
-                    <TextBlock DockPanel.Dock="Top" Text="Which room?" Style="{StaticResource PanelHeaderStyle}" />
+                    <TextBlock DockPanel.Dock="Top" Text="Where" Style="{StaticResource PanelHeaderStyle}" />
                     <ListBox ItemsSource="{Binding Path=RoomList}" SelectedItem="{Binding Room, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="5">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Name}" />
-                                        <TextBlock Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Padding="3" Background="{Binding Path=ID, Converter={StaticResource RoomAvailability}}"></Border>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Margin="3" Text="{Binding Name}" />
+                                            <TextBlock Margin="8">
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0}, {1} people">
                                                     <Binding Path="Location" />
                                                     <Binding Path="Capacity" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
-                                        </TextBlock>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -56,60 +62,64 @@
                     </ListBox>
                 </DockPanel>
             </Border>
-            <Border Grid.Column="1" Margin="5,0">
-                <StackPanel Margin="10">
-                    <TextBlock Text="When?" Style="{StaticResource PanelHeaderStyle}" />
-                    <Label Content="Start time" Name="label2" Height="30" />
-                    <WrapPanel Orientation="Horizontal">
-                        <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=StartDate}" />
-                        <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" 
+            <Border Grid.Column="0" Margin="0,0,5,0">
+                <DockPanel Margin="10">
+                    <TextBlock DockPanel.Dock="Top" Text="When" Style="{StaticResource PanelHeaderStyle}" />
+                    <Border BorderBrush="Gray"  BorderThickness="1" Padding="2">
+                        <StackPanel>
+                            <Label Content="Start time" Name="label2" Height="30" />
+                            <WrapPanel Orientation="Horizontal">
+                                <DatePicker Height="25" Name="datePicker1" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=StartDate}" />
+                                <ComboBox Height="23" Name="comboBox2" Width="120" Margin="0,0,10,10" IsEditable="True" 
                                   ItemsSource="{Binding Path=StartTimeOptions}" 
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="Time" 
                                   SelectedValue="{Binding Path=StartTime}"
                                   Text="{Binding CustomStartTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
-                    </WrapPanel>
-                    <Label Content="End time" Name="label3" />
-                    <WrapPanel Orientation="Horizontal">
-                        <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=EndDate}" />
-                        <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" 
+                            </WrapPanel>
+                            <Label Content="End time" Name="label3" />
+                            <WrapPanel Orientation="Horizontal">
+                                <DatePicker Height="25" Name="datePicker2" Width="115" Margin="0,0,10,10" SelectedDate="{Binding Path=EndDate}" />
+                                <ComboBox Height="23" Name="comboBox3" Width="120" Margin="0,0,10,10" IsEditable="True" 
                                   ItemsSource="{Binding Path=EndTimeOptions}" 
                                   DisplayMemberPath="ValueString" 
                                   SelectedValuePath="Time" 
                                   SelectedValue="{Binding Path=EndTime}"
                                   Text="{Binding CustomEndTime, UpdateSourceTrigger=LostFocus, Mode=TwoWay,Converter={StaticResource TimeSpanToString}}" />
-                    </WrapPanel>
+                            </WrapPanel>
 
-                    <StackPanel Margin="0,30,0,0" Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
-                        <TextBlock Text="Your booking conflicts with the following bookings:" Foreground="Crimson" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,10" />
-                        <ItemsControl ItemsSource="{Binding RoomConflicts}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel></WrapPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0,0,0,10">
-                                        <TextBlock Text="{Binding Converter={StaticResource BookingFormClash}}" />
-                                        <TextBlock>
+                            <StackPanel Margin="0,30,0,0" Visibility="{Binding IsConflicting, Converter={StaticResource BooleanToVisibility}}">
+                                <TextBlock Text="Your booking conflicts with the following bookings:" Foreground="Crimson" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,10" />
+                                <ItemsControl ItemsSource="{Binding BookingConflicts}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel></WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,0,0,10">
+                                                <TextBlock Text="{Binding Converter={StaticResource BookingFormClash}}" />
+                                                <TextBlock>
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="Booked by {0}, {1}">
-                                                    <Binding Path="User.LastName" />
-                                                    <Binding Path="User.FirstName" />
+                                                    <Binding Path="UserID" Converter="{StaticResource UserInfo}" ConverterParameter="FirstName" />
+                                                    <Binding Path="UserID" Converter="{StaticResource UserInfo}" ConverterParameter="LastName" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </StackPanel>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
             </Border>
             <Border Grid.Column="2" Margin="5,0,0,0">
                 <DockPanel Height="Auto" Margin="10">
-                    <TextBlock DockPanel.Dock="Top" Text="What else?" Style="{StaticResource PanelHeaderStyle}" />
+                    <TextBlock DockPanel.Dock="Top" Text="Equipment" Style="{StaticResource PanelHeaderStyle}" />
                     <ListBox ItemsSource="{Binding Path=AssetList}" Height="Auto" SelectionMode="Multiple">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -119,27 +129,25 @@
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <DataTemplate.Resources>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Conflicts.Count, Mode=OneWay,Converter={StaticResource IntGreaterThan}, ConverterParameter=0}" Value="True">
-                                                <Setter Property="Foreground" Value="Red" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataTemplate.Resources>
                                 <Border Padding="5">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Asset.Name}" />
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="Available, " />
-                                            <TextBlock Text="{Binding Room.Name}" />
+                                    <DockPanel Width="Auto">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Padding="3" Background="{Binding Path=Asset.ID, Converter={StaticResource AssetAvailability}}"></Border>
+                                            <StackPanel >
+                                                <TextBlock Margin="3" Text="{Binding Asset.Name}" />
+                                                <StackPanel Orientation="Horizontal" Margin="8">
+                                                    <TextBlock Text="Allocated at " />
+                                                    <TextBlock Text="{Binding Room.Name}" />
+                                                </StackPanel>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
+                                        <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                    </DockPanel>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

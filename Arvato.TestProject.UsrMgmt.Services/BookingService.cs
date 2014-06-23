@@ -70,10 +70,17 @@ namespace Arvato.TestProject.UsrMgmt.Services
             return clashes;
         }
 
-        public IEnumerable<AssetBooking> CheckAssetAvailability(Booking booking)
+        public IEnumerable<Booking> CheckAssetAvailability(Booking booking)
         {
             IBookingComponent component = new BookingComponent();
             var clashes = component.CheckAssetAvailability(booking);
+            return clashes;
+        }
+
+        public IEnumerable<string> getBookedItem(Booking booking)
+        {
+            IBookingComponent component = new BookingComponent();
+            var clashes = component.getBookedItem(booking);
             return clashes;
         }
 

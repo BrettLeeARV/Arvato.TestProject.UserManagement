@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
+using System.Collections.Generic;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {

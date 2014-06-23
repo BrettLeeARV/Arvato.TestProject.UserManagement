@@ -200,21 +200,21 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
         }
 
-        public IEnumerable<AssetBooking> CheckAssetAvailability(int bookingID, DateTime startDate, DateTime endDate, int[] assetIDs)
+        public IEnumerable<Booking> CheckAssetAvailability(int bookingID, DateTime startDate, DateTime endDate, int[] assetIDs)
         {
             try
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
                     var bookingList = session.CreateSQLQuery("EXEC USP_ASSET_AVAILABILITY :ID, :StartDate, :EndDate, :AssetIDs")
-                           .AddEntity(typeof(AssetBooking))
+                           .AddEntity(typeof(Booking))
                            .SetParameter("ID", bookingID)
                            .SetParameter("StartDate", startDate)
                            .SetParameter("EndDate", endDate)
                            .SetParameter("AssetIDs", String.Join("|", assetIDs));
-                    var list = bookingList.List<AssetBooking>();
+                    var list = bookingList.List<Booking>();
 
-                    return list.AsQueryable<AssetBooking>();
+                    return list.AsQueryable<Booking>();
                 }
             }
             catch (Exception ex)
@@ -265,7 +265,29 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             }
         }
 
+        public IEnumerable<string> getBookedItems(int bookingID, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    var bookingList = session.CreateSQLQuery("EXEC USP_ROOM_ASSET_AVAILABILITY :ID, :StartDate, :EndDate")
+                           .SetParameter("ID",bookingID)
+                           .SetParameter("StartDate", startDate)
+                           .SetParameter("EndDate", endDate);
+                    var list = bookingList.List<string>();
+
+                    return list.AsQueryable<string>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
     }
+
 }
