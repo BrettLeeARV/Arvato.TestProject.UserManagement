@@ -15,6 +15,8 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual string Location { get; set; }
         public virtual int Capacity { get; set; }
         public virtual bool IsEnabled { get; set; }
+        public virtual int CreatedBy { get; set; }
+        public virtual int? ModifiedBy { get; set; }
 
         public override bool Equals(object obj)
         {

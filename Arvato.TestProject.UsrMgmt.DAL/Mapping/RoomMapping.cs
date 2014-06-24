@@ -16,6 +16,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
             Map(x => x.Location);
             Map(x => x.Capacity);
             Map(x => x.IsEnabled);
+            Map(x => x.CreatedBy);
+            Map(x => x.ModifiedBy);
         }
     }
 }

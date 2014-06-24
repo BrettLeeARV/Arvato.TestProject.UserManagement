@@ -21,6 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
             Map(x => x.RefNum);
             Map(x => x.DateCreated);
             Map(x => x.IsCanceled);
+            Map(x => x.ModifiedBy);
             HasMany(x => x.AssetBookings).KeyColumn("BookingID").Where("Status=1").Not.LazyLoad();
         }
     }

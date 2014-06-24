@@ -15,6 +15,8 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Mapping
             Map(x => x.Name);
             Map(x => x.IsEnabled);
             Map(x => x.RoomID);
+            Map(x => x.CreatedBy);
+            Map(x => x.ModifiedBy);
         }
     }
 }

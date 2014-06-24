@@ -94,11 +94,12 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var book = session.CreateSQLQuery("EXEC USP_EDIT_BOOKING :ID, :RoomID, :StartDate, :EndDate")
+                    var book = session.CreateSQLQuery("EXEC USP_EDIT_BOOKING :ID, :RoomID, :StartDate, :EndDate, :ModifiedBy")
                            .SetParameter("ID", booking.ID)
                            .SetParameter("RoomID", booking.RoomID, NHibernateUtil.Int32)
                            .SetParameter("StartDate", booking.StartDate)
                            .SetParameter("EndDate", booking.EndDate)
+                           .SetParameter("ModifiedBy", booking.ModifiedBy)
                            .UniqueResult();
 
                     foreach (AssetBooking asset in booking.AssetBookings)

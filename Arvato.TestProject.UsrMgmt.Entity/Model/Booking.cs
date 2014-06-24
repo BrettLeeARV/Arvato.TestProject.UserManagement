@@ -40,5 +40,8 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
 
         [DataMember]
         public virtual IList<AssetBooking> AssetBookings { get; set; }
+
+        [DataMember]
+        public virtual int ModifiedBy { get; set; }
     }
 }

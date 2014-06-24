@@ -157,7 +157,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
 
                 if (booking.ID > 0)
                 {
-                    bookingRepository.Add(booking);
+                    bookingRepository.Update(booking);
                 }
                 else
                 {

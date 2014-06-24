@@ -8,8 +8,12 @@
   <xs:element name="ArrayOfAsset" nillable="true" type="tns:ArrayOfAsset" />
   <xs:complexType name="Asset">
     <xs:sequence>
+      <xs:element name="_x003C_CreatedBy_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_CreatedDateTime_x003E_k__BackingField" type="xs:dateTime" />
       <xs:element name="_x003C_ID_x003E_k__BackingField" type="xs:int" />
       <xs:element name="_x003C_IsEnabled_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_ModifiedBy_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_ModifiedDateTime_x003E_k__BackingField" type="xs:dateTime" />
       <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
       <xs:element name="_x003C_RoomID_x003E_k__BackingField" nillable="true" type="xs:int" />
     </xs:sequence>

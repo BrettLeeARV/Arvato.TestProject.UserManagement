@@ -493,6 +493,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             _booking.EndDate = EndDate.Add(EndTime);
             _booking.UserID = StateManager.CurrentUser.ID;
 
+            if (_booking.ID > 0)
+                _booking.ModifiedBy = StateManager.CurrentUser.ID;
+
             // Assets
             _booking.AssetBookings = new List<AssetBooking>();
             foreach (var asset in AssetList)

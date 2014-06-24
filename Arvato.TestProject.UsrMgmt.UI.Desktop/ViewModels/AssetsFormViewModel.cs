@@ -180,12 +180,20 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
             else
             {
-                 MessengerInstance.Send(new LoadingMessage("Saving asset..."));
-
+                MessengerInstance.Send(new LoadingMessage("Saving asset..."));
+                
                 Exception exceptionResult = null;
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (object sender, DoWorkEventArgs e) =>
                 {
+                    if (_currentAsset.ID == 0)
+                    {
+                        _currentAsset.CreatedBy = StateManager.CurrentUser.ID;
+                        _currentAsset.ModifiedBy = null;
+                    }
+                    else
+                        _currentAsset.ModifiedBy = StateManager.CurrentUser.ID;
+
                     if (FilterRoom != null)
                         _currentAsset.RoomID = FilterRoom.ID;
                     else

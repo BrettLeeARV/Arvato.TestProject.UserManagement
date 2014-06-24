@@ -150,6 +150,14 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (object sender, DoWorkEventArgs e) =>
                 {
+                    if (_currentRoom.ID == 0)
+                    {
+                        _currentRoom.CreatedBy = StateManager.CurrentUser.ID;
+                        _currentRoom.ModifiedBy = null;
+                    }
+                    else
+                        _currentRoom.ModifiedBy = StateManager.CurrentUser.ID;
+
                     _currentRoom = _roomService.Save(_currentRoom);
                 };
 
