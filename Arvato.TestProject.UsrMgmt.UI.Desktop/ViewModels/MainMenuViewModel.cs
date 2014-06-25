@@ -7,6 +7,9 @@ using GalaSoft.MvvmLight.Messaging;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using Arvato.TestProject.UsrMgmt.BLL.Interface;
+using Arvato.TestProject.UsrMgmt.BLL.Component;
+using Arvato.TestProject.UsrMgmt.Entity.Model;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
@@ -29,13 +32,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         public MainMenuViewModel()
             : base()
         {
-            MenuItems = new List<MainMenuItem>()
-            {
-                new MainMenuItem() { Title = "Manage Users" , ViewModel = typeof(UsersListViewModel) },
-                new MainMenuItem() { Title = "Manage Rooms" , ViewModel = typeof(RoomsListViewModel) },
-                new MainMenuItem() { Title = "Manage Assets" , ViewModel = typeof(AssetsListViewModel) },
-                new MainMenuItem() { Title = "Manage Bookings" , ViewModel = typeof(BookingsListViewModel) }        
-            };
+            MenuItems = GetMenuItemByRoleID(StateManager.CurrentUser.RoleID);
 
             NavigateToCommand = new RelayCommand<Type>(this.NavigateTo);
         }
@@ -64,6 +61,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             Messenger.Default.Send<ChangePageMessage>(msg);
         }
 
+        #endregion
+
+        #region Binding Methods
+        private List<MainMenuItem> GetMenuItemByRoleID(int RoleID)
+        {
+            List<MainMenuItem> displayMenuItem = new List<MainMenuItem>();
+            IRoleComponent role = new RoleComponent();
+            List<ModuleControl> menuList = role.GetMenuItemsByRoleID(RoleID);
+
+            foreach (ModuleControl module in menuList)
+            {
+                displayMenuItem.Add(new MainMenuItem() { Title = module.Title, ViewModel = Type.GetType(module.ModuleName) });
+            }
+
+            return displayMenuItem;
+        }
         #endregion
     }
 }

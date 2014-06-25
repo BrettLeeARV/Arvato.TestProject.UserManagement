@@ -29,6 +29,7 @@
                         <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
                         <DataGridTextColumn Header="Login ID" Binding="{Binding LoginID}" Width="*" />
+                        <DataGridTextColumn Header="Role Name" Binding="{Binding Role.RoleName}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

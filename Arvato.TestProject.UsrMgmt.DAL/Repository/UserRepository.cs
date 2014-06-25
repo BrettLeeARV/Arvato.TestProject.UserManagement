@@ -6,6 +6,7 @@ using System.Linq;
 using Arvato.TestProject.UsrMgmt.DAL.Interface;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
 using NHibernate.Linq;
+using NHibernate.SqlCommand;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 {
@@ -39,7 +40,10 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
             {
                 using (var session = NHibernateHelper.OpenSession(connString))
                 {
-                    var Fields = session.CreateQuery("FROM User").List<User>();
+                    //var Fields = session.CreateQuery("FROM User").List<User>();
+                    var Fields = session.QueryOver<User>()
+                        .Fetch(a => a.Role).Eager
+                        .List<User>();
                     return Fields.AsQueryable<User>();
                 }
             }
@@ -70,18 +74,16 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         public void Update(User entity)
         {
-            bool result = false;
             try
             {
-                SqlParameter[] parameters = {new SqlParameter("@ID",SqlDbType.Int) {Value = entity.ID},
-                                               new SqlParameter("@FirstName", SqlDbType.NVarChar,50) {Value = entity.FirstName},
-                                               new SqlParameter("@LastName", SqlDbType.NVarChar,50) {Value = entity.LastName},
-                                               new SqlParameter("@Email", SqlDbType.NVarChar,50) {Value = entity.Email},
-                                               new SqlParameter("@LoginID", SqlDbType.NVarChar,50) {Value= entity.LoginID},
-                                               new SqlParameter("@Password", SqlDbType.NVarChar,70) {Value = hash.CreateHash(entity.Password)}};
-                result = executeUpdateQuery("USP_USER_UPDATE", parameters);
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    entity.Password = hash.CreateHash(entity.Password);
+                    session.Update(entity);
+                    session.Flush();
+                }
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }
@@ -118,7 +120,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
                 {
                     User user = session.Query<User>().Where(x => x.LoginID == entity.LoginID).Single();
 
-                    if (user.IsWindowAuthenticate == false && hash.ValidatePassword(entity.Password,user.Password))
+                    if (user.IsWindowAuthenticate == false && hash.ValidatePassword(entity.Password, user.Password))
                     {
                         result = true;
                         entity.ID = user.ID;
@@ -157,6 +159,43 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
         }
 
+        public User GetUserByLoginID(string LoginID)
+        {
+            try
+            {
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    User user = session.QueryOver<User>().Where(x => x.LoginID == LoginID)
+                        .SingleOrDefault();
+
+                    return user;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<User> GetAllUsersWithRole()
+        {
+            try
+            {
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    var Fields = session.QueryOver<User>()
+                        .Fetch(a => a.Role).Eager
+                        .List<User>();
+                    return Fields.AsQueryable<User>();
+                }
+            }
+            catch
+            {
+
+                throw;
+            }
+
+        }
         #endregion
 
     }

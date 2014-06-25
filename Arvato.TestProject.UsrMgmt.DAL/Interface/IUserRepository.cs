@@ -1,5 +1,6 @@
 ﻿using System;
 using Arvato.TestProject.UsrMgmt.Entity.Model;
+using System.Collections.Generic;
 
 namespace Arvato.TestProject.UsrMgmt.DAL.Interface
 {
@@ -8,6 +9,7 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Interface
 
         bool Login(User entity);
         bool IsExistingLoginID(string LoginID, int ID);
-
+        User GetUserByLoginID(string LoginID);
+        IEnumerable<User> GetAllUsersWithRole();
     }
 }

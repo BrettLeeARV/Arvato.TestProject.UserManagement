@@ -29,6 +29,11 @@
                 <Label Content="Email" Name="emailLabel" Target="{Binding ElementName=emailTextBox}" />
                 <TextBox Name="emailTextBox" 
                     Text="{Binding Email, UpdateSourceTrigger=LostFocus, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Margin="0,0,0,10" />
+                <Label Content="Role" Name="roleLabel" Target="{Binding ElementName=roleTextBox}" />
+                <ComboBox Margin="0,0,0,10" Name="roleComboBox" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=DataContext.RoleOptions}"
+                          DisplayMemberPath="DisplayString" 
+                          SelectedValuePath="Role"
+                          SelectedValue="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},Path=DataContext.FilterRole, Mode=TwoWay}"/>
                 <CheckBox IsChecked="{Binding IsWindowAuthenticate, UpdateSourceTrigger=PropertyChanged}">Use domain password</CheckBox>
                 <Label Content="Password" Name="passwordLabel" Target="{Binding ElementName=passwordTextBox}" />
                 <PasswordBox Name="passwordTextBox" Margin="0,0,0,10"

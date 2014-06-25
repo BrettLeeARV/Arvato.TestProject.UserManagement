@@ -44,6 +44,20 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
             
         }
 
+        public List<User> GetListWithRole()
+        {
+            try
+            {
+                return userRepository.GetAllUsersWithRole().ToList<User>();
+            }
+            catch
+            {
+                //Insert error Logging/Handling Mechanism here
+                throw;
+            }
+
+        }
+
         User IUserComponent.GetRecord(int id)
         {
             throw new NotImplementedException();
@@ -51,7 +65,21 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Component
 
         User IUserComponent.GetRecord(string loginID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                RoleComponent roleComponent = new RoleComponent();
+
+                User user = userRepository.GetUserByLoginID(loginID);
+                Role role = roleComponent.GetRoleWithAccessMatrixByID(user.RoleID);
+                user.Role = role;
+
+                return user;
+            }
+            catch (Exception ex)
+            {
+                //Insert error Logging/Handling Mechanism here
+                throw ex;
+            }
         }
 
         public void Save(User user)

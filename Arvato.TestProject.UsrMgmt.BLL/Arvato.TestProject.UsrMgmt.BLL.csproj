@@ -48,11 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\RoleComponent.cs" />
     <Compile Include="Exception\AssetClashException.cs" />
     <Compile Include="Exception\RoomClashException.cs" />
     <Compile Include="Interface\IAssetComponent.cs" />
     <Compile Include="Interface\IBookingComponent.cs" />
     <Compile Include="Interface\ILDAPComponent.cs" />
+    <Compile Include="Interface\IRoleComponent.cs" />
     <Compile Include="Interface\IRoomComponent.cs" />
     <Compile Include="Interface\IUserComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

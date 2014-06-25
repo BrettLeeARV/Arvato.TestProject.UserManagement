@@ -15,13 +15,18 @@ using System.Diagnostics;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Services.User;
 using Arvato.TestProject.UsrMgmt.UI.Desktop.Messages;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.ObjectModel;
 
 namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 {
     public class UsersFormViewModel : PageViewModel, IDataErrorInfo
     {
         private IUserService _userService;
+        private IRoleComponent _roleComponent;
         private User _currentUser;
+
+        private Role _filterRole;
+        private ObservableCollection<RoleComboBoxItem> _allRoleOptions;
 
         #region Constructor
 
@@ -41,6 +46,9 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             else
             {
                 _userService = new UserServiceClient();
+                _roleComponent = new RoleComponent();
+
+                BindRoleComboBox();
 
                 SaveUserCommand = new RelayCommand(this.SaveUser,
                     () => IsValid);
@@ -62,6 +70,18 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 if (value != _currentUser)
                 {
                     _currentUser = value;
+
+                    if (_currentUser != null)
+                    {
+                        if (_currentUser.RoleID == 0)
+                        {
+                            FilterRole = null;
+                        }
+                        else
+                        {
+                            FilterRole = RoleOptions.First(r => r.Role != null && r.Role.ID == _currentUser.RoleID).Role;
+                        }
+                    }
 
                     RaisePropertyChanged("CurrentUser");
                     RaisePropertyChanged("FirstName");
@@ -209,6 +229,38 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        public class RoleComboBoxItem
+        {
+            public Role Role { get; set; }
+            public string DisplayString
+            {
+                get
+                {
+                    if (Role == null)
+                        return null;
+                    else
+                        return Role.RoleName;
+                }
+            }
+        }
+
+        public ObservableCollection<RoleComboBoxItem> RoleOptions
+        {
+            get
+            {
+                return _allRoleOptions;
+            }
+            private set
+            {
+                if (value == _allRoleOptions)
+                {
+                    return;
+                }
+                _allRoleOptions = value;
+                RaisePropertyChanged("RoleOptions");
+            }
+        }
+
         #endregion
 
         #region Command properties
@@ -222,7 +274,6 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         #endregion
 
         #region Command methods
-
         private void SaveUser()
         {
             if (IsValid)
@@ -238,6 +289,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (object sender, DoWorkEventArgs e) =>
                 {
+                    _currentUser.RoleID = FilterRole.ID;
                     _currentUser = _userService.Save(_currentUser);
                 };
                 worker.RunWorkerCompleted += (object sender, RunWorkerCompletedEventArgs e) =>
@@ -255,6 +307,23 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
         private void Cancel()
         {
             MessengerInstance.Send(new ChangePageMessage(typeof(UsersListViewModel)));
+        }
+
+        public Role FilterRole
+        {
+            get
+            {
+                return _filterRole;
+            }
+            set
+            {
+                if (value == _filterRole)
+                {
+                    return;
+                }
+                _filterRole = value;
+                RaisePropertyChanged("FilterRole");
+            }
         }
 
         #endregion
@@ -304,6 +373,22 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             }
         }
 
+        #endregion
+
+        #region Binding Methods
+        private void BindRoleComboBox()
+        {
+            var roles = _roleComponent.GetList();
+            _allRoleOptions = new ObservableCollection<RoleComboBoxItem>()
+                {
+                    new RoleComboBoxItem() { Role = null }
+                };
+            foreach (var role in roles)
+            {
+                _allRoleOptions.Add(new RoleComboBoxItem() { Role = role });
+            }
+            RaisePropertyChanged("RoleOptions");
+        }
         #endregion
     }
 }

@@ -10,6 +10,7 @@ namespace Arvato.TestProject.UsrMgmt.BLL.Interface
     public interface IUserComponent : IDisposable
     {
         List<User> GetList();
+        List<User> GetListWithRole();
         User GetRecord(int id);
         User GetRecord(string loginID);
         void Save(User user);

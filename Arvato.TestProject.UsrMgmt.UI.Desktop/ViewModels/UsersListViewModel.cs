@@ -21,6 +21,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
     {
 
         private IUserService userService;
+        private IUserComponent userComponent;
         private ICollection<User> users;
 
         public UsersListViewModel()
@@ -29,6 +30,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
             // set up model data
             userService = new UserServiceClient();
             FormViewModel = new UsersFormViewModel();
+            userComponent = new UserComponent();
 
             // set up commands
             AddUserCommand = new RelayCommand(this.AddUser, () => true);
@@ -90,7 +92,7 @@ namespace Arvato.TestProject.UsrMgmt.UI.Desktop.ViewModels
 
         private void RefreshUsers()
         {
-            Users = userService.GetList();
+            Users = userComponent.GetListWithRole();
         }
 
         #region Command methods

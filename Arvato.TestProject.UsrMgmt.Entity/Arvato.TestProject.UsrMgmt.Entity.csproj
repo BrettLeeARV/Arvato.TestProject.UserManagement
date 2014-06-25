@@ -48,9 +48,12 @@
     <Compile Include="IDataErrorInfo\Asset.cs" />
     <Compile Include="IDataErrorInfo\User.cs" />
     <Compile Include="IDataErrorInfo\Room.cs" />
+    <Compile Include="Model\AccessMatrix.cs" />
     <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\AssetBooking.cs" />
     <Compile Include="Model\Booking.cs" />
+    <Compile Include="Model\ModuleControl.cs" />
+    <Compile Include="Model\Role.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,6 +17,9 @@ namespace Arvato.TestProject.UsrMgmt.Entity.Model
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
         public virtual bool IsWindowAuthenticate { get; set; }
+        public virtual int RoleID { get; set; }
+
+        public virtual Role Role { get; set; }
 
         public override bool Equals(object obj)
         {

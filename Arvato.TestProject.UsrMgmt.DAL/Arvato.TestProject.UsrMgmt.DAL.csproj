@@ -56,11 +56,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interface\IBookingRepository.cs" />
+    <Compile Include="Interface\IRoleRepository.cs" />
     <Compile Include="Interface\IRoomRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
+    <Compile Include="Mapping\AccessMatrixMapping.cs" />
     <Compile Include="Mapping\AssetBookingMapping.cs" />
     <Compile Include="Mapping\AssetMapping.cs" />
     <Compile Include="Mapping\BookingMapping.cs" />
+    <Compile Include="Mapping\ModuleControlMapping.cs" />
+    <Compile Include="Mapping\RoleMapping.cs" />
     <Compile Include="Mapping\RoomMapping.cs" />
     <Compile Include="Mapping\UserMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\BookingRepository.cs" />
     <Compile Include="Repository\NHibernateHelper.cs" />
+    <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\RoomRepository.cs" />
     <Compile Include="Repository\SessionFactory.cs" />
     <Compile Include="Repository\UserRepository.cs" />

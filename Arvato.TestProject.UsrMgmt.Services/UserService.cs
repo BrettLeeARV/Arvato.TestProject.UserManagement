@@ -62,7 +62,7 @@ namespace Arvato.TestProject.UsrMgmt.Services
             }
             if (result)
             {
-                return user;
+                return component.GetRecord(user.LoginID);
             }
             else
             {
