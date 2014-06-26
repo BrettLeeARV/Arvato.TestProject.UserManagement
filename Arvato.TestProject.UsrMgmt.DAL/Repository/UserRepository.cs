@@ -95,8 +95,11 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
 
             try
             {
-                SqlParameter[] parameters = { new SqlParameter("@ID", SqlDbType.Int) { Value = entity.ID } };
-                deleterow = executeDeleteQuery("USP_USER_DELETE", parameters);
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    session.Delete(entity);
+                    session.Flush();
+                }
             }
             catch (Exception)
             {
@@ -144,16 +147,23 @@ namespace Arvato.TestProject.UsrMgmt.DAL.Repository
         {
             try
             {
-                SqlParameter[] parameters = { new SqlParameter("@LoginID", SqlDbType.NVarChar, 50) { Value = LoginID},
-                                                new SqlParameter("@ID", SqlDbType.Int) { Value = ID}};
-                DataTable dt = executeSelectQuery("USP_USER_VALIDATE_LOGINID", parameters);
-                if (dt.Rows.Count > 0)
-                    return true;
-                else
-                    return false;
+                using (var session = NHibernateHelper.OpenSession(connString))
+                {
+                    var userList = session.CreateSQLQuery("EXEC USP_USER_VALIDATE_LOGINID :LoginID, :ID")
+                           .AddEntity(typeof(Booking))
+                           .SetParameter("LoginID", LoginID)
+                           .SetParameter("ID", ID);
+                    var list = userList.List<User>();
+
+                    if (list.Count > 0)
+                        return true;
+                    else
+                        return false;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ex.Log();
                 throw;
             }
 
